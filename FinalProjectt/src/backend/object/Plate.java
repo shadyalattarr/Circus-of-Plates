@@ -1,5 +1,5 @@
 package backend.object;
 
-public class Plate {
+public class Plate implements FallingObject{
 
 }
