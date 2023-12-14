@@ -1,0 +1,66 @@
+@startuml
+
+class Movement{
+    -moveDirectionStrategy : MoveDirectionStrategy
+    -movePatternStrategy : MovePatternStrategy
+    +move() : void
+}
+
+
+interface MovePatternStrategy { 
+    +patternMove() : void
+}
+
+class VerticalOscillationStrategy { 
+
+}
+
+class HorizontalOscillationStrategy { 
+    
+}
+
+class NoOscillationStrategy { 
+    
+}
+
+interface MoveDirectionStrategy{
+    +directionMove() : void
+}
+
+class UpStrategy{
+
+}
+
+class DownStrategy{
+
+}
+
+class WithClownStrategy{
+
+}
+
+class RightDiagonalStrategy {
+
+}
+
+class LeftDiagonalStrategy {
+
+}
+
+Movement o-- MoveDirectionStrategy
+Movement o-- MovePatternStrategy
+
+
+
+MoveDirectionStrategy <|.. UpStrategy 
+MoveDirectionStrategy <|.. DownStrategy 
+MoveDirectionStrategy <|.. WithClownStrategy 
+MoveDirectionStrategy <|.. RightDiagonalStrategy 
+MoveDirectionStrategy <|.. LeftDiagonalStrategy 
+
+
+MovePatternStrategy <|.. NoOscillationStrategy
+MovePatternStrategy <|.. VerticalOscillationStrategy
+MovePatternStrategy <|.. HorizontalOscillationStrategy
+
+@enduml
