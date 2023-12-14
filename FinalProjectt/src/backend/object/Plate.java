@@ -15,14 +15,16 @@ public class Plate implements FallingObject {
     private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
     private int x;
     private int y;
+    private String filename;
 
     private boolean bottom;
 
     private boolean visible;
     private boolean isOnShelf;
 
-    public Plate(int posX, int posY, boolean bottom, Color color) {
+    public Plate(int posX, int posY, boolean bottom, Color color, String filename) {
         this.x = posX;
+        this.filename = filename;
         this.y = posY;
         this.bottom = bottom;
         this.isOnShelf = true;
@@ -93,5 +95,11 @@ public class Plate implements FallingObject {
 
     public void setOnShelf(boolean isOnShelf) {
         this.isOnShelf = isOnShelf;
+    }
+    public String getFilename() {
+        return filename;
+    }
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 }
