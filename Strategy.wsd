@@ -1,0 +1,23 @@
+@startuml
+
+class Plate{
+    -moveDirectionStrategy : 
+}
+
+interface MoveDirectionStrategy{
+    +move() : void
+}
+
+class UpStrategy{
+
+}
+
+class DownStrategy{
+
+}
+
+
+MoveDirectionStrategy <|..UpStrategy 
+MoveDirectionStrategy <|..DownStrategy 
+
+@enduml
