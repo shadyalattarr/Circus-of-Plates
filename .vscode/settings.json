@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "FinalProjectt/lib/engine_v3.jar"
+    ]
+}
