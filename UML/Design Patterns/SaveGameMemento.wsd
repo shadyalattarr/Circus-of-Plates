@@ -25,6 +25,8 @@ class Circus{ /'Originator want to change this'/
     -final constant : List<GameObject>
     -final moving : List<GameObject>
     -final control : List<GameObject>
+    -final screenWeight : int
+    -final screenWidth : int 
 
 
     Snapshot(circus : Circus)
