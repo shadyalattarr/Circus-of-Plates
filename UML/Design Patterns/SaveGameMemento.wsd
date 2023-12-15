@@ -1,0 +1,38 @@
+@startuml SaveGameMemento
+
+class Circus{ /'Originator'/
+    -static MAX_TIME = 1 * 60 * 1000 : int
+    -score : int
+    -endTime : long
+    -startTime : long
+    -final width : int
+    -final height : int
+    -final constant : List<GameObject>
+    -final moving : List<GameObject>
+    -final control : List<GameObject>
+
+
+    
+
+    +Circus(screenWidth : int , screenWeight : int)
+    +Circus(/'basically everything time,score,and the array lists'/)
+    +saveGame()
+    +restoreGame(snapshot : Snapshot)
+}
+
+/'Memento'/
+-class Snapshot{
+    /'whatever holds current time?'/
+    -score : int
+    -final constant : List<GameObject>
+    -final moving : List<GameObject>
+    -final control : List<GameObject>
+
+
+    Snapshot(circus : Circus)
+    {
+
+    }
+}
+
+@enduml

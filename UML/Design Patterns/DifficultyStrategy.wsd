@@ -6,15 +6,14 @@ class StageDifficulty{
     -NumOfClownsStrategy : NumberOfCLownsStrategy
     -ObjectsFallingStrategy : ObjectsFallingStrategy
     -MovementStrategy : Movement
-
-    StageDifficulty(numLives : NumberOfLivesStrategy,
-                    speed : ObjectSpeedStrategy,
-                    numClowns : NumberOfCLownsStrategy,
-                    objFalling : ObjectsFallingStrategy,
-                    movement : Movement);
+/'gow to make it diff lines?'/
+    StageDifficulty(numLives : NumberOfLivesStrategy,speed : ObjectSpeedStrategy,numClowns : NumberOfCLownsStrategy,objFalling : ObjectsFallingStrategy,movement : Movement)
                     /'movement sent with movementD and movementP'/
                     /'Speed made in construcotr'/
-                    
+    +getNumberOfLives() : int
+    +getFallingObjectSpeed() : int
+    +getNumberOfCLowns() : int
+    +getObjectsFalling() : ArrayList<FallingObjects>  
 }
 
 class Movement{
@@ -28,19 +27,19 @@ class Movement{
 
 
 interface NumberOfLivesStrategy{
-    +getNumberOfLives : int
+    +getNumberOfLives() : int
 } 
 
 interface ObjectSpeedStrategy {
-    +getFallingObjectSpeed : int
+    +getFallingObjectSpeed() : int
 }
 
 interface NumberOfClownsStrategy {
-    +getNumberOfCLowns : int
+    +getNumberOfCLowns() : int
 }
 
 interface ObjectsFallingStrategy {
-    +getObjectsFalling : ArrayList<FallingObjects>  
+    +getObjectsFalling() : ArrayList<FallingObjects>  
 }
 
 class Liveslvl1Strategy{

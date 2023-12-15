@@ -15,13 +15,16 @@ public class Circus implements World {
     private long endTime, startTime = System.currentTimeMillis();
     private final int width;
     private final int height;
-    private final List<GameObject> constant = new LinkedList<GameObject>();
-    private final List<GameObject> moving = new LinkedList<GameObject>();
-    private final List<GameObject> control = new LinkedList<GameObject>();
+    private final List<GameObject> constant;
+    private final List<GameObject> moving;//moved instatiation to constructor
+    private final List<GameObject> control;
 
     public Circus(int screenWidth, int screenHeight) {
         this.width = screenWidth;
         this.height = screenHeight;
+        constant = new LinkedList<GameObject>();
+        moving = new LinkedList<GameObject>();
+        control = new LinkedList<GameObject>();
     }
 
     @Override
