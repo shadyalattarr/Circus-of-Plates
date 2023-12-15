@@ -1,0 +1,46 @@
+@startuml
+
+interface Iterator { 
+    +hasNext(): boolean
+    +next() : Plate
+}
+
+class CollectionIterator { 
+    -Collection: collection
+    -int: currentIndex
+
+    +hasNext(): boolean
+    +next() : Plate
+}
+
+interface Collection{
+    
+    +createIterator(): CollectionIterator 
+    +getPlate(int index): Plate
+    +size(): int 
+    +removePlates(int startIndex, int endIndex): void 
+}
+
+class ClownGamePlateCollection{
+    -ArrayList<Plates>: plates
+
+
+
+    +createIterator(): CollectionIterator 
+    +getPlate(int index): Plate
+    +size(): int 
+    +removePlates(int startIndex, int endIndex): void 
+}
+
+class WhereWeGonnaMakeList{
+    +main(): void
+}
+
+Iterator <|.. CollectionIterator
+Collection <|.. ClownGamePlateCollection
+
+CollectionIterator o-- ClownGamePlateCollection
+
+WhereWeGonnaMakeList --> ClownGamePlateCollection
+
+@enduml
