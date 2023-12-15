@@ -1,0 +1,37 @@
+@startuml Singelton
+
+abstract class Objects{
+    makeObject():FallingObjects
+}
+
+class FallingObjects{
+    setX():void
+    setY():void
+    setSpeed():void
+    contactwithClown():Boolean
+    contactwithStick():Boolean
+}
+
+class Plates extends FallingObjects{
+
+}
+
+class Bombs extends FallingObjects{
+
+}
+
+class Hearts extends FallingObjects{
+
+}
+
+class AddTime extends FallingObjects{
+
+}
+
+class Bowl extends FallingObjects{
+
+}
+Objects --> FallingObjects
+
+
+@enduml
