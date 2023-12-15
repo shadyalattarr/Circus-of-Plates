@@ -1,10 +1,14 @@
-@startuml
+@startuml MovementStrategy
 
 class Movement{
     -moveDirectionStrategy : MoveDirectionStrategy
     -movePatternStrategy : MovePatternStrategy
-    +Movement(moveP : MovePatternStrategy, moveD : MoveDirectionStrategy)
-    +move() : void
+    -gameSpeed : ObjectSpeedStrategy
+    +Movement(moveP : MovePatternStrategy, moveD : MoveDirectionStrategy,gameSpeed : SpeedStrategy)
+    +Movement(moveP : MovePatternStrategy, moveD : MoveDirectionStrategy) 
+    /'second constructor to make a movement without speed aka difault speed?'/
+
+    +move(gameSpeed : SpeedStrategy) : void
 }
 
 

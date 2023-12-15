@@ -1,7 +1,116 @@
-@startuml
+@startuml DifficultyStrategy
 
 class StageDifficulty{
+    -NumOfLivesStrategy : NumberOfLivesStrategy
+    -SpeedStrategy : ObjectSpeedStrategy
+    -NumOfClownsStrategy : NumberOfCLownsStrategy
+    -ObjectsFallingStrategy : ObjectsFallingStrategy
+    -MovementStrategy : Movement
+
+    StageDifficulty(numLives : NumberOfLivesStrategy,
+                    speed : ObjectSpeedStrategy,
+                    numClowns : NumberOfCLownsStrategy,
+                    objFalling : ObjectsFallingStrategy,
+                    movement : Movement);
+                    /'movement sent with movementD and movementP'/
+                    /'Speed made in construcotr'/
+                    
+}
+
+class Movement{
+    -moveDirectionStrategy : MoveDirectionStrategy
+    -movePatternStrategy : MovePatternStrategy
+    -gameSpeed : ObjectSpeedStrategy
+    +Movement(moveP : MovePatternStrategy, moveD : MoveDirectionStrategy,gameSpeed : SpeedStrategy)
+    +Movement(moveP : MovePatternStrategy, moveD : MoveDirectionStrategy)
+    +move(gameSpeed : SpeedStrategy) : void
+}
+
+
+interface NumberOfLivesStrategy{
+    +getNumberOfLives : int
+} 
+
+interface ObjectSpeedStrategy {
+    +getFallingObjectSpeed : int
+}
+
+interface NumberOfClownsStrategy {
+    +getNumberOfCLowns : int
+}
+
+interface ObjectsFallingStrategy {
+    +getObjectsFalling : ArrayList<FallingObjects>  
+}
+
+class Liveslvl1Strategy{
+
+}
+
+class Liveslvl2Strategy{
     
 }
+
+class Liveslvl3Strategy{
+    
+}
+
+class ObjectSpeedlvl1Strategy{
+
+}
+
+class ObjectSpeedlvl2Strategy{
+    
+}
+
+class ObjectSpeedlvl3Strategy{
+    
+}
+
+class OneClownStrategy {
+
+}
+
+class TwoClownsStrategy {
+    
+}
+
+class PlatesOnlyStrategy {
+
+}
+
+class BombsStrategy {
+
+}
+
+class ExtraLifeStrategy {
+
+}
+
+class AllObjectsStrategy {
+
+}
+
+StageDifficulty o- Movement
+StageDifficulty o-- NumberOfLivesStrategy
+StageDifficulty o-- ObjectSpeedStrategy
+StageDifficulty o-- NumberOfClownsStrategy
+StageDifficulty o-- ObjectsFallingStrategy
+
+NumberOfLivesStrategy <|.. Liveslvl1Strategy 
+NumberOfLivesStrategy <|.. Liveslvl2Strategy 
+NumberOfLivesStrategy <|.. Liveslvl3Strategy 
+
+ObjectSpeedStrategy <|.. ObjectSpeedlvl1Strategy 
+ObjectSpeedStrategy <|.. ObjectSpeedlvl2Strategy 
+ObjectSpeedStrategy <|.. ObjectSpeedlvl3Strategy
+
+NumberOfClownsStrategy <|.. OneClownStrategy
+NumberOfClownsStrategy <|.. TwoClownsStrategy
+
+ObjectsFallingStrategy <|.. PlatesOnlyStrategy
+ObjectsFallingStrategy <|.. BombsStrategy
+ObjectsFallingStrategy <|.. ExtraLifeStrategy
+ObjectsFallingStrategy <|.. AllObjectsStrategy
 
 @enduml
