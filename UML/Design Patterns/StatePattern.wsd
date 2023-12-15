@@ -1,4 +1,4 @@
-@startuml
+@startuml StatePattern
 
 class Game {
     - GameState currentState;

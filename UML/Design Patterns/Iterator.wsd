@@ -1,4 +1,4 @@
-@startuml
+@startuml Iterator
 
 interface Iterator { 
     +hasNext(): boolean

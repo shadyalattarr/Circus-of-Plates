@@ -1,4 +1,4 @@
-@startuml
+@startuml Singelton
 
 class Singelton {
     -Singelton: instance
