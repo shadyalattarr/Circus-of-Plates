@@ -1,0 +1,45 @@
+@startuml
+
+class Game {
+    - GameState currentState;
+    + setState(GameState state):GameState
+    + StartGame()
+    + GameOver()
+    + FinalSecondsofGame()
+}
+
+interface GameState { 
+    +StartGame()
+    +FinalSecondsofGame()
+    +GameOver()
+}
+
+class BeginGame implements GameState{ 
+    -Game currGame
+    +StartGame()
+    +FinalSecondsofGame()
+    +GameOver() 
+}
+
+class AlmostDoneGame implements GameState{
+    -Game currGame
+    +StartGame()
+    +FinalSecondsofGame()
+    +GameOver()
+}
+
+class FinshedGame implements GameState{
+    -Game currGame
+    +StartGame()
+    +FinalSecondsofGame()
+    +GameOver()
+}
+
+Game *-- GameState
+@enduml
+/*the states in World are the ones that determine how the game plays out
+ex: StartGame will have currentState.Startgame
+every state has to implement interface but some functions
+aren't used in every state like when game is finished, you can't go to final seconds of the game,
+ we could have multiple interfaces to apply interface segregation which is a part of SOLID principles
+ */
