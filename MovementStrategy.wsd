@@ -3,6 +3,7 @@
 class Movement{
     -moveDirectionStrategy : MoveDirectionStrategy
     -movePatternStrategy : MovePatternStrategy
+    +Movement(moveP : MovePatternStrategy, moveD : MoveDirectionStrategy)
     +move() : void
 }
 
