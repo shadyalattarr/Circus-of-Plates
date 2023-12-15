@@ -1,11 +1,11 @@
 @startuml SaveGameMemento
 
 class Circus{ /'Originator want to change this'/
-    -static MAX_TIME = 1 * 60 * 1000 : int
+    -{static} MAX_TIME = 1 * 60 * 1000 : int
     -score : int
     -endTime : long
     -startTime : long
-    -final width : int
+    -width : int
     -final height : int
     -final constant : List<GameObject>
     -final moving : List<GameObject>
