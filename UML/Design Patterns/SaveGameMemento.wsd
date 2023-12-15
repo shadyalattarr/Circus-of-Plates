@@ -1,6 +1,6 @@
 @startuml SaveGameMemento
 
-class Circus{ /'Originator'/
+class Circus{ /'Originator want to change this'/
     -static MAX_TIME = 1 * 60 * 1000 : int
     -score : int
     -endTime : long
@@ -12,10 +12,8 @@ class Circus{ /'Originator'/
     -final control : List<GameObject>
 
 
-    
-
     +Circus(screenWidth : int , screenWeight : int)
-    +Circus(/'basically everything time,score,and the array lists'/)
+    +Circus(screenWidth : int , screenWeight : int,constant : List<GameObject>,moving : List<GameObject>, control : List<GameObject>,score : int,/'whaterbe has time'/)
     +saveGame()
     +restoreGame(snapshot : Snapshot)
 }
@@ -23,16 +21,33 @@ class Circus{ /'Originator'/
 /'Memento'/
 -class Snapshot{
     /'whatever holds current time?'/
-    -score : int
+    -final score : int
     -final constant : List<GameObject>
     -final moving : List<GameObject>
     -final control : List<GameObject>
 
 
     Snapshot(circus : Circus)
-    {
-
-    }
 }
+
+
+/'caretaker is main?'/
+class History{
+    -circus : Circus
+    -gamesSaved : Stack<Memento>
+
+    +History(circus : Circus)
+    +saveGame() : void
+}
+
+class Main/'want to change this'/
+{
+    final gameController : GameController
+    history : History
+}
+Circus +- Snapshot
+History o-- Circus  
+Main *- History
+Main *-- Circus
 
 @enduml
