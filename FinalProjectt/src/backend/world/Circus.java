@@ -41,7 +41,7 @@ public class Circus implements World {
         for(GameObject o : moving.toArray(new GameObject[moving.size()])){
             o.setY((o.getY() + 1));
             if(o.getY()==getHeight()){
-                // reuse the alien in another position
+              
                 o.setY(-1 * (int)(Math.random() * getHeight()));
                 o.setX((int)(Math.random() * getWidth()));	
             }

@@ -18,15 +18,7 @@ public class App {
 
 		
 		JMenuBar  menuBar = new JMenuBar();;
-		JMenu menu = new JMenu("File");
-		JMenuItem newMenuItem = new JMenuItem("New");
-		JMenuItem pauseMenuItem = new JMenuItem("Pause");
-		JMenuItem resumeMenuItem = new JMenuItem("Resume");
-		menu.add(newMenuItem);
-		menu.addSeparator();
-		menu.add(pauseMenuItem);
-		menu.add(resumeMenuItem);
-		menuBar.add(menu);
+		
 		final GameController gameController = GameEngine.start("Very Simple Game in 99 Line of Code", new Circus(550, 600), menuBar, Color.white);
 		
 	}
