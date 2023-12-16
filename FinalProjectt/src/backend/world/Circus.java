@@ -1,6 +1,8 @@
 package backend.world;
 
 import backend.object.FallingObject;
+import backend.object.Plate;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.LinkedList;
@@ -25,12 +27,26 @@ public class Circus implements World {
         constant = new LinkedList<GameObject>();
         moving = new LinkedList<GameObject>();
         control = new LinkedList<GameObject>();
+
+        for(int i=0; i < 6; i++)
+            moving.add(new Plate((int)(Math.random()*width), (int)(Math.random()*height/2),Color.RED));
+
     }
+
+    
 
     @Override
     public boolean refresh() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'refresh'");
+        boolean timeout = System.currentTimeMillis() - startTime > MAX_TIME;
+        for(GameObject o : moving.toArray(new GameObject[moving.size()])){
+            o.setY((o.getY() + 1));
+            if(o.getY()==getHeight()){
+                // reuse the alien in another position
+                o.setY(-1 * (int)(Math.random() * getHeight()));
+                o.setX((int)(Math.random() * getWidth()));	
+            }
+        }
+        return !timeout;
     }
 
     @Override
