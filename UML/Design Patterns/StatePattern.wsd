@@ -1,41 +1,48 @@
 @startuml StatePattern
 
 class Game {
-    - GameState currentState;
-    + setState(GameState state):GameState
+    - currentGame:GameState
+    + setState(GameState) : void
     + StartGame()
     + GameOver()
     + FinalSecondsofGame()
 }
 
-interface GameState { 
+interface Start { 
     +StartGame()
+    
+}
+interface Almost { 
+    
     +FinalSecondsofGame()
+    
+}
+interface Finish { 
+    
     +GameOver()
 }
 
-class BeginGame implements GameState{ 
+class BeginGame implements Start{ 
     -Game currGame
     +StartGame()
-    +FinalSecondsofGame()
-    +GameOver() 
+   
 }
 
-class AlmostDoneGame implements GameState{
+class AlmostDoneGame implements Almost{
     -Game currGame
-    +StartGame()
     +FinalSecondsofGame()
+   
+}
+
+class FinshedGame implements Finish{
+    -Game currGame
+   
     +GameOver()
 }
 
-class FinshedGame implements GameState{
-    -Game currGame
-    +StartGame()
-    +FinalSecondsofGame()
-    +GameOver()
-}
-
-Game *-- GameState
+Game *-- Start
+Game *-- Almost
+Game *-- Finish
 @enduml
 /*the states in World are the ones that determine how the game plays out
 ex: StartGame will have currentState.Startgame

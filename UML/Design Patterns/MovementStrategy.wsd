@@ -1,6 +1,6 @@
 @startuml MovementStrategy
 
-class Movement{
+class MovementStrategy{
     -moveDirectionStrategy : MoveDirectionStrategy
     -movePatternStrategy : MovePatternStrategy
     -gameSpeed : ObjectSpeedStrategy
@@ -52,8 +52,8 @@ class LeftDiagonalStrategy {
 
 }
 
-Movement o-- MoveDirectionStrategy
-Movement o-- MovePatternStrategy
+MovementStrategy o-- MoveDirectionStrategy
+MovementStrategy o-- MovePatternStrategy
 
 
 

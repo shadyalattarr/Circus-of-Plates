@@ -1,0 +1,242 @@
+@startuml
+package object <<Rectangle>>{
+    abstract class ObjectsFactory{
+    makeObject():Object
+}
+interface FallingObjects implements Object{
+    +move():void
+    +contactwithClown():Boolean
+    +contactwithStick():Boolean
+
+-moveStrategy:MovementStrategy     
++setX():void
+    +setY():void
+   + move(SpeedStrategy):void
+    +contactwithClown():Boolean
+    +contactwithStick():Boolean
+}
+class Plates implements FallingObjects{
+
+}
+
+class Bombs implements FallingObjects{
+
+}
+interface Object{}
+class Clown implements ControlObject{}
+interface ControlObject implements Object{}
+
+
+
+ObjectsFactory --> Object:Factory Pattern
+
+
+}
+class MovementStrategy{
+    -moveDirectionStrategy : MoveDirectionStrategy
+    -movePatternStrategy : MovePatternStrategy
+    -gameSpeed : ObjectSpeedStrategy
+    +Movement(moveP : MovePatternStrategy, moveD : MoveDirectionStrategy,gameSpeed : SpeedStrategy)
+    +Movement(moveP : MovePatternStrategy, moveD : MoveDirectionStrategy) 
+    /'second constructor to make a movement without speed aka difault speed?'/
+
+    +move(gameSpeed : SpeedStrategy) : void
+}
+
+
+interface MovePatternStrategy { 
+    +patternMove() : void
+}
+
+
+interface MoveDirectionStrategy{
+    +directionMove() : void
+}
+
+
+
+MovementStrategy o-- MoveDirectionStrategy
+MovementStrategy o-- MovePatternStrategy
+
+
+
+
+FallingObjects o-- MovementStrategy
+package world <<Rectangle>>{
+    class Circus implements World{
+       -  MAX_TIME :int
+- endTime :long 
+-score:Singleton
+     -startTime:long
+  - width :int
+   - height :int
+    -constant :List<GameObject>
+    -moving :List<GameObject>
+   - control :List<GameObject>
+   -clownCollection:ClownGamePlateCollection
+ +start():void
+    +end():void
+    +update():void
+    +draw():void
+    +addObject():void
+    +removeObject():void
+    +getStartTime():long
+    +getEndTime():long
+    +getWidth():int
+    +getHeight():int
+    +getConstant():List<GameObject>
+    +getMoving():List<GameObject>
+    +getControl():List<GameObject>
+    }
+  class Singelton {
+    -Singelton: instance
+    -int: score
+
+    -Singelton()
+
+    +getInstance(): Singelton
+    +increaseScore(): void
+    +getScore(): int
+
+}
+Circus --> Singelton
+
+}
+package main <<Rectangle>>{
+    class Main{
+   
+    }
+    class Game {
+     - currentGame:GameState
+     -diffculty:DiffcultyStrategy
+    + setState(GameState) : void
+    + StartGame()
+    + GameOver()
+    + FinalSecondsofGame()
+}
+
+interface Start { 
+    +StartGame()
+    
+}
+interface Almost { 
+    
+    +FinalSecondsofGame()
+    
+}
+interface Finish { 
+    
+    +GameOver()
+}
+
+class BeginGame implements Start{ 
+    -Game currGame
+    +StartGame()
+   
+}
+
+class AlmostDoneGame implements Almost{
+    -Game currGame
+    +FinalSecondsofGame()
+   
+}
+
+class FinshedGame implements Finish{
+    -Game currGame
+   
+    +GameOver()
+}
+
+Game *-- Start
+Game *-- Almost
+Game *-- Finish
+Main --> Game
+
+   
+
+
+}
+class StageDifficulty{
+    -NumOfLivesStrategy : NumberOfLivesStrategy
+    -SpeedStrategy : ObjectSpeedStrategy
+    -NumOfClownsStrategy : NumberOfCLownsStrategy
+    -ObjectsFallingStrategy : ObjectsFallingStrategy
+    -MovementStrategy : Movement
+/'gow to make it diff lines?'/
+    StageDifficulty(numLives : NumberOfLivesStrategy,speed : ObjectSpeedStrategy,numClowns : NumberOfCLownsStrategy,objFalling : ObjectsFallingStrategy,movement : Movement)
+                    /'movement sent with movementD and movementP'/
+                    /'Speed made in construcotr'/
+    +getNumberOfLives() : int
+    +getFallingObjectSpeed() : int
+    +getNumberOfCLowns() : int
+    +getObjectsFalling() : ArrayList<FallingObjects>  
+}
+interface NumberOfLivesStrategy{
+    +getNumberOfLives() : int
+} 
+
+interface ObjectSpeedStrategy {
+    +getFallingObjectSpeed() : int
+}
+
+interface NumberOfClownsStrategy {
+    +getNumberOfCLowns() : int
+}
+
+interface ObjectsFallingStrategy {
+    +getObjectsFalling() : ArrayList<FallingObjects>  
+}
+
+
+
+StageDifficulty o-- MovementStrategy
+StageDifficulty o-- NumberOfLivesStrategy
+StageDifficulty o-- ObjectSpeedStrategy
+StageDifficulty o-- NumberOfClownsStrategy
+StageDifficulty o-- ObjectsFallingStrategy
+Game *-- StageDifficulty
+
+interface Iterator { 
+    +hasNext(): boolean
+    +next() : Plate
+}
+
+class CollectionIterator { 
+    -Collection: collection
+    -int: currentIndex
+
+    +hasNext(): boolean
+    +next() : Plate
+}
+
+interface Collection{
+    
+    +createIterator(): CollectionIterator 
+    +getPlate(int index): Plate
+    +size(): int 
+    +removePlates(int startIndex, int endIndex): void 
+}
+
+class ClownGamePlateCollection{
+    -ArrayList<Plates>: plates
+
+
+
+    +createIterator(): CollectionIterator 
+    +getPlate(int index): Plate
+    +size(): int 
+    +removePlates(int startIndex, int endIndex): void 
+}
+
+
+
+Iterator <|.. CollectionIterator
+Collection <|.. ClownGamePlateCollection
+
+CollectionIterator o-- ClownGamePlateCollection
+
+Circus --> ClownGamePlateCollection
+
+
+
+@enduml

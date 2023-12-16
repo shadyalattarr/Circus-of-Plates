@@ -1,37 +1,49 @@
 @startuml Singelton
 
-abstract class Objects{
-    makeObject():FallingObjects
+  abstract class ObjectsFactory{
+    makeObject():Object
+}
+interface FallingObjects implements Object{
+    +move():void
+    +contactwithClown():Boolean
+    +contactwithStick():Boolean
+
+-moveStrategy:MovementStrategy     
++setX():void
+    +setY():void
+   + move(SpeedStrategy):void
+    +contactwithClown():Boolean
+    +contactwithStick():Boolean
 }
 
-class FallingObjects{
-    setX():void
-    setY():void
-    setSpeed():void
-    contactwithClown():Boolean
-    contactwithStick():Boolean
-}
+interface Object{}
+class clown implements ControlObject{}
+interface ControlObject implements Object{}
 
-class Plates extends FallingObjects{
 
-}
+ObjectsFactory --> Object:Factory Pattern
 
-class Bombs extends FallingObjects{
+
+class Plates implements FallingObjects{
 
 }
 
-class Hearts extends FallingObjects{
+class Bombs implements FallingObjects{
 
 }
 
-class AddTime extends FallingObjects{
+class Hearts implements FallingObjects{
 
 }
 
-class Bowl extends FallingObjects{
+class AddTime implements FallingObjects{
 
 }
-Objects --> FallingObjects
+
+class Bowl implements FallingObjects{
+
+}
+
 
 
 @enduml
