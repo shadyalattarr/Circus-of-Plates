@@ -5,14 +5,12 @@ package object <<Rectangle>>{
 }
 
 interface FallingObjects implements GameObject{
-    +move():void
     +contactwithClown():Boolean
     +contactwithStick():Boolean
 
-    -moveStrategy:MovementStrategy     
+  /'  -moveStrategy:MovementStrategy'/     /' change1 la2 we remove this cuz we send obj to move'/
     +setX():void
     +setY():void
-    +move(SpeedStrategy):void
     +contactwithClown():Boolean
     +contactwithStick():Boolean
 }
@@ -61,7 +59,7 @@ MovementStrategy o-- MovePatternStrategy
 
 
 
-FallingObjects o-- MovementStrategy
+FallingObjects o-- MovementStrategy /'change1 prolly gone'/
 package world <<Rectangle>>{
     /'Originator'/
     class Circus implements World{

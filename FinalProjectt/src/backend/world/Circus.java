@@ -20,16 +20,20 @@ public class Circus implements World {
     private final List<GameObject> constant;
     private final List<GameObject> moving;//moved instatiation to constructor
     private final List<GameObject> control;
-
+    //for now difficulty
+    DifficultyStrategy difficulty;
+    MovementStrategy movement;
     public Circus(int screenWidth, int screenHeight) {
         this.width = screenWidth;
         this.height = screenHeight;
         constant = new LinkedList<GameObject>();
         moving = new LinkedList<GameObject>();
         control = new LinkedList<GameObject>();
-
+        //maybe difficulty sent in constructor?
+        movement = new MovementStrategy(new NoOscillationStrategy(), new DownStrategy());
+        difficulty = new DifficultyStrategy(new ObjectSpeedlvl2Strategy(), movement);
         for(int i=0; i < 6; i++)
-            moving.add(new Plate((int)(Math.random()*width), (int)(Math.random()*height/2),Color.RED));
+            moving.add(new Plate((int)(Math.random()*getWidth()), (int)(Math.random()*getHeight()/2),Color.RED));
 
     }
 
@@ -39,10 +43,11 @@ public class Circus implements World {
     public boolean refresh() {
         boolean timeout = System.currentTimeMillis() - startTime > MAX_TIME;
         for(GameObject o : moving.toArray(new GameObject[moving.size()])){
-            o.setY((o.getY() + 1));
-            if(o.getY()==getHeight()){
-              
-                o.setY(-1 * (int)(Math.random() * getHeight()));
+            movement.move((FallingObject)o, difficulty.getFallingObjectSpeedStrategy());
+            if(o.getY()>=getHeight()){
+                //in bottom
+                System.out.println("Plate hit bot");
+                o.setY(-1 * (int)(Math.random() * getHeight()));//get it up?
                 o.setX((int)(Math.random() * getWidth()));	
             }
         }
