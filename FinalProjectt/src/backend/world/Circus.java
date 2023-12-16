@@ -23,18 +23,20 @@ public class Circus implements World {
     //for now difficulty
     DifficultyStrategy difficulty;
     MovementStrategy movement;
+    ObjectsFallingStrategy objFalling;
     public Circus(int screenWidth, int screenHeight) {
         this.width = screenWidth;
         this.height = screenHeight;
         constant = new LinkedList<GameObject>();
-        moving = new LinkedList<GameObject>();
+        //moving = new LinkedList<GameObject>();
         control = new LinkedList<GameObject>();
         //maybe difficulty sent in constructor?
         movement = new MovementStrategy(new NoOscillationStrategy(), new DownStrategy());
-        difficulty = new DifficultyStrategy(new ObjectSpeedlvl2Strategy(), movement);
-        for(int i=0; i < 6; i++)
-            moving.add(new Plate((int)(Math.random()*getWidth()), (int)(Math.random()*getHeight()/2),Color.RED));
+        objFalling = new PlatesOnlyStrategy();
+        difficulty = new DifficultyStrategy(new ObjectSpeedlvl2Strategy(), movement,objFalling);
+        //all above not here
 
+        moving = objFalling.generateObjectsFalling(6);
     }
 
     

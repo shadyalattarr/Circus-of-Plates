@@ -23,7 +23,7 @@ public class Plate implements FallingObject {
     private boolean visible;
     private Color[] colors = {Color.RED, Color.LIGHT_GRAY, Color.GREEN, Color.CYAN, Color.PINK};
 
-    public Plate(int posX, int posY, Color color) {
+    public Plate(int posX, int posY) {//deleted color from constructor and can make a new constructor with it if we want to make a plate of certain color
         this.x = posX;
         this.y = posY;
         this.visible = true;
