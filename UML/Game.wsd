@@ -1,17 +1,18 @@
-@startuml
+@startuml Game
 package object <<Rectangle>>{
     abstract class ObjectsFactory{
-    makeObject():Object
+    makeObject():GameObject
 }
-interface FallingObjects implements Object{
+
+interface FallingObjects implements GameObject{
     +move():void
     +contactwithClown():Boolean
     +contactwithStick():Boolean
 
--moveStrategy:MovementStrategy     
-+setX():void
+    -moveStrategy:MovementStrategy     
+    +setX():void
     +setY():void
-   + move(SpeedStrategy):void
+    +move(SpeedStrategy):void
     +contactwithClown():Boolean
     +contactwithStick():Boolean
 }
@@ -22,13 +23,12 @@ class Plates implements FallingObjects{
 class Bombs implements FallingObjects{
 
 }
-interface Object{}
 class Clown implements ControlObject{}
-interface ControlObject implements Object{}
+interface ControlObject implements GameObject{}
 
 
 
-ObjectsFactory --> Object:Factory Pattern
+ObjectsFactory --> GameObject:Factory Pattern
 
 
 }
@@ -63,48 +63,73 @@ MovementStrategy o-- MovePatternStrategy
 
 FallingObjects o-- MovementStrategy
 package world <<Rectangle>>{
+    /'Originator'/
     class Circus implements World{
-       -  MAX_TIME :int
-- endTime :long 
--score:Singleton
-     -startTime:long
-  - width :int
-   - height :int
-    -constant :List<GameObject>
-    -moving :List<GameObject>
-   - control :List<GameObject>
-   -clownCollection:ClownGamePlateCollection
- +start():void
-    +end():void
-    +update():void
-    +draw():void
-    +addObject():void
-    +removeObject():void
-    +getStartTime():long
-    +getEndTime():long
-    +getWidth():int
-    +getHeight():int
-    +getConstant():List<GameObject>
-    +getMoving():List<GameObject>
-    +getControl():List<GameObject>
+        -MAX_TIME :int
+        -endTime :long 
+        -score:Singleton
+        -startTime:long
+        -width :int
+        -height :int
+        -constant :List<GameObject>
+        -moving :List<GameObject>
+        -control :List<GameObject>
+        -clownCollection:ClownGamePlateCollection
+        +start():void
+        +end():void
+        +update():void
+        +draw():void
+        +addObject():void
+        +removeObject():void
+        +getStartTime():long
+        +getEndTime():long
+        +getWidth():int
+        +getHeight():int
+        +getConstant():List<GameObject>
+        +getMoving():List<GameObject>
+        +getControl():List<GameObject>
+        -final timeElapsed : long
+
+        +Circus(screenWidth : int , screenWeight : int)
+        +Circus(screenWidth : int ,screenWeight : int,constant : List<GameObject>,moving : List<GameObject>,
+        control : List<GameObject>,score : int,timeElapsed : long)
+        
+        +saveGame()
+        +loadGame(snapshot : Snapshot)
     }
-  class Singelton {
-    -Singelton: instance
-    -int: score
+    
+     /'Memento'/
+    -class Snapshot{
+        -final timeElapsed : long
+        -final score : int
+        -final constant : List<GameObject>
+        -final moving : List<GameObject>
+        -final control : List<GameObject>
+        -final screenWeight : int
+        -final screenWidth : int 
 
-    -Singelton()
+        Snapshot(circus : Circus)
+    }
+    
+    class Singelton {
+        -Singelton: instance
+        -int: score
 
-    +getInstance(): Singelton
-    +increaseScore(): void
-    +getScore(): int
+        -Singelton()
 
-}
-Circus --> Singelton
+        +getInstance(): Singelton
+        +increaseScore(): void
+        +getScore(): int
+
+    }
+
+    Circus --> Singelton
 
 }
 package main <<Rectangle>>{
     class Main{
-   
+        final gameController : GameController
+        history : History
     }
     class Game {
      - currentGame:GameState
@@ -114,6 +139,16 @@ package main <<Rectangle>>{
     + GameOver()
     + FinalSecondsofGame()
 }
+
+/'caretaker is history'/
+class History{
+    -circus : Circus
+    -gamesSaved : Stack<Memento>
+
+    +History(circus : Circus)
+    +saveGame() : void
+}
+
 
 interface Start { 
     +StartGame()
@@ -152,7 +187,10 @@ Game *-- Almost
 Game *-- Finish
 Main --> Game
 
-   
+Circus +- Snapshot
+History o-- Circus  
+Main *- History
+Main *-- Circus
 
 
 }

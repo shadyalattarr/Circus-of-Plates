@@ -1,7 +1,7 @@
 @startuml SaveGameMemento
 
 class Circus{ /'Originator want to change this'/
-    -{static} MAX_TIME = 1 * 60 * 1000 : int
+    -{static} MAX_TIME : int
     -score : int
     -endTime : long
     -startTime : long
@@ -10,17 +10,17 @@ class Circus{ /'Originator want to change this'/
     -final constant : List<GameObject>
     -final moving : List<GameObject>
     -final control : List<GameObject>
-
+    -final timeElapsed : long
 
     +Circus(screenWidth : int , screenWeight : int)
-    +Circus(screenWidth : int , screenWeight : int,constant : List<GameObject>,moving : List<GameObject>, control : List<GameObject>,score : int,/'whaterbe has time'/)
+    +Circus(screenWidth : int , screenWeight : int,constant : List<GameObject>,moving : List<GameObject>, control : List<GameObject>,score : int,timeElapsed : long)
     +saveGame()
-    +restoreGame(snapshot : Snapshot)
+    +loadGame(snapshot : Snapshot)
 }
 
 /'Memento'/
 -class Snapshot{
-    /'whatever holds current time?'/
+    -final timeElapsed : long
     -final score : int
     -final constant : List<GameObject>
     -final moving : List<GameObject>
@@ -33,7 +33,7 @@ class Circus{ /'Originator want to change this'/
 }
 
 
-/'caretaker is main?'/
+/'caretaker is history'/
 class History{
     -circus : Circus
     -gamesSaved : Stack<Memento>
