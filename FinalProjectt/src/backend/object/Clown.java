@@ -8,7 +8,8 @@ public class Clown extends ImageObject{
     }
     @Override
     public void setY(int mY) {
-	
+        //we need to talk about that it hink its not a good idea to hav eit empty like that
+        
 	}
 
     

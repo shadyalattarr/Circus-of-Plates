@@ -29,18 +29,27 @@ public class Circus implements World {
     MovementStrategy movement;
     ObjectsFallingStrategy objFalling;
 
+
+    //------------
+    private final BarObject leftStick;
+    private final BarObject rightStick;
+    private final Clown clown;
+    //------------
+    
     public Circus(int screenWidth, int screenHeight) {
         this.width = screenWidth;
         this.height = screenHeight;
         constant = new LinkedList<GameObject>();
         control = new LinkedList<GameObject>();
         // moving = new LinkedList<GameObject>();
-        Clown clown = new Clown((int) (screenWidth / 2.6), (int) (screenHeight / 1.4),
-                "clown-removebg-preview_3_53.png");
-        // maybe difficulty sent in constructor?
+        clown = new Clown((int) (screenWidth / 2.6), (int) (screenHeight / 1.4),
+                "FinalProjectt\\clown-removebg-preview_3_53.png");
         control.add(clown);
-        control.add(new BarObject(clown.getX() + 30, clown.getY() - 30, 150, true, Color.RED));
-        control.add(new BarObject(clown.getX() + 210, clown.getY() - 30, 130, true, Color.GREEN));
+        leftStick = new BarObject(clown.getX() + 30, clown.getY() - 30, 150, true, Color.RED);
+        rightStick = new BarObject(clown.getX() + 210, clown.getY() - 30, 130, true, Color.GREEN);
+        control.add(leftStick);
+        control.add(rightStick);
+        // maybe difficulty sent in constructor?
         movement = new MovementStrategy(new NoOscillationStrategy(), new DownStrategy());
         objFalling = new PlatesOnlyStrategy();
         difficulty = new DifficultyStrategy(new ObjectSpeedlvl2Strategy(), movement, objFalling);
@@ -48,12 +57,39 @@ public class Circus implements World {
 
         moving = objFalling.generateObjectsFalling(6);
     }
-
+    
+    private boolean intersect(GameObject fallingObject, GameObject stick){
+        double fallingObjectXCenter = (fallingObject.getX() + fallingObject.getWidth()/2.0);
+        double stickXCenter = (stick.getX() + stick.getWidth()/2.0);
+        int fallingObjectBottomY = fallingObject.getY() + fallingObject.getHeight();
+        int stickTop = stick.getY();
+		return ((Math.abs(fallingObjectXCenter - stickXCenter) <= fallingObject.getWidth()/3) && (Math.abs(stickTop- fallingObjectBottomY)<=5));
+	}
     @Override
     public boolean refresh() {
         boolean timeout = System.currentTimeMillis() - startTime > MAX_TIME;
         for (GameObject o : moving.toArray(new GameObject[moving.size()])) {
+            //before moving we check if it intersects with stick
+            if(intersect(o, leftStick))
+            {
+                System.out.println("HitLeftStick");
+                moving.remove(o);
+                control.add(o);
+                o.setX(clown.getX() + 30 - o.getWidth()/2);
+                o.setX(leftStick.getX() + leftStick.getWidth()/2 - o.getWidth()/2);
+
+            } 
+            else if(intersect(o, rightStick))
+            {
+                System.out.println("HitRightStick");
+                moving.remove(o);
+                control.add(o);
+                o.setX(rightStick.getX() + rightStick.getWidth()/2 - o.getWidth()/2);
+
+            }
             movement.move((FallingObject) o, difficulty.getFallingObjectSpeedStrategy());
+            
+            //want to make a method for that
             if (o.getY() >= getHeight()) {
                 // in bottom
                 System.out.println("Plate hit bot");

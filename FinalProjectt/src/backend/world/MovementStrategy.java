@@ -1,6 +1,5 @@
 package backend.world;
 import backend.object.FallingObject;
-import backend.world.*;
 
 public class MovementStrategy {
     private MoveDirectionStrategy moveD;

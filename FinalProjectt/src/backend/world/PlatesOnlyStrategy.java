@@ -11,7 +11,7 @@ public class PlatesOnlyStrategy implements ObjectsFallingStrategy{
     @Override
     public ArrayList<GameObject> generateObjectsFalling(int n) {
         for(int i=0; i < n; i++)
-            moving.add(new Plate((int)(Math.random()*550/*getWidth()*/), (int)(Math.random()*600/*getHeight()*//2)));
+            moving.add(new Plate((int)(Math.random()*1600/*getWidth()*/), (int)(Math.random()*1000/*getHeight()*//2)));
         return moving;
     }
 
