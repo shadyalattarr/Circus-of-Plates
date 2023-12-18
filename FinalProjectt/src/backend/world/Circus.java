@@ -30,6 +30,7 @@ public class Circus implements World {
     DifficultyStrategy difficulty;
     MovementStrategy movement;
     ObjectsFallingStrategy objFalling;
+    IntersectionHandlerStrategy intersection;
 
 
     //------------
@@ -62,7 +63,7 @@ public class Circus implements World {
         difficulty = new DifficultyStrategy(new ObjectSpeedlvl2Strategy(), movement, objFalling);
         // all above not here
 
-        moving = objFalling.generateObjectsFalling(6);
+        moving = objFalling.generateObjectsFalling(10);
     }
     
     private boolean intersect(GameObject fallingObject, GameObject stick){
