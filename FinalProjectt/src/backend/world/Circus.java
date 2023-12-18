@@ -7,8 +7,10 @@ import backend.object.Plate;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
@@ -34,6 +36,9 @@ public class Circus implements World {
     private final BarObject leftStick;
     private final BarObject rightStick;
     private final Clown clown;
+    private Stack<GameObject> leftObjStack;
+    private Stack<GameObject> rightObjStack;
+
     //------------
     
     public Circus(int screenWidth, int screenHeight) {
@@ -47,6 +52,8 @@ public class Circus implements World {
         control.add(clown);
         leftStick = new BarObject(clown.getX() + 30, clown.getY() - 30, 150, true, Color.RED);
         rightStick = new BarObject(clown.getX() + 210, clown.getY() - 30, 130, true, Color.GREEN);
+        leftObjStack = new Stack<GameObject>();
+        rightObjStack = new Stack<GameObject>();
         control.add(leftStick);
         control.add(rightStick);
         // maybe difficulty sent in constructor?
@@ -70,23 +77,34 @@ public class Circus implements World {
         boolean timeout = System.currentTimeMillis() - startTime > MAX_TIME;
         for (GameObject o : moving.toArray(new GameObject[moving.size()])) {
             //before moving we check if it intersects with stick
-            if(intersect(o, leftStick))
+            GameObject lefttoIntersectWith;
+            GameObject righttoIntersectWith;
+
+            lefttoIntersectWith = leftObjStack.size() == 0 ? leftStick: leftObjStack.peek(); 
+            righttoIntersectWith = rightObjStack.size() == 0 ? rightStick : rightObjStack.peek();
+
+            if(intersect(o, lefttoIntersectWith))
             {
-                System.out.println("HitLeftStick");
+                System.out.println("HitLerftStick");//germany gg
                 moving.remove(o);
                 control.add(o);
-                o.setX(clown.getX() + 30 - o.getWidth()/2);
-                o.setX(leftStick.getX() + leftStick.getWidth()/2 - o.getWidth()/2);
+                o.setX(lefttoIntersectWith.getX() + lefttoIntersectWith.getWidth()/2 - o.getWidth()/2);
+                leftObjStack.push(o);
+                o.setY(lefttoIntersectWith.getY() - leftObjStack.size()*o.getHeight());//can we make plate height and width static?
 
             } 
-            else if(intersect(o, rightStick))
+            else if(intersect(o, righttoIntersectWith))
             {
                 System.out.println("HitRightStick");
                 moving.remove(o);
                 control.add(o);
-                o.setX(rightStick.getX() + rightStick.getWidth()/2 - o.getWidth()/2);
+                o.setX(righttoIntersectWith.getX() + righttoIntersectWith.getWidth()/2 - o.getWidth()/2);
+                rightObjStack.push(o);
+                o.setY(righttoIntersectWith.getY() - rightObjStack.size()*o.getHeight());//can we make plate height and width static?
 
             }
+
+            //move
             movement.move((FallingObject) o, difficulty.getFallingObjectSpeedStrategy());
             
             //want to make a method for that
