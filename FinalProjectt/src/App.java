@@ -19,7 +19,7 @@ public class App {
 		
 		JMenuBar  menuBar = new JMenuBar();;
 		
-		final GameController gameController = GameEngine.start("Very Simple Game in 99 Line of Code", new Circus(1400, 750), menuBar, Color.BLACK);
+		final GameController gameController = GameEngine.start("Very Simple Game in 99 Line of Code", new Circus(1400, 750), menuBar, Color.WHITE);
 		
 	}
 	

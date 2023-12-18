@@ -90,7 +90,7 @@ public class Circus implements World {
                 control.add(o);
                 o.setX(lefttoIntersectWith.getX() + lefttoIntersectWith.getWidth()/2 - o.getWidth()/2);
                 leftObjStack.push(o);
-                o.setY(lefttoIntersectWith.getY() - leftObjStack.size()*o.getHeight());//can we make plate height and width static?
+                o.setY(lefttoIntersectWith.getY() - o.getHeight());//can we make plate height and width static?
 
             } 
             else if(intersect(o, righttoIntersectWith))
@@ -100,7 +100,7 @@ public class Circus implements World {
                 control.add(o);
                 o.setX(righttoIntersectWith.getX() + righttoIntersectWith.getWidth()/2 - o.getWidth()/2);
                 rightObjStack.push(o);
-                o.setY(righttoIntersectWith.getY() - rightObjStack.size()*o.getHeight());//can we make plate height and width static?
+                o.setY(righttoIntersectWith.getY() - o.getHeight());//can we make plate height and width static?
 
             }
 

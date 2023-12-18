@@ -34,7 +34,6 @@ public class Plate implements FallingObject {
         Graphics2D g2 = spriteImages[0].createGraphics();
         g2.setColor(randomColor);
         g2.fillOval(getWidth()/2 - SPRITE_WIDTH/2 , getHeight()/2 - SPRITE_HEIGHT/2, SPRITE_WIDTH, SPRITE_HEIGHT);
-        
         g2.setColor(Color.BLACK);
         g2.drawArc(getWidth() / 2 - SPRITE_WIDTH / 2, getHeight() / 2 - SPRITE_HEIGHT / 4, SPRITE_WIDTH, SPRITE_HEIGHT / 2, 0, -180);
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
