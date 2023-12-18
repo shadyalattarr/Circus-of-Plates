@@ -89,8 +89,6 @@ public class Plate implements FallingObject {
     }
 
 
-
-    
    
     public void setVisible(boolean visible) {
         this.visible = visible;

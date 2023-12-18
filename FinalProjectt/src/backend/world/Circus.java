@@ -58,7 +58,7 @@ public class Circus implements World {
         control.add(rightStick);
         // maybe difficulty sent in constructor?
         movement = new MovementStrategy(new NoOscillationStrategy(), new DownStrategy());
-        objFalling = new PlatesOnlyStrategy();
+        objFalling = new BombsStartegy();
         difficulty = new DifficultyStrategy(new ObjectSpeedlvl2Strategy(), movement, objFalling);
         // all above not here
 
