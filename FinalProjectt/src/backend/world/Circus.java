@@ -1,8 +1,10 @@
 package backend.world;
 
 import backend.object.BarObject;
+import backend.object.Bomb;
 import backend.object.Clown;
 import backend.object.FallingObject;
+import backend.object.IntersectWithBombStrategy;
 import backend.object.Plate;
 
 import java.awt.Color;
@@ -30,7 +32,7 @@ public class Circus implements World {
     DifficultyStrategy difficulty;
     MovementStrategy movement;
     ObjectsFallingStrategy objFalling;
-    IntersectionHandlerStrategy intersection;
+    Intersection intersection;
 
 
     //------------
@@ -39,6 +41,118 @@ public class Circus implements World {
     private final Clown clown;
     private Stack<GameObject> leftObjStack;
     private Stack<GameObject> rightObjStack;
+
+    public int getScore() {
+        return this.score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public long getEndTime() {
+        return this.endTime;
+    }
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
+
+    public long getStartTime() {
+        return this.startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public int getRIGHT_STICK() {
+        return this.RIGHT_STICK;
+    }
+
+    public void setRIGHT_STICK(int RIGHT_STICK) {
+        this.RIGHT_STICK = RIGHT_STICK;
+    }
+
+    public int getLEFT_STICK() {
+        return this.LEFT_STICK;
+    }
+
+    public void setLEFT_STICK(int LEFT_STICK) {
+        this.LEFT_STICK = LEFT_STICK;
+    }
+
+    public List<GameObject> getConstant() {
+        return this.constant;
+    }
+
+
+    public List<GameObject> getMoving() {
+        return this.moving;
+    }
+
+
+    public List<GameObject> getControl() {
+        return this.control;
+    }
+
+
+    public DifficultyStrategy getDifficulty() {
+        return this.difficulty;
+    }
+
+    public void setDifficulty(DifficultyStrategy difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public MovementStrategy getMovement() {
+        return this.movement;
+    }
+
+    public void setMovement(MovementStrategy movement) {
+        this.movement = movement;
+    }
+
+    public ObjectsFallingStrategy getObjFalling() {
+        return this.objFalling;
+    }
+
+    public void setObjFalling(ObjectsFallingStrategy objFalling) {
+        this.objFalling = objFalling;
+    }
+
+    
+
+    public BarObject getLeftStick() {
+        return this.leftStick;
+    }
+
+
+    public BarObject getRightStick() {
+        return this.rightStick;
+    }
+
+
+    public Clown getClown() {
+        return this.clown;
+    }
+
+
+    public Stack<GameObject> getLeftObjStack() {
+        return this.leftObjStack;
+    }
+
+    public void setLeftObjStack(Stack<GameObject> leftObjStack) {
+        this.leftObjStack = leftObjStack;
+    }
+
+    public Stack<GameObject> getRightObjStack() {
+        return this.rightObjStack;
+    }
+
+    public void setRightObjStack(Stack<GameObject> rightObjStack) {
+        this.rightObjStack = rightObjStack;
+    }
 
     //------------
     
@@ -57,6 +171,7 @@ public class Circus implements World {
         rightObjStack = new Stack<GameObject>();
         control.add(leftStick);
         control.add(rightStick);
+        intersection = new Intersection(this);
         // maybe difficulty sent in constructor?
         movement = new MovementStrategy(new NoOscillationStrategy(), new DownStrategy());
         objFalling = new BombsStartegy();
@@ -66,45 +181,24 @@ public class Circus implements World {
         moving = objFalling.generateObjectsFalling(10);
     }
     
-    private boolean intersect(GameObject fallingObject, GameObject stick){
-        double fallingObjectXCenter = (fallingObject.getX() + fallingObject.getWidth()/2.0);
-        double stickXCenter = (stick.getX() + stick.getWidth()/2.0);
-        int fallingObjectBottomY = fallingObject.getY() + fallingObject.getHeight();
-        int stickTop = stick.getY();
-		return ((Math.abs(fallingObjectXCenter - stickXCenter) <= fallingObject.getWidth()/3) && (Math.abs(stickTop- fallingObjectBottomY)<=5));
-	}
     @Override
     public boolean refresh() {
         boolean timeout = System.currentTimeMillis() - startTime > MAX_TIME;
+        GameObject lefttoIntersectWith;
+        GameObject righttoIntersectWith;
         for (GameObject o : moving.toArray(new GameObject[moving.size()])) {
-            //before moving we check if it intersects with stick
-            GameObject lefttoIntersectWith;
-            GameObject righttoIntersectWith;
-
+            //before moving we check if it intersects with stick    
             lefttoIntersectWith = leftObjStack.size() == 0 ? leftStick: leftObjStack.peek(); 
             righttoIntersectWith = rightObjStack.size() == 0 ? rightStick : rightObjStack.peek();
+            
+            if(o instanceof Plate)
+                intersection.setIntersection(new IntersectWithPlateStrategy());
+            else if(o instanceof Bomb)
+                intersection.setIntersection(new IntersectWithBombStrategy());
 
-            if(intersect(o, lefttoIntersectWith))
-            {
-                System.out.println("HitLerftStick");//germany gg
-                moving.remove(o);
-                control.add(o);
-                o.setX(lefttoIntersectWith.getX() + lefttoIntersectWith.getWidth()/2 - o.getWidth()/2);
-                leftObjStack.push(o);
-                o.setY(lefttoIntersectWith.getY() - o.getHeight());//can we make plate height and width static?
-
-            } 
-            else if(intersect(o, righttoIntersectWith))
-            {
-                System.out.println("HitRightStick");
-                moving.remove(o);
-                control.add(o);
-                o.setX(righttoIntersectWith.getX() + righttoIntersectWith.getWidth()/2 - o.getWidth()/2);
-                rightObjStack.push(o);
-                o.setY(righttoIntersectWith.getY() - o.getHeight());//can we make plate height and width static?
-
-            }
-
+            intersection.handleIntersection(o,righttoIntersectWith);
+            intersection.handleIntersection(o,lefttoIntersectWith);
+            
             //move
             movement.move((FallingObject) o, difficulty.getFallingObjectSpeedStrategy());
             
@@ -112,13 +206,17 @@ public class Circus implements World {
             if (o.getY() >= getHeight()) {
                 // in bottom
                 System.out.println("Plate hit bot");
-                o.setY(-1 * (int) (Math.random() * getHeight()));// get it up?
-                o.setX((int) (Math.random() * getWidth()));
+                reuse(o);
             }
         }
         return !timeout;
     }
 
+    public void reuse(GameObject object)
+    {
+        object.setY(-1 * (int) (Math.random() * getHeight()));// get it up?
+        object.setX((int) (Math.random() * getWidth()));
+    }
     @Override
     public int getSpeed() {
         return 10;
