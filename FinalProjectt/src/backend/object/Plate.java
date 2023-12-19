@@ -18,7 +18,7 @@ public class Plate implements FallingObject {
     private int y;
     private String filename;
 
-    private boolean bottom;
+    private boolean isVertical;
 
     private boolean visible;
     private Color[] colors = {Color.RED, Color.LIGHT_GRAY, Color.GREEN, Color.CYAN, Color.PINK};
@@ -27,6 +27,7 @@ public class Plate implements FallingObject {
         this.x = posX;
         this.y = posY;
         this.visible = true;
+        this.isVertical=true;
         // create a bunch of buffered images and place into an array, to be displayed
         // sequentially
         plateColor = getRandomColor();
@@ -69,6 +70,8 @@ public class Plate implements FallingObject {
 
     @Override
     public void setY(int mY) {
+        if(!isVertical)
+            return;        
         this.y = mY;
     }
 
@@ -96,5 +99,15 @@ public class Plate implements FallingObject {
    
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    @Override
+    public boolean isVertical() {
+        return isVertical;
+    }
+
+    @Override
+    public void setisVertical(boolean isVertical) {
+       this.isVertical=isVertical;
     }
 }

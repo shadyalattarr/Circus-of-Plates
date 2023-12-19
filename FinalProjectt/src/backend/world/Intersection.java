@@ -1,5 +1,6 @@
 package backend.world;
 
+import backend.object.FallingObject;
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class Intersection {
@@ -27,7 +28,7 @@ public class Intersection {
 		return ((Math.abs(fallingObjectXCenter - stickXCenter) <= fallingObject.getWidth()/3) && (Math.abs(stickTop- fallingObjectBottomY)<=5));
 	}
 
-    public void handleIntersection(GameObject fallingObject, GameObject onStick)
+    public void handleIntersection(FallingObject fallingObject, GameObject onStick)
     {
         if(isIntersect(fallingObject, onStick))
             intersection.handleIntersection(fallingObject, onStick,circus);

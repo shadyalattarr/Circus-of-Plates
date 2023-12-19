@@ -6,9 +6,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import eg.edu.alexu.csd.oop.game.GameObject;
 
-public class ImageObject implements GameObject{
+public class ImageObject implements FallingObject{
 	private static final int MAX_MSTATE = 1;
 	// an array of sprite images that are drawn sequentially
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
@@ -84,6 +83,18 @@ public class ImageObject implements GameObject{
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	@Override
+	public boolean isVertical() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'isVertical'");
+	}
+
+	@Override
+	public void setisVertical(boolean isVertical) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'setisVertical'");
 	}
 	
 }

@@ -2,7 +2,6 @@ package backend.world;
 
 import java.util.ArrayList;
 import eg.edu.alexu.csd.oop.game.GameObject;
-import backend.object.FallingObject;
 import backend.object.Plate;
 
 public class PlatesOnlyStrategy implements ObjectsFallingStrategy{

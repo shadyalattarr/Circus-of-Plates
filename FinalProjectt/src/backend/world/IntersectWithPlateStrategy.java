@@ -2,17 +2,20 @@ package backend.world;
 
 import java.util.Stack;
 
+import backend.object.FallingObject;
 import backend.object.Plate;
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class IntersectWithPlateStrategy implements IntersectionHandlerStrategy{
 
     @Override
-    public void handleIntersection(GameObject plate, GameObject onStick, Circus circus) {
+    public void handleIntersection(FallingObject plate, GameObject onStick, Circus circus) {
         //it fell on me fa put it
         Stack<GameObject> stack;
         circus.getMovableObjects().remove(plate);
         circus.getControlableObjects().add(plate);
+        plate.setY(onStick.getY() - plate.getHeight());
+        plate.setisVertical(false);
         plate.setX(onStick.getX() + onStick.getWidth()/2 - plate.getWidth()/2);
         
         
@@ -41,7 +44,7 @@ public class IntersectWithPlateStrategy implements IntersectionHandlerStrategy{
             
         // }
         // else{
-        plate.setY(onStick.getY() - plate.getHeight());//can we make plate height and width static?
+        //can we make plate height and width static?
             // circus.getMovableObjects().add(circus.getObjFalling().generateObjectsFalling(1).get(0));//too keep them plates coming
         //}
 

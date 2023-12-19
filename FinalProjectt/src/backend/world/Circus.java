@@ -166,8 +166,8 @@ public class Circus implements World {
             else if(o instanceof Bomb)
                 intersection.setIntersection(new IntersectWithBombStrategy());
 
-            intersection.handleIntersection(o,righttoIntersectWith);
-            intersection.handleIntersection(o,lefttoIntersectWith);
+            intersection.handleIntersection((FallingObject)o,righttoIntersectWith);
+            intersection.handleIntersection((FallingObject)o,lefttoIntersectWith);
             
             //move
             movement.move((FallingObject) o, difficulty.getFallingObjectSpeedStrategy());
