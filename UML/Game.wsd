@@ -31,6 +31,7 @@ class Clown{
 }
 
 class Clown implements ControlObject{}
+Clown *- Clown
 interface ControlObject implements GameObject{}
 
 

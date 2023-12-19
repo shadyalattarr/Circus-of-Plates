@@ -19,12 +19,17 @@ public class BarObject implements GameObject{
 	private boolean visible;
 	private boolean verticalOnly;
 
-	public BarObject(int posX, int posY, int height, boolean verticalOnly, Color color){
+	private final Clown clown;
+
+	public BarObject(int posX, int posY, int height, boolean verticalOnly, Color color, Clown clown){
 		this.x = posX;
 		this.y = posY;
 		this.height = height;
 		this.verticalOnly = verticalOnly;
 		this.visible = true;
+
+		this.clown=clown;
+
 		// create a bunch of buffered images and place into an array, to be displayed sequentially
 		spriteImages[0] = new BufferedImage(SPRITE_WIDTH, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = spriteImages[0].createGraphics();

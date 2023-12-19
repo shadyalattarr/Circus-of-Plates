@@ -1,17 +1,12 @@
 package backend.world;
 
-import backend.object.BarObject;
 import backend.object.Bomb;
 import backend.object.Clown;
 import backend.object.FallingObject;
 import backend.object.Plate;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;

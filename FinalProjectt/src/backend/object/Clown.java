@@ -30,8 +30,8 @@ public class Clown extends ImageObject {
 
     private Clown(int posX, int posY, String path) {
         super(posX, posY, path);
-        leftStick = new BarObject(getX() + 30, getY() - 30, 150, true, Color.RED);
-        rightStick = new BarObject(getX() + 210, getY() - 30, 130, true, Color.GREEN);
+        leftStick = new BarObject(getX() + 30, getY() - 30, 150, true, Color.RED,this);
+        rightStick = new BarObject(getX() + 210, getY() - 30, 130, true, Color.GREEN,this);
         leftObjStack = new Stack<GameObject>();
         rightObjStack = new Stack<GameObject>();
 

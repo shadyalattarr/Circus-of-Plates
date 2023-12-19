@@ -1,6 +1,5 @@
 package backend.object;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -16,7 +15,6 @@ public class Plate implements FallingObject {
     private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
     private int x;
     private int y;
-    private String filename;
 
     private boolean isVertical;
 
