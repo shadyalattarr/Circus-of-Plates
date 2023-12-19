@@ -22,17 +22,17 @@ public class Plate implements FallingObject {
 
     private boolean visible;
     private Color[] colors = {Color.RED, Color.LIGHT_GRAY, Color.GREEN, Color.CYAN, Color.PINK};
-
+    private Color plateColor;
     public Plate(int posX, int posY) {//deleted color from constructor and can make a new constructor with it if we want to make a plate of certain color
         this.x = posX;
         this.y = posY;
         this.visible = true;
         // create a bunch of buffered images and place into an array, to be displayed
         // sequentially
-        Color randomColor = getRandomColor();
+        plateColor = getRandomColor();
         spriteImages[0] = new BufferedImage(SPRITE_WIDTH, SPRITE_WIDTH, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = spriteImages[0].createGraphics();
-        g2.setColor(randomColor);
+        g2.setColor(plateColor);
         g2.fillOval(getWidth()/2 - SPRITE_WIDTH/2 , getHeight()/2 - SPRITE_HEIGHT/2, SPRITE_WIDTH, SPRITE_HEIGHT);
         g2.setColor(Color.BLACK);
         g2.drawArc(getWidth() / 2 - SPRITE_WIDTH / 2, getHeight() / 2 - SPRITE_HEIGHT / 4, SPRITE_WIDTH, SPRITE_HEIGHT / 2, 0, -180);
@@ -42,6 +42,10 @@ public class Plate implements FallingObject {
 
     }
     
+    public Color getPlateColor()
+    {
+        return this.plateColor;
+    }
     private Color getRandomColor(){
         Random random = new Random();
         int index = random.nextInt(colors.length); 

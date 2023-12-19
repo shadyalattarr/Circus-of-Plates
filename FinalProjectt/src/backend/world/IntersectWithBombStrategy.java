@@ -1,9 +1,7 @@
-package backend.object;
+package backend.world;
 
 import java.util.Stack;
 
-import backend.world.Circus;
-import backend.world.IntersectionHandlerStrategy;
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class IntersectWithBombStrategy implements IntersectionHandlerStrategy{
@@ -15,11 +13,11 @@ public class IntersectWithBombStrategy implements IntersectionHandlerStrategy{
         //right or left stack
         if((onStick.getX() - circus.getClown().getX()) <= circus.getClown().getWidth()/2)
         {
-            stack = circus.getLeftObjStack();
+            stack = circus.getClown().getLeftObjStack();
         }
         else
         {
-            stack = circus.getRightObjStack();
+            stack = circus.getClown().getRightObjStack();
         }
         if(stack.size() >0)
         {
@@ -30,6 +28,9 @@ public class IntersectWithBombStrategy implements IntersectionHandlerStrategy{
             circus.reuse(plateRemoved);//tala3o fo2
             //reuse it...... want it somewhere wla 7aga
             circus.reuse(bomb);
+            circus.setScore(circus.getScore()-1);
+            //also maybe if score negative gameover?
+
         }
         // else
         // {

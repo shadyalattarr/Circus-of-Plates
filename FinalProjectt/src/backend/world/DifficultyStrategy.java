@@ -3,7 +3,7 @@ package backend.world;
 public class DifficultyStrategy {
     // -NumOfLivesStrategy : NumberOfLivesStrategy
     private ObjectSpeedStrategy speedStrategy;
-    // -NumOfClownsStrategy : NumberOfCLownsStrategy
+    private NumberOfCLownsStrategy numOfClowns;
     private ObjectsFallingStrategy objectsFallingStrategy;
     private MovementStrategy movement;
 

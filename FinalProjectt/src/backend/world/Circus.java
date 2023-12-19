@@ -4,7 +4,6 @@ import backend.object.BarObject;
 import backend.object.Bomb;
 import backend.object.Clown;
 import backend.object.FallingObject;
-import backend.object.IntersectWithBombStrategy;
 import backend.object.Plate;
 
 import java.awt.Color;
@@ -36,11 +35,8 @@ public class Circus implements World {
 
 
     //------------
-    private final BarObject leftStick;
-    private final BarObject rightStick;
     private final Clown clown;
-    private Stack<GameObject> leftObjStack;
-    private Stack<GameObject> rightObjStack;
+
 
     public int getScore() {
         return this.score;
@@ -121,37 +117,9 @@ public class Circus implements World {
         this.objFalling = objFalling;
     }
 
-    
-
-    public BarObject getLeftStick() {
-        return this.leftStick;
-    }
-
-
-    public BarObject getRightStick() {
-        return this.rightStick;
-    }
-
 
     public Clown getClown() {
         return this.clown;
-    }
-
-
-    public Stack<GameObject> getLeftObjStack() {
-        return this.leftObjStack;
-    }
-
-    public void setLeftObjStack(Stack<GameObject> leftObjStack) {
-        this.leftObjStack = leftObjStack;
-    }
-
-    public Stack<GameObject> getRightObjStack() {
-        return this.rightObjStack;
-    }
-
-    public void setRightObjStack(Stack<GameObject> rightObjStack) {
-        this.rightObjStack = rightObjStack;
     }
 
     //------------
@@ -162,21 +130,23 @@ public class Circus implements World {
         constant = new LinkedList<GameObject>();
         control = new LinkedList<GameObject>();
         // moving = new LinkedList<GameObject>();
-        clown = new Clown((int) (screenWidth / 2.6), (int) (screenHeight / 1.4),
-                "FinalProjectt\\clown-removebg-preview_3_53.png");
-        control.add(clown);
-        leftStick = new BarObject(clown.getX() + 30, clown.getY() - 30, 150, true, Color.RED);
-        rightStick = new BarObject(clown.getX() + 210, clown.getY() - 30, 130, true, Color.GREEN);
-        leftObjStack = new Stack<GameObject>();
-        rightObjStack = new Stack<GameObject>();
-        control.add(leftStick);
-        control.add(rightStick);
-        intersection = new Intersection(this);
+        
         // maybe difficulty sent in constructor?
+        intersection = new Intersection(this);
         movement = new MovementStrategy(new NoOscillationStrategy(), new DownStrategy());
         objFalling = new BombsStartegy();
         difficulty = new DifficultyStrategy(new ObjectSpeedlvl2Strategy(), movement, objFalling);
         // all above not here
+
+        clown = new Clown((int) (screenWidth / 2.6), (int) (screenHeight / 1.4),
+                "FinalProjectt\\clown-removebg-preview_3_53.png");
+        
+        control.add(clown);
+        control.add(clown.getLeftStick());
+        control.add(clown.getRightStick());
+
+
+
 
         moving = objFalling.generateObjectsFalling(10);
     }
@@ -188,8 +158,8 @@ public class Circus implements World {
         GameObject righttoIntersectWith;
         for (GameObject o : moving.toArray(new GameObject[moving.size()])) {
             //before moving we check if it intersects with stick    
-            lefttoIntersectWith = leftObjStack.size() == 0 ? leftStick: leftObjStack.peek(); 
-            righttoIntersectWith = rightObjStack.size() == 0 ? rightStick : rightObjStack.peek();
+            lefttoIntersectWith = clown.getLeftObjStack().size() == 0 ? clown.getLeftStick(): clown.getLeftObjStack().peek(); 
+            righttoIntersectWith = clown.getRightObjStack().size() == 0 ? clown.getRightStick(): clown.getRightObjStack().peek();
             
             if(o instanceof Plate)
                 intersection.setIntersection(new IntersectWithPlateStrategy());
