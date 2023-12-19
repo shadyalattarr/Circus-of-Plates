@@ -21,6 +21,15 @@ class Plates implements FallingObjects{
 class Bombs implements FallingObjects{
 
 }
+class Clown{
+    -leftStick: GameObject
+    -rightStick: GameObject
+
+    -Clown(int, int, String)
+
+    +getInstance(int, int,String): Clown
+}
+
 class Clown implements ControlObject{}
 interface ControlObject implements GameObject{}
 
@@ -65,7 +74,7 @@ package world <<Rectangle>>{
     class Circus implements World{
         -MAX_TIME :int
         -endTime :long 
-        -score:Singleton
+        -score:int
         -startTime:long
         -width :int
         -height :int
@@ -109,19 +118,7 @@ package world <<Rectangle>>{
         Snapshot(circus : Circus)
     }
     
-    class Singelton {
-        -Singelton: instance
-        -int: score
-
-        -Singelton()
-
-        +getInstance(): Singelton
-        +increaseScore(): void
-        +getScore(): int
-
-    }
-
-    Circus --> Singelton
+    
 
 }
 package main <<Rectangle>>{

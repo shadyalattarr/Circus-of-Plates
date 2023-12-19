@@ -138,7 +138,7 @@ public class Circus implements World {
         difficulty = new DifficultyStrategy(new ObjectSpeedlvl2Strategy(), movement, objFalling);
         // all above not here
 
-        clown = new Clown((int) (screenWidth / 2.6), (int) (screenHeight / 1.4),
+        clown = Clown.getInstance((int) (screenWidth / 2.6), (int) (screenHeight / 1.4),
                 "FinalProjectt\\clown-removebg-preview_3_53.png");
         
         control.add(clown);
