@@ -48,6 +48,8 @@ public class BarObject implements GameObject{
 
 	@Override
 	public void setX(int mX) {
+		// if(getX() <38&& clown.getX()==0)
+		// 	return;
 		this.x = mX;
 	}
 

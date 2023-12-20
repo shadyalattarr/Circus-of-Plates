@@ -1,6 +1,7 @@
-package backend.world;
+package backend.world.Movement;
 
 import backend.object.FallingObject;
+import backend.world.ObjectSpeedStrategy.ObjectSpeedStrategy;
 
 public class UpStrategy implements MoveDirectionStrategy{
 

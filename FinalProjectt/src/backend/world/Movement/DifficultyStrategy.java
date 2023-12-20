@@ -1,9 +1,12 @@
-package backend.world;
+package backend.world.Movement;
+
+import backend.world.ObjectSpeedStrategy.ObjectSpeedStrategy;
+import backend.world.ObjectsFallingStrategy.ObjectsFallingStrategy;
 
 public class DifficultyStrategy {
     // -NumOfLivesStrategy : NumberOfLivesStrategy
     private ObjectSpeedStrategy speedStrategy;
-    private NumberOfCLownsStrategy numOfClowns;
+    //private NumberOfCLownsStrategy numOfClowns;
     private ObjectsFallingStrategy objectsFallingStrategy;
     private MovementStrategy movement;
 
@@ -18,6 +21,8 @@ public class DifficultyStrategy {
     {
         return this.speedStrategy;
     }
+
+    
 
     //getmovement?
 }

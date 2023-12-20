@@ -1,4 +1,4 @@
-package backend.world;
+package backend.world.ObjectsFallingStrategy;
 import java.util.ArrayList;
 import eg.edu.alexu.csd.oop.game.GameObject;
 

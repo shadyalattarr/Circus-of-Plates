@@ -4,6 +4,16 @@ import backend.object.Bomb;
 import backend.object.Clown;
 import backend.object.FallingObject;
 import backend.object.Plate;
+import backend.world.InstersectionHandlerStrategy.IntersectWithBombStrategy;
+import backend.world.InstersectionHandlerStrategy.IntersectWithPlateStrategy;
+import backend.world.InstersectionHandlerStrategy.Intersection;
+import backend.world.Movement.DifficultyStrategy;
+import backend.world.Movement.DownStrategy;
+import backend.world.Movement.MovementStrategy;
+import backend.world.Movement.NoOscillationStrategy;
+import backend.world.ObjectSpeedStrategy.ObjectSpeedlvl2Strategy;
+import backend.world.ObjectsFallingStrategy.BombsStartegy;
+import backend.world.ObjectsFallingStrategy.ObjectsFallingStrategy;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +32,8 @@ public class Circus implements World {
     private final List<GameObject> constant;
     private final List<GameObject> moving;// moved instatiation to constructor
     private final List<GameObject> control;
+    private final List<GameObject> objectsToFall;
+    private int lives=3;
     // for now difficulty
     DifficultyStrategy difficulty;
     MovementStrategy movement;
@@ -124,7 +136,7 @@ public class Circus implements World {
         this.height = screenHeight;
         constant = new LinkedList<GameObject>();
         control = new LinkedList<GameObject>();
-        // moving = new LinkedList<GameObject>();
+        //moving = new LinkedList<GameObject>();
         
         // maybe difficulty sent in constructor?
         intersection = new Intersection(this);
@@ -143,7 +155,11 @@ public class Circus implements World {
 
 
 
-        moving = objFalling.generateObjectsFalling(10);
+        objectsToFall = objFalling.generateObjectsFalling(150);
+
+        moving = objectsToFall;
+        //every second
+        //moving.add(//objectsToFall)
     }
     
     @Override
@@ -174,6 +190,8 @@ public class Circus implements World {
                 reuse(o);
             }
         }
+        GameObject stick = control.get(1);
+        System.out.println("Stick x : "+ stick.getX());
         return !timeout;
     }
 

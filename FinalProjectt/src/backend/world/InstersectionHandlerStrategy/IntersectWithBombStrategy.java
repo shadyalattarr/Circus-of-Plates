@@ -1,8 +1,9 @@
-package backend.world;
+package backend.world.InstersectionHandlerStrategy;
 
 import java.util.Stack;
 
 import backend.object.FallingObject;
+import backend.world.Circus;
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class IntersectWithBombStrategy implements IntersectionHandlerStrategy{

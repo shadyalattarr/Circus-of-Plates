@@ -1,4 +1,4 @@
-package backend.world;
+package backend.world.Movement;
 
 public class NoOscillationStrategy implements MovePatternStrategy {
 

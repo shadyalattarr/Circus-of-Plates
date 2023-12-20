@@ -1,13 +1,13 @@
-package backend.world;
+package backend.world.Movement;
 
 import backend.object.FallingObject;
+import backend.world.ObjectSpeedStrategy.ObjectSpeedStrategy;
 
 public class DownStrategy implements MoveDirectionStrategy{
 
     @Override
     public void directionMove(FallingObject o,ObjectSpeedStrategy speed) {
-        o.setY((o.getY() + 1*speed.getFallingObjectSpeed()));
-        
+        o.setY((o.getY()+1*speed.getFallingObjectSpeed()));        
     }
 
 }

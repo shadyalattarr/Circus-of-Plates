@@ -1,6 +1,7 @@
-package backend.world;
+package backend.world.InstersectionHandlerStrategy;
 
 import backend.object.FallingObject;
+import backend.world.Circus;
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class Intersection {
@@ -15,7 +16,7 @@ public class Intersection {
         this.intersection = intersection;
     }
 
-    Intersection(Circus circus)
+    public Intersection(Circus circus)
     {
         this.circus = circus;
     }
@@ -25,7 +26,7 @@ public class Intersection {
         double stickXCenter = (onStick.getX() + onStick.getWidth()/2.0);
         int fallingObjectBottomY = fallingObject.getY() + fallingObject.getHeight();
         int stickTop = onStick.getY();
-		return ((Math.abs(fallingObjectXCenter - stickXCenter) <= fallingObject.getWidth()/3) && (Math.abs(stickTop- fallingObjectBottomY)<=5));
+		return ((Math.abs(fallingObjectXCenter - stickXCenter) <= fallingObject.getWidth()/1.5) && (Math.abs(stickTop- fallingObjectBottomY)<=5));
 	}
 
     public void handleIntersection(FallingObject fallingObject, GameObject onStick)
