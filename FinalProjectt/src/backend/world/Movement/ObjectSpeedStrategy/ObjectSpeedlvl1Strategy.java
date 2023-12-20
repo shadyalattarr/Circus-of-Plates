@@ -1,4 +1,4 @@
-package backend.world.ObjectSpeedStrategy;
+package backend.world.Movement.ObjectSpeedStrategy;
 
 public class ObjectSpeedlvl1Strategy implements ObjectSpeedStrategy {
 

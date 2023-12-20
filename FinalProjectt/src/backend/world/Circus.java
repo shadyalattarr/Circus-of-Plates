@@ -11,7 +11,7 @@ import backend.world.Movement.DifficultyStrategy;
 import backend.world.Movement.DownStrategy;
 import backend.world.Movement.MovementStrategy;
 import backend.world.Movement.NoOscillationStrategy;
-import backend.world.ObjectSpeedStrategy.ObjectSpeedlvl2Strategy;
+import backend.world.Movement.ObjectSpeedStrategy.ObjectSpeedlvl2Strategy;
 import backend.world.ObjectsFallingStrategy.BombsStartegy;
 import backend.world.ObjectsFallingStrategy.ObjectsFallingStrategy;
 
@@ -155,7 +155,7 @@ public class Circus implements World {
 
 
 
-        objectsToFall = objFalling.generateObjectsFalling(150);
+        objectsToFall = objFalling.generateObjectsFalling(10);
 
         moving = objectsToFall;
         //every second

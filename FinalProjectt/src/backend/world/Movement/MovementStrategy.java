@@ -1,6 +1,6 @@
 package backend.world.Movement;
 import backend.object.FallingObject;
-import backend.world.ObjectSpeedStrategy.ObjectSpeedStrategy;
+import backend.world.Movement.ObjectSpeedStrategy.ObjectSpeedStrategy;
 
 public class MovementStrategy {
     private MoveDirectionStrategy moveD;

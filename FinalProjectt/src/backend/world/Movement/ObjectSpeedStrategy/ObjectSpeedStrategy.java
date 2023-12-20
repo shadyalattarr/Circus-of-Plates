@@ -1,4 +1,4 @@
-package backend.world.ObjectSpeedStrategy;
+package backend.world.Movement.ObjectSpeedStrategy;
 
 public interface ObjectSpeedStrategy {
     public int getFallingObjectSpeed();
