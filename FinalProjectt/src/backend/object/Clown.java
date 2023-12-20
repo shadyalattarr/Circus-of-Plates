@@ -53,5 +53,11 @@ public class Clown extends ImageObject {
         // that
 
     }
+    @Override
+    public void setX( int mX)
+    {
+        if(mX >= 0 && mX<=1400-getWidth() /*Circus.getWidth()*/)
+            super.setX(mX);
+    }
 
 }

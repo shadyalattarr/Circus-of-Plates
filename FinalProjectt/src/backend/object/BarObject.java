@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
+import backend.world.Circus;
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class BarObject extends Shape{
@@ -14,7 +15,7 @@ public class BarObject extends Shape{
 	// an array of sprite images that are drawn sequentially
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
 	private int height;
-
+	private final int distanceToClownX;
 	private boolean verticalOnly;
 	private final Clown clown;
 
@@ -24,9 +25,8 @@ public class BarObject extends Shape{
 		this.height = height;
 		this.verticalOnly = verticalOnly;
 		this.visible = true;
-
 		this.clown=clown;
-
+		distanceToClownX = Math.abs(clown.getX() - posX);
 		// create a bunch of buffered images and place into an array, to be displayed sequentially
 		spriteImages[0] = new BufferedImage(SPRITE_WIDTH, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = spriteImages[0].createGraphics();
@@ -42,9 +42,15 @@ public class BarObject extends Shape{
 	@Override
 	public void setY(int mY) {
 		if (!verticalOnly) {
-            this.y = mY;
+            super.setY(mY);;
         }
     }
+	
+	@Override
+	public void setX(int mX) {
+		if(clown.getX() > 0 && clown.getX()<1400-clown.getWidth() /*Circus.getWidth()*/)
+			super.setX(mX);
+	}
 
 	@Override
     public BufferedImage[] getSpriteImages() {
