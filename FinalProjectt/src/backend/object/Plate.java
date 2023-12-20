@@ -68,4 +68,21 @@ public class Plate extends Shape implements FallingObject{
     public void setisVertical(boolean isVertical) {
        this.isVertical=isVertical;
     }
+
+    @Override
+    public BufferedImage[] getSpriteImages() {
+        return spriteImages;
+    }
+
+    @Override
+    public int getWidth() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getWidth'");
+    }
+
+    @Override
+    public int getHeight() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getHeight'");
+    }
 }
