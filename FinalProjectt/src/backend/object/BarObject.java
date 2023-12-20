@@ -8,17 +8,14 @@ import java.awt.image.BufferedImage;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
 
-public class BarObject implements GameObject{
+public class BarObject extends Shape{
 	public static final int SPRITE_WIDTH = 5;
 	private static final int MAX_MSTATE = 1;
 	// an array of sprite images that are drawn sequentially
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
-	private int x;
-	private int y;
 	private int height;
-	private boolean visible;
-	private boolean verticalOnly;
 
+	private boolean verticalOnly;
 	private final Clown clown;
 
 	public BarObject(int posX, int posY, int height, boolean verticalOnly, Color color, Clown clown){
@@ -41,23 +38,7 @@ public class BarObject implements GameObject{
 		g2.dispose();
 	}
 
-	@Override
-	public int getX() {
-		return x;
-	}
-
-	@Override
-	public void setX(int mX) {
-		// if(getX() <38&& clown.getX()==0)
-		// 	return;
-		this.x = mX;
-	}
-
-	@Override
-	public int getY() {
-		return y;
-	}
-
+	
 	@Override
 	public void setY(int mY) {
 		if (!verticalOnly) {
@@ -66,26 +47,17 @@ public class BarObject implements GameObject{
     }
 
 	@Override
-	public BufferedImage[] getSpriteImages() {
-		return spriteImages;
-	}
+    public BufferedImage[] getSpriteImages() {
+        return spriteImages;
+    }
 
-	@Override
-	public int getWidth(){
-		return SPRITE_WIDTH;
-	}
+    @Override
+    public int getWidth() {
+        return SPRITE_WIDTH;
+    }
 
-	@Override
-	public int getHeight() {
-		return height;
-	}
-
-	@Override
-	public boolean isVisible() {
-		return visible;
-	}
-	
-	public void setVisible(boolean visible){
-		this.visible = visible;
-	}
+    @Override
+    public int getHeight() {
+       return height;
+    }
 }

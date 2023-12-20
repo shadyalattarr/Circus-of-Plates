@@ -13,12 +13,10 @@ public class Plate extends Shape implements FallingObject{
     private static final int MAX_MSTATE = 1;
     // an array of sprite images that are drawn sequentially
     private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
-    private int x;
-    private int y;
+    
 
     private boolean isVertical;
 
-    private boolean visible;
     private Color[] colors = {Color.RED, Color.LIGHT_GRAY, Color.GREEN, Color.CYAN, Color.PINK};
     private Color plateColor;
     public Plate(int posX, int posY) {//deleted color from constructor and can make a new constructor with it if we want to make a plate of certain color
@@ -60,14 +58,6 @@ public class Plate extends Shape implements FallingObject{
             return;        
         this.y = mY;
     }
-   
-    public boolean isVertical() {
-        return isVertical;
-    }
-
-    public void setisVertical(boolean isVertical) {
-       this.isVertical=isVertical;
-    }
 
     @Override
     public BufferedImage[] getSpriteImages() {
@@ -76,13 +66,20 @@ public class Plate extends Shape implements FallingObject{
 
     @Override
     public int getWidth() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getWidth'");
+        return SPRITE_WIDTH;
     }
 
     @Override
     public int getHeight() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getHeight'");
+       return SPRITE_HEIGHT;
     }
+   
+    public boolean isVertical() {
+        return isVertical;
+    }
+
+    public void setisVertical(boolean isVertical) {
+       this.isVertical=isVertical;
+    }
+    
 }

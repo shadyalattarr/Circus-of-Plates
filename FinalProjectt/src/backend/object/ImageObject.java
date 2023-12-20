@@ -11,9 +11,6 @@ public class ImageObject extends Shape{
 	private static final int MAX_MSTATE = 1;
 	// an array of sprite images that are drawn sequentially
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
-	private int x;
-	private int y;
-	private boolean visible;
 	private int type;
 	
 	public ImageObject(int posX, int posY, String path){
@@ -33,26 +30,7 @@ public class ImageObject extends Shape{
 		}
 	}
 
-	@Override
-	public int getX() {
-		return x;
-	}
-
-	@Override
-	public void setX(int mX) {
-		this.x = mX;
-	}
-
-	@Override
-	public int getY() {
-		return y;
-	}
-
-	@Override
-	public void setY(int mY) {
-		this.y = mY;
-	}
-
+	
 	@Override
 	public BufferedImage[] getSpriteImages() {
 		return spriteImages;
@@ -67,15 +45,7 @@ public class ImageObject extends Shape{
 	public int getHeight() {
 		return spriteImages[0].getHeight();
 	}
-
-	@Override
-	public boolean isVisible() {
-		return visible;
-	}
 	
-	public void setVisible(boolean visible){
-		this.visible = visible;
-	}
 
 	public int getType() {
 		return type;

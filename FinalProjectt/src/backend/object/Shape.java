@@ -7,9 +7,9 @@ import eg.edu.alexu.csd.oop.game.GameObject;
 public abstract class Shape implements GameObject {
 
     // an array of sprite images that are drawn sequentially
-    private int x;
-    private int y;
-    private boolean visible;
+    protected int x;
+    protected int y;
+    protected boolean visible;
 
 
 
