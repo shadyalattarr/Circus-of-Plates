@@ -10,9 +10,10 @@ import eg.edu.alexu.csd.oop.game.GameObject;
 public class IntersectWithPlateStrategy implements IntersectionHandlerStrategy{
 
     @Override
-    public void handleIntersection(FallingObject plate, GameObject onStick, Circus circus) {
+    public void handleIntersection(FallingObject fallingPlate, GameObject onStick, Circus circus) {
         //it fell on me fa put it
         Stack<GameObject> stack;
+        Plate plate = (Plate)fallingPlate;
         circus.getMovableObjects().remove(plate);
         circus.getControlableObjects().add(plate);
         plate.setY(onStick.getY() - plate.getHeight());

@@ -7,7 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 
-public class ImageObject implements FallingObject{
+public class ImageObject extends Shape{
 	private static final int MAX_MSTATE = 1;
 	// an array of sprite images that are drawn sequentially
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
@@ -85,16 +85,6 @@ public class ImageObject implements FallingObject{
 		this.type = type;
 	}
 
-	@Override
-	public boolean isVertical() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'isVertical'");
-	}
-
-	@Override
-	public void setisVertical(boolean isVertical) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setisVertical'");
-	}
+	
 	
 }

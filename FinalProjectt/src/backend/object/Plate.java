@@ -6,7 +6,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Plate implements FallingObject {
+public class Plate extends Shape implements FallingObject{
 
     public static final int SPRITE_HEIGHT = 15;
     public static final int SPRITE_WIDTH = 70;
@@ -38,6 +38,8 @@ public class Plate implements FallingObject {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         g2.dispose();
+        System.out.println(spriteImages[0].getWidth());
+
 
     }
     
@@ -51,60 +53,18 @@ public class Plate implements FallingObject {
         return colors[index];
     }
 
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public void setX(int mX) {
-        this.x = mX;
-    }
-
-    @Override
-    public int getY() {
-        return y;
-    }
-
+    
     @Override
     public void setY(int mY) {
         if(!isVertical)
             return;        
         this.y = mY;
     }
-
-    @Override
-    public BufferedImage[] getSpriteImages() {
-        return spriteImages;
-    }
-
-    @Override
-    public int getWidth() {
-        return SPRITE_WIDTH;
-    }
-
-    @Override
-    public int getHeight() {
-        return SPRITE_HEIGHT;
-    }
-
-    @Override
-    public boolean isVisible() {
-        return visible;
-    }
-
-
    
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
-
-    @Override
     public boolean isVertical() {
         return isVertical;
     }
 
-    @Override
     public void setisVertical(boolean isVertical) {
        this.isVertical=isVertical;
     }

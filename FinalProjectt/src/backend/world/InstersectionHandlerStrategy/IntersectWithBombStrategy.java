@@ -3,6 +3,7 @@ package backend.world.InstersectionHandlerStrategy;
 import java.util.Stack;
 
 import backend.object.FallingObject;
+import backend.object.Plate;
 import backend.world.Circus;
 import eg.edu.alexu.csd.oop.game.GameObject;
 
@@ -11,7 +12,7 @@ public class IntersectWithBombStrategy implements IntersectionHandlerStrategy{
     @Override
     public void handleIntersection(FallingObject bomb, GameObject onStick, Circus circus) {
         Stack<GameObject> stack;
-        FallingObject plateRemoved;
+        Plate plateRemoved;
         //right or left stack
         if((onStick.getX() - circus.getClown().getX()) <= circus.getClown().getWidth()/2)
         {
@@ -23,7 +24,7 @@ public class IntersectWithBombStrategy implements IntersectionHandlerStrategy{
         }
         if(stack.size() >0)
         {
-            plateRemoved = (FallingObject)stack.pop();
+            plateRemoved = (Plate)stack.pop();
             circus.getControlableObjects().remove(plateRemoved);
             //reuse plate
 
