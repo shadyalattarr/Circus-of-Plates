@@ -35,38 +35,6 @@ public class IntersectWithPlateStrategy implements IntersectionHandlerStrategy{
         
     }
 
-    // public boolean isThreePlatesOfSameColor(Stack<GameObject> stack)
-    // {
-    //     GameObject obj1,obj2,obj3;
-    //     Plate plate1,plate2,plate3;
-    //     boolean retVal = false;
-
-    //     if(stack.size() >= 3) 
-    //     {
-    //         //getting the three plates on it
-    //         obj1 = stack.pop();
-    //         obj2 = stack.pop();
-    //         obj3 = stack.pop();
-    //         plate1 = (Plate) obj1;
-    //         plate2 = (Plate) obj2;
-    //         plate3 = (Plate) obj3;
-
-    //         if(plate1.getPlateColor() == plate2.getPlateColor() &&
-    //             plate1.getPlateColor() == plate3.getPlateColor() &&
-    //             plate2.getPlateColor() == plate3.getPlateColor())
-    //             {
-    //                 retVal = true;
-    //             }
-            
-    //         stack.push(obj3);
-    //         stack.push(obj2);
-    //         stack.push(obj3);
-
-    //     }
-    //     return retVal;
-    // }
-
-
     public void checkPLate(Stack<GameObject> stack,Circus circus) {
         ClownIteratorConcrete iterator = new ClownIteratorConcrete(stack);
 

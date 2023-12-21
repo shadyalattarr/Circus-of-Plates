@@ -4,9 +4,7 @@ import backend.world.Movement.ObjectSpeedStrategy.ObjectSpeedStrategy;
 import backend.world.ObjectsFallingStrategy.ObjectsFallingStrategy;
 
 public class DifficultyStrategy {
-    // -NumOfLivesStrategy : NumberOfLivesStrategy
     private ObjectSpeedStrategy speedStrategy;
-    //private NumberOfCLownsStrategy numOfClowns;
     private ObjectsFallingStrategy objectsFallingStrategy;
     private MovementStrategy movement;
 

@@ -1,9 +1,10 @@
-package backend.world;
+package backend.world.State;
 
 import java.awt.Color;
 
 import javax.swing.JMenuBar;
 
+import backend.world.Circus;
 import eg.edu.alexu.csd.oop.game.GameEngine;
 import eg.edu.alexu.csd.oop.game.GameEngine.GameController;
 

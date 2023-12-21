@@ -18,6 +18,9 @@ import backend.world.Movement.NoOscillationStrategy;
 import backend.world.Movement.ObjectSpeedStrategy.ObjectSpeedlvl2Strategy;
 import backend.world.ObjectsFallingStrategy.BombsStartegy;
 import backend.world.ObjectsFallingStrategy.ObjectsFallingStrategy;
+import backend.world.State.Almost;
+import backend.world.State.Finish;
+import backend.world.State.Game;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -40,8 +43,8 @@ public class Circus extends Game implements World {
     private final List<GameObject> objectsToFall;
     private int i = 0;
     Game game = new Game();
-    HeartCounter hearts = new HeartCounter();
-    // for now difficulty
+    //for now difficulty
+    HeartCounter hearts;
     DifficultyStrategy difficulty;
     MovementStrategy movement;
     ObjectsFallingStrategy objFalling;
@@ -60,6 +63,7 @@ public class Circus extends Game implements World {
         constant = new LinkedList<GameObject>();
         control = new LinkedList<GameObject>();
         moving = new LinkedList<GameObject>();
+        hearts = new HeartCounter(3);
 
         // maybe difficulty sent in constructor?
         intersection = new Intersection(this);
@@ -105,64 +109,74 @@ public class Circus extends Game implements World {
     @Override
     public boolean refresh() {
         boolean timeout = timePassedInms > MAX_TIME;
-        // before it was ex.6 sec passed.. if i just entered and 6 sec passed,, nothing
-        // but if now 7 sec passed a sec passed
-        // int num = difficulty.getFallingObjectSpeedStrategy().getFallingObjectSpeed();
-        if (timePassedInms / 1000 + 1 <= (System.currentTimeMillis() - startTime) / 1000.0) {
-            // System.out.println(timePassedInms/1000);
-            // up for debate
-            spawn(3);
-        }
-        // update time passed
-        timePassedInms = System.currentTimeMillis() - startTime;
-        if (hearts.getLives() == 0 || timePassedInms / 1000 == 60) {
+        boolean gameOver = false;
+
+        //state management
+        if (hearts.getLives() == 0 || timeout) {
             game.setState(new Finish());
             game.currentEvent();
+            gameOver = true;
         }
-
-        if (timePassedInms / 1000 == 50) {
+        else if (timePassedInms / 1000 == 50) {
             game.setState(new Almost());
             game.currentEvent();
         }
-        // System.out.println(timePassedInms/1000);
-        // boolean aSecondPassed = timePassedInms/1000;
-        GameObject lefttoIntersectWith;
-        GameObject righttoIntersectWith;
-        for (GameObject o : moving.toArray(new GameObject[moving.size()])) {
-            // before moving we check if it intersects with stick
-            lefttoIntersectWith = clown.getLeftObjStack().size() == 0 ? clown.getLeftStick()
-                    : clown.getLeftObjStack().peek();
-            righttoIntersectWith = clown.getRightObjStack().size() == 0 ? clown.getRightStick()
-                    : clown.getRightObjStack().peek();
+        // before it was ex.6 sec passed.. if i just entered and 6 sec passed,, nothing
+        // but if now 7 sec passed a sec passed
+        // int num = difficulty.getFallingObjectSpeedStrategy().getFallingObjectSpeed();
+        if(!gameOver)
+        {
+            if (timePassedInms / 1000 + 1 <= (System.currentTimeMillis() - startTime) / 1000.0) {
+                // System.out.println(timePassedInms/1000);
+                // up for debate
+                spawn(3);
+            }
+            // update time passed
+            timePassedInms = System.currentTimeMillis() - startTime;
 
-            if (o instanceof Plate)
-                intersection.setIntersection(new IntersectWithPlateStrategy());
-            else if (o instanceof Bomb)
-                intersection.setIntersection(new IntersectWithBombStrategy());
-            else if(o instanceof Heart)
-                intersection.setIntersection(new IntersectwithHeartStrategy());
+            // System.out.println(timePassedInms/1000);
+            // boolean aSecondPassed = timePassedInms/1000;
+            GameObject lefttoIntersectWith;
+            GameObject righttoIntersectWith;
+            for (GameObject o : moving.toArray(new GameObject[moving.size()])) {
+                // before moving we check if it intersects with stick
+                lefttoIntersectWith = clown.getLeftObjStack().size() == 0 ? clown.getLeftStick()
+                        : clown.getLeftObjStack().peek();
+                righttoIntersectWith = clown.getRightObjStack().size() == 0 ? clown.getRightStick()
+                        : clown.getRightObjStack().peek();
 
-            intersection.handleIntersection((FallingObject) o, righttoIntersectWith);
-            intersection.handleIntersection((FallingObject) o, lefttoIntersectWith);
+                if (o instanceof Plate)
+                    intersection.setIntersection(new IntersectWithPlateStrategy());
+                else if (o instanceof Bomb)
+                    intersection.setIntersection(new IntersectWithBombStrategy());
+                else if(o instanceof Heart)
+                    intersection.setIntersection(new IntersectwithHeartStrategy());
 
-            // if(hearts.getLives()==0 || timePassedInms==0)
-            // game.setState(new Finish());
+                intersection.handleIntersection((FallingObject) o, righttoIntersectWith);
+                intersection.handleIntersection((FallingObject) o, lefttoIntersectWith);
 
-            // if(timePassedInms==10)
-            // game.setState(new Almost());
-            // move
-            movement.move((FallingObject) o, difficulty.getFallingObjectSpeedStrategy());
+                // if(hearts.getLives()==0 || timePassedInms==0)
+                // game.setState(new Finish());
 
-            // do we want reuse?
-            // if (o.getY() >= getHeight()) {
-            // // in bottom
-            // // System.out.println("Plate hit bot");
-            // reuse(o);
-            // }
+                // if(timePassedInms==10)
+                // game.setState(new Almost());
+                // move
+                movement.move((FallingObject) o, difficulty.getFallingObjectSpeedStrategy());
+
+                // do we want reuse?
+                // if (o.getY() >= getHeight()) {
+                // // in bottom
+                // // System.out.println("Plate hit bot");
+                // reuse(o);
+                // }
+            }
+            // GameObject stick = control.get(1);
+            // System.out.println("Stick x : " + stick.getX());
+
+            
         }
-        // GameObject stick = control.get(1);
-        // System.out.println("Stick x : " + stick.getX());
-        return !timeout;
+        //returning false is GamePver
+        return !gameOver;
     }
 
     // public void reuse(GameObject object) {
@@ -275,5 +289,9 @@ public class Circus extends Game implements World {
     public Clown getClown() {
         return this.clown;
     }
-
+    
+    public HeartCounter getHeartCounter()
+    {
+        return hearts;
+    }
 }

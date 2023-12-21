@@ -1,15 +1,19 @@
 package backend.world;
 
 public class HeartCounter {
-    public static int lives=3;
+    public int lives;
 
+    HeartCounter(int lives)
+    {
+        this.lives = lives;
+    }
     public int getLives(){
         return lives;
     }
     public void addLife(){
         ++lives;
     }
-    public void loseLife(){
+    public void takeDamage(){
         --lives;
     }
 }

@@ -1,4 +1,4 @@
-package backend.world;
+package backend.world.State;
 
 public interface GameState {
     //void Start();
