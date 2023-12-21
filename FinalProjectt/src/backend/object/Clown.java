@@ -1,11 +1,12 @@
 package backend.object;
 
 import java.awt.Color;
+import java.util.Iterator;
 import java.util.Stack;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
 
-public class Clown extends ImageObject {
+public class Clown extends ImageObject  {
     private static Clown clown;
 
     final GameObject leftStick, rightStick;
@@ -59,5 +60,7 @@ public class Clown extends ImageObject {
         if(mX >= 0 && mX<=1400-getWidth() /*Circus.getWidth()*/)
             super.setX(mX);
     }
+
+   
 
 }

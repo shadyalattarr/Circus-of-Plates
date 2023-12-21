@@ -36,7 +36,7 @@ public class Plate extends Shape implements FallingObject{
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         g2.dispose();
-        System.out.println(spriteImages[0].getWidth());
+        //System.out.println(spriteImages[0].getWidth());
 
 
     }
