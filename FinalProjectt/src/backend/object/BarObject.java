@@ -17,6 +17,7 @@ public class BarObject extends Shape{
 	private int height;
 	private final Clown clown;
 	private final boolean isLeftStick;
+	private int p;
 
 	public BarObject(int posX, int posY, int height, Color color, Clown clown,boolean isLeftStick){
 		this.x = posX;
@@ -26,6 +27,7 @@ public class BarObject extends Shape{
 		//it left stick if true and right stick if false
 		this.isLeftStick = isLeftStick;
 		this.clown=clown;
+		p= clown.getX();
 		// create a bunch of buffered images and place into an array, to be displayed sequentially
 		spriteImages[0] = new BufferedImage(SPRITE_WIDTH, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = spriteImages[0].createGraphics();
@@ -45,44 +47,50 @@ public class BarObject extends Shape{
 	
 	@Override
 	public void setX(int mX) {
-		System.out.println("clown on left? "+clown.isClownOnFarLeft());
-		System.out.println("Clown: "+ Clown.getInstance(0, 0, null).getX());
-		System.out.println("bar"+mX);
-		System.out.println("cond mx<=210"+ (mX<210));
-		if(!isLeftStick)
-			{
-				if(clown.isClownOnFarLeft())
-				{
-					if(mX>=210)
-						super.setX(mX);
-				}
-				else if(clown.isClownOnFarRight())
-				{
-					if(mX<=Circus.getCircus().getWidth()-clown.getWidth() +214 )
-					 	super.setX(mX);	
-				}
-				else if(!(clown.isClownOnFarLeft() && clown.isClownOnFarRight()))
-				{
-					super.setX(mX);
-				}
-			}
-		else 
-			{
-				if(clown.isClownOnFarLeft())
-				{
-					if(mX<30)
-						super.setX(mX);
-				}
-				else if(clown.isClownOnFarRight())
-				{//970 = 1200-264 --- 936 +
-					if(mX>Circus.getCircus().getWidth()-clown.getWidth() +34 /*+34 */ )
-					 	super.setX(mX);	
-				}
-				else if(!(clown.isClownOnFarLeft() && clown.isClownOnFarRight()))
-				{
-					super.setX(mX);
-				}
-			}
+		//System.out.println(clown.getWidth());
+		if (clown.getX() != p) {          
+            super.setX(mX);
+            p = clown.getX(); 
+        }
+    
+		// System.out.println("clown on left? "+clown.isClownOnFarLeft());
+		// System.out.println("Clown: "+ Clown.getInstance(0, 0, null).getX());
+		// System.out.println("bar"+mX);
+		// System.out.println("cond mx<=210"+ (mX<210));
+		// if(!isLeftStick)
+		// 	{
+		// 		if(clown.isClownOnFarLeft())
+		// 		{
+		// 			if(mX>=210)
+		// 				super.setX(mX);
+		// 		}
+		// 		else if(clown.isClownOnFarRight())
+		// 		{
+		// 			if(mX<=Circus.getCircus().getWidth()-clown.getWidth() +214 )
+		// 			 	super.setX(mX);	
+		// 		}
+		// 		else if(!(clown.isClownOnFarLeft() && clown.isClownOnFarRight()))
+		// 		{
+		// 			super.setX(mX);
+		// 		}
+		// 	}
+		// else 
+		// 	{
+		// 		if(clown.isClownOnFarLeft())
+		// 		{
+		// 			if(mX<30)
+		// 				super.setX(mX);
+		// 		}
+		// 		else if(clown.isClownOnFarRight())
+		// 		{//970 = 1200-264 --- 936 +
+		// 			if(mX>Circus.getCircus().getWidth()-clown.getWidth() +34 /*+34 */ )
+		// 			 	super.setX(mX);	
+		// 		}
+		// 		else if(!(clown.isClownOnFarLeft() && clown.isClownOnFarRight()))
+		// 		{
+		// 			super.setX(mX);
+		// 		}
+		// 	}
 		// if(!(clown.isClownOnFarRight() && mX>=Circus.getCircus().getWidth() - clown.getWidth() +30))
 		// 	{
 		// 		super.setX(mX);

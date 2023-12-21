@@ -19,11 +19,18 @@ public class Plate extends Shape implements FallingObject{
 
     private Color[] colors = {Color.RED, Color.LIGHT_GRAY, Color.GREEN, Color.CYAN, Color.PINK};
     private Color plateColor;
+
+    private final Clown clown;
+	private int p;
+
+
     public Plate(int posX, int posY) {//deleted color from constructor and can make a new constructor with it if we want to make a plate of certain color
         this.x = posX;
         this.y = posY;
         this.visible = true;
         this.caught=false;
+        clown=Clown.getInstance(0, 0, null);
+        p=clown.getX();
         // create a bunch of buffered images and place into an array, to be displayed
         // sequentially
         plateColor = getRandomColor();
@@ -59,11 +66,16 @@ public class Plate extends Shape implements FallingObject{
         this.y = mY;
     }
 
-    // @Override
-    // public void setX(int mX) {
+     @Override
+     public void setX(int mX) {
     //     Clown clown = Clown.getInstance(0, 0, null);
     //     if(clown.getX() - getX() < 0)//rules for left stick
 	// 	{
+        if (clown.getX() != p) {          
+            super.setX(mX);
+            p = clown.getX(); 
+        }
+    }
 	// 		if(mX<1400-clown.getWidth()+40 && mX>0)
 	// 			super.setX(mX);
 				

@@ -1,7 +1,6 @@
 package backend.object;
 
 import java.awt.Color;
-import java.util.Iterator;
 import java.util.Stack;
 
 import backend.world.Circus;
