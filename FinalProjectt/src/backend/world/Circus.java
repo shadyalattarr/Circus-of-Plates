@@ -44,7 +44,7 @@ public class Circus extends Game implements World {
 
     public static Circus getCircus(){
         if(circus==null)
-            circus = new Circus(1400, 750);
+            circus = new Circus(1200, 600);
         
         return circus;
     }
@@ -59,9 +59,9 @@ public class Circus extends Game implements World {
         constant = new LinkedList<GameObject>();
         control = new LinkedList<GameObject>();
         moving = new LinkedList<GameObject>();
-        hearts = new HeartCounter(3);
 
         // maybe difficulty sent in constructor?
+        hearts = new HeartCounter(3);
         intersection = new Intersection(this);
         movement = new MovementStrategy(new OscillationStrategy(), new DownOnlyStrategy());
         objFalling = new BombsStrategy();
