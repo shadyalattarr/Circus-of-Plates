@@ -30,15 +30,13 @@ public class Circus implements World {
     private static int MAX_TIME = 1 * 60 * 1000; // 1 minute
     private int score = 0;
     private long endTime,timePassedInms = 0L, startTime = System.currentTimeMillis();
-    private int RIGHT_STICK = 1;
-    private int LEFT_STICK = 2;
     private final int width;
     private final int height;
     private final List<GameObject> constant;
     private final List<GameObject> moving;// moved instatiation to constructor
     private final List<GameObject> control;
     private final List<GameObject> objectsToFall;
-    private int lives = 3;
+    //private int lives = 3;
     private int i = 0;
     // for now difficulty
     DifficultyStrategy difficulty;
@@ -106,11 +104,12 @@ public class Circus implements World {
         boolean timeout = timePassedInms > MAX_TIME;
         //before it was ex.6 sec passed.. if i just entered and 6 sec passed,, nothing
         //but if now 7 sec passed a sec passed
-        if(timePassedInms/1000 + 1 == (System.currentTimeMillis() - startTime)/1000)
+        //int num = difficulty.getFallingObjectSpeedStrategy().getFallingObjectSpeed();
+        if(timePassedInms/1000 + 1 <= (System.currentTimeMillis() - startTime)/1000.0)
         {
             //System.out.println(timePassedInms/1000);
             //up for debate
-            spawn(difficulty.getFallingObjectSpeedStrategy().getFallingObjectSpeed());
+            spawn(3);
         }
         //update time passed
         timePassedInms = System.currentTimeMillis() - startTime;
@@ -192,7 +191,7 @@ public class Circus implements World {
     @Override
     public String getStatus() {
         return "Score=" + score + "   |   Time="
-                + Math.max(0, (/*MAX_TIME -*/ (System.currentTimeMillis() - startTime)) / 1000); // update status
+                + Math.max(0, (MAX_TIME - (System.currentTimeMillis() - startTime)) / 1000); // update status
     }
 
     public int getScore() {
@@ -217,22 +216,6 @@ public class Circus implements World {
 
     public void setStartTime(long startTime) {
         this.startTime = startTime;
-    }
-
-    public int getRIGHT_STICK() {
-        return this.RIGHT_STICK;
-    }
-
-    public void setRIGHT_STICK(int RIGHT_STICK) {
-        this.RIGHT_STICK = RIGHT_STICK;
-    }
-
-    public int getLEFT_STICK() {
-        return this.LEFT_STICK;
-    }
-
-    public void setLEFT_STICK(int LEFT_STICK) {
-        this.LEFT_STICK = LEFT_STICK;
     }
 
     public List<GameObject> getConstant() {
