@@ -4,7 +4,7 @@ public class ObjectSpeedFinalSecondsStrategy implements ObjectSpeedStrategy{
 
     @Override
     public int getFallingObjectSpeed() {
-        return 2;
+        return 5;
     }
 
 }

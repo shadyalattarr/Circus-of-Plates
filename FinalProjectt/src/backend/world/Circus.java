@@ -23,16 +23,18 @@ public class Circus extends Game implements World {
     private final List<GameObject> moving;// moved instatiation to constructor
     private final List<GameObject> control;
     private final List<GameObject> objectsToFall;
-    private int i = 0;
-    Game game = new Game();
+    private int fallingObjPerSecond;
+    
+    private int i;
+    private Game game;
+    private boolean gameOver;
     //for now difficulty
     HeartCounter hearts;
     DifficultyStrategy difficulty;
     MovementStrategy movement;
     ObjectsFallingStrategy objFalling;
     Intersection intersection;
-    // ClownIterator clownIterator;
-    // ClownIterator clownrightIterator;
+
 
     // ------------
     private final Clown clown;
@@ -49,6 +51,9 @@ public class Circus extends Game implements World {
 
 
     private Circus(int screenWidth, int screenHeight) {
+        i = 0;
+        game = new Game();
+        gameOver = false;
         this.width = screenWidth;
         this.height = screenHeight;
         constant = new LinkedList<GameObject>();
@@ -58,10 +63,9 @@ public class Circus extends Game implements World {
 
         // maybe difficulty sent in constructor?
         intersection = new Intersection(this);
-        System.out.println("coooooooooooooooool");;
         movement = new MovementStrategy(new OscillationStrategy(), new DownOnlyStrategy());
         objFalling = new BombsStrategy();
-        difficulty = new DifficultyStrategy(new ObjectSpeedlvl2Strategy(), movement, objFalling);
+        difficulty = new DifficultyStrategy(new ObjectSpeedlvl2Strategy(), movement, objFalling,3);
         // all above not here
 
         clown = Clown.getInstance((int) (screenWidth / 2.6), (int) (screenHeight / 1.4),
@@ -71,13 +75,8 @@ public class Circus extends Game implements World {
         control.add(clown.getLeftStick());
         control.add(clown.getRightStick());
 
-        // Iterator leftIterator = clownIterator.creatLeftIterable();
-        // Iterator rightIterator = clownIterator.creatRightIterable();
         objectsToFall = objFalling.generateObjectsFalling(1000);
 
-        // moving = objectsToFall;
-        // every second
-        // moving.add(//objectsToFall)
     }
 
     public void spawn(int n) {
@@ -86,6 +85,7 @@ public class Circus extends Game implements World {
                 // System.out.println(j);
                 moving.add(objectsToFall.get(i + j));
             } catch (IndexOutOfBoundsException e) {
+                //maybe a joption pane too?
                 System.out.println("ERRAOR : You ran out of falling objects");
                 // close game
                 System.exit(0);
@@ -96,29 +96,26 @@ public class Circus extends Game implements World {
 
     @Override
     public boolean refresh() {
-        boolean timeout = timePassedInms > MAX_TIME;
-        boolean gameOver = false;
-
-        //state management
-        if (hearts.getLives() == 0 || timeout) {
-            game.setState(new Finish());
-            game.currentEvent();
-            gameOver = true;
-        }
-        else if (timePassedInms / 1000 == 50) {
-            game.setState(new Almost());
-            game.currentEvent();
-            //difficulty=new DifficultyStrategy(new ObjectSpeedFinalSecondsStrategy(), movement, objFalling);
-        }
-        // before it was ex.6 sec passed.. if i just entered and 6 sec passed,, nothing
-        // but if now 7 sec passed a sec passed
-        // int num = difficulty.getFallingObjectSpeedStrategy().getFallingObjectSpeed();
+        boolean timeout = timePassedInms > MAX_TIME; 
         if(!gameOver)
         {
+            //state management
+            if (hearts.getLives() == 0 || timeout) {
+                game.setState(new Finish());
+                game.currentEvent();
+            }
+            else if (timePassedInms / 1000 == 45) {
+                game.setState(new Almost());
+                game.currentEvent();
+            }
+            // before it was ex.6 sec passed.. if i just entered and 6 sec passed,, nothing
+            // but if now 7 sec passed a sec passed
+            // int num = difficulty.getFallingObjectSpeedStrategy().getFallingObjectSpeed();
+            
             if (timePassedInms / 1000 + 1 <= (System.currentTimeMillis() - startTime) / 1000.0) {
                 // System.out.println(timePassedInms/1000);
                 // up for debate
-                spawn(3);
+                spawn(difficulty.getNumFallingObjPerSecond());
             }
             // update time passed
             timePassedInms = System.currentTimeMillis() - startTime;
@@ -261,7 +258,10 @@ public class Circus extends Game implements World {
     public void setMovement(MovementStrategy movement) {
         this.movement = movement;
     }
-
+    public void setObjectsFallingSpeed(ObjectSpeedStrategy speedStrategy)
+    {
+        difficulty.setFallingObjectSpeedStrategy(speedStrategy);
+    }
     public ObjectsFallingStrategy getObjFalling() {
         return this.objFalling;
     }
@@ -278,4 +278,17 @@ public class Circus extends Game implements World {
     {
         return hearts;
     }
+
+    public void setGameOver(boolean gameOver)
+    {
+        this.gameOver = gameOver;
+    }
+
+    public boolean isGameOver()
+    {
+        return this.gameOver;
+    }
+
+    
+
 }

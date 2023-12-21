@@ -9,6 +9,9 @@ public class Finish implements GameState{
     @Override
     public void stateAction(Game game) {
         Circus circus= Circus.getCircus();
+        
+        circus.setGameOver(true);
+
         if(circus.getHeartCounter().getLives()==0){
                 JOptionPane.showMessageDialog(null, "Unlucky :( \nBetter luck next time!");
 

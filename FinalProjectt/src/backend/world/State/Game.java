@@ -1,5 +1,6 @@
 package backend.world.State;
 
+import backend.world.Circus;
 
 public class Game{
     GameState currState;

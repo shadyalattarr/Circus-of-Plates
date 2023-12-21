@@ -7,13 +7,11 @@ public class MovementStrategy {
     private MovePatternStrategy moveP;
     private ObjectSpeedStrategy speedStrat;
 
+
     public MovementStrategy(MovePatternStrategy moveP,MoveDirectionStrategy moveD)
     {
-        System.out.println("cool1");
-
         this.moveD = moveD;
         this.moveP = moveP;
-        System.out.println("cool");
     }
     public MovementStrategy(MovePatternStrategy moveP,MoveDirectionStrategy moveD ,ObjectSpeedStrategy gameSpeed)
     {
@@ -28,5 +26,28 @@ public class MovementStrategy {
         moveD.directionMove(o, gameSpeed);
         moveP.patternMove(o,gameSpeed);
     }
+    
+    public MoveDirectionStrategy getMoveD() {
+        return this.moveD;
+    }
 
+    public void setMoveD(MoveDirectionStrategy moveD) {
+        this.moveD = moveD;
+    }
+
+    public MovePatternStrategy getMoveP() {
+        return this.moveP;
+    }
+
+    public void setMoveP(MovePatternStrategy moveP) {
+        this.moveP = moveP;
+    }
+
+    public ObjectSpeedStrategy getSpeedStrat() {
+        return this.speedStrat;
+    }
+
+    public void setSpeedStrat(ObjectSpeedStrategy speedStrat) {
+        this.speedStrat = speedStrat;
+    }
 }
