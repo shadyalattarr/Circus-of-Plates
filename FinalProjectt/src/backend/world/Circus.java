@@ -68,7 +68,8 @@ public class Circus extends Game implements World {
         difficulty = new DifficultyStrategy(new ObjectSpeedlvl2Strategy(), movement, objFalling,3);
         // all above not here
 
-        clown = Clown.getInstance((int) (screenWidth / 2.6), (int) (screenHeight / 1.4),
+        //make clown coords x 10
+        clown = Clown.getInstance((int) (screenWidth / 2.5) , (int) (screenHeight / 1.7) -2,
                 "FinalProjectt\\clown-removebg-preview_3_53.png");
 
         control.add(clown);

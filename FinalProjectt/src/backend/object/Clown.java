@@ -4,12 +4,13 @@ import java.awt.Color;
 import java.util.Iterator;
 import java.util.Stack;
 
+import backend.world.Circus;
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class Clown extends ImageObject  {
     private static Clown clown;
 
-    final GameObject leftStick, rightStick;
+    final BarObject leftStick, rightStick;
     private Stack<GameObject> leftObjStack;
     private Stack<GameObject> rightObjStack;
 
@@ -27,6 +28,22 @@ public class Clown extends ImageObject  {
 
     public GameObject getRightStick() {
         return this.rightStick;
+    }
+
+    public boolean isClownOnFarLeft()
+    {
+        if(getX() == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isClownOnFarRight()
+    {
+        if(getX() == Circus.getCircus().getWidth() - getWidth())
+            return true;
+        return false;
     }
 
     private Clown(int posX, int posY, String path) {
@@ -54,12 +71,11 @@ public class Clown extends ImageObject  {
         // that
 
     }
-    @Override
-    public void setX( int mX)
-    {
-        if(mX >= 0 && mX<=1400-getWidth() /*Circus.getWidth()*/)
-            super.setX(mX);
-    }
+    // @Override
+    // public void setX( int mX)
+    // {
+    //     super.setX(mX);
+    // }
 
    
 
