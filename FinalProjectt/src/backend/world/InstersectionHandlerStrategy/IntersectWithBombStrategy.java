@@ -34,7 +34,7 @@ public class IntersectWithBombStrategy implements IntersectionHandlerStrategy{
             circus.reuse(plateRemoved);//tala3o fo2
             //reuse it...... want it somewhere wla 7aga ////i think we shouldnt reuse later on
             circus.reuse(bomb);
-            circus.setScore(circus.getScore()-1);
+            circus.setScore(circus.getScore() == 0 ? 0 : circus.getScore() - 1);
             //also maybe if score negative gameover?
 
         }
