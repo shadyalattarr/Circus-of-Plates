@@ -2,6 +2,7 @@ package backend.world.InstersectionHandlerStrategy;
 
 import java.util.Stack;
 
+import backend.object.Bomb;
 import backend.object.FallingObject;
 import backend.object.Plate;
 import backend.world.Circus;
@@ -26,15 +27,12 @@ public class IntersectWithBombStrategy implements IntersectionHandlerStrategy{
         {
             plateRemoved = (Plate)stack.pop();
             circus.getControlableObjects().remove(plateRemoved);
-            //reuse plate
-
-            plateRemoved.setisVertical(true);
+            circus.getMovableObjects().remove(bomb);
             
-            circus.getMovableObjects().add(plateRemoved);
-            circus.reuse(plateRemoved);//tala3o fo2
+           // circus.reuse(plateRemoved);//tala3o fo2
             //reuse it...... want it somewhere wla 7aga ////i think we shouldnt reuse later on
-            circus.reuse(bomb);
-            circus.setScore(circus.getScore() == 0 ? 0 : circus.getScore() - 1);
+            //circus.reuse(bomb);
+            circus.setScore(circus.getScore() == 0 ? 0 : circus.getScore() - 100);
             //also maybe if score negative gameover?
 
         }

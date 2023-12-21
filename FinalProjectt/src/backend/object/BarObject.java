@@ -16,15 +16,16 @@ public class BarObject extends Shape{
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
 	private int height;
 	private final int distanceToClownX;
-	private boolean verticalOnly;
 	private final Clown clown;
+	private final boolean isLeftStick;
 
-	public BarObject(int posX, int posY, int height, boolean verticalOnly, Color color, Clown clown){
+	public BarObject(int posX, int posY, int height, Color color, Clown clown,boolean isLeftStick){
 		this.x = posX;
 		this.y = posY;
 		this.height = height;
-		this.verticalOnly = verticalOnly;
 		this.visible = true;
+		//it left stick if true and right stick if false
+		this.isLeftStick = isLeftStick;
 		this.clown=clown;
 		distanceToClownX = Math.abs(clown.getX() - posX);
 		// create a bunch of buffered images and place into an array, to be displayed sequentially
@@ -41,15 +42,21 @@ public class BarObject extends Shape{
 	
 	@Override
 	public void setY(int mY) {
-		if (!verticalOnly) {
-            super.setY(mY);;
-        }
+		//does nothing
     }
 	
 	@Override
 	public void setX(int mX) {
-		if(clown.getX() > 0 && clown.getX()<1400-clown.getWidth() /*Circus.getWidth()*/)
-			super.setX(mX);
+		if(isLeftStick)//rules for left stick
+		{
+			if(mX<1400-clown.getWidth()+40 && mX>=20)
+				super.setX(mX);
+				
+		}
+		else{
+			if(mX > clown.getWidth()-60 && mX<1400 -50  /*Circus.getWidth()*/)
+				super.setX(mX);
+		}
 	}
 
 	@Override
@@ -66,4 +73,8 @@ public class BarObject extends Shape{
     public int getHeight() {
        return height;
     }
+	public boolean isLeftStick()
+	{
+		return isLeftStick;
+	}
 }

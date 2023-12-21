@@ -15,7 +15,7 @@ public class Plate extends Shape implements FallingObject{
     private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
     
 
-    private boolean isVertical;
+    private boolean caught;
 
     private Color[] colors = {Color.RED, Color.LIGHT_GRAY, Color.GREEN, Color.CYAN, Color.PINK};
     private Color plateColor;
@@ -23,7 +23,7 @@ public class Plate extends Shape implements FallingObject{
         this.x = posX;
         this.y = posY;
         this.visible = true;
-        this.isVertical=true;
+        this.caught=false;
         // create a bunch of buffered images and place into an array, to be displayed
         // sequentially
         plateColor = getRandomColor();
@@ -54,10 +54,27 @@ public class Plate extends Shape implements FallingObject{
     
     @Override
     public void setY(int mY) {
-        if(!isVertical)
+        if(isCaught())
             return;        
         this.y = mY;
     }
+
+    // @Override
+    // public void setX(int mX) {
+    //     Clown clown = Clown.getInstance(0, 0, null);
+    //     if(clown.getX() - getX() < 0)//rules for left stick
+	// 	{
+	// 		if(mX<1400-clown.getWidth()+40 && mX>0)
+	// 			super.setX(mX);
+				
+	// 	}
+	// 	else{
+	// 		if(mX > clown.getWidth()-60 && mX<1400  /*Circus.getWidth()*/)
+	// 			super.setX(mX);
+	// 	}
+    //     System.out.println(1400-getWidth());
+    //     System.out.println(mX);
+    // }
 
     @Override
     public BufferedImage[] getSpriteImages() {
@@ -74,12 +91,12 @@ public class Plate extends Shape implements FallingObject{
        return SPRITE_HEIGHT;
     }
    
-    public boolean isVertical() {
-        return isVertical;
+    public boolean isCaught() {
+        return caught;
     }
 
-    public void setisVertical(boolean isVertical) {
-       this.isVertical=isVertical;
+    public void setIsCaught(boolean isCaught) {
+       this.caught=isCaught;
     }
     
 }

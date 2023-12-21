@@ -46,8 +46,6 @@ public class Circus implements World {
     ObjectsFallingStrategy objFalling;
     Intersection intersection;
     // ClownIterator clownIterator;
-    ClownIteratorConcrete clownLeftIteratorConcrete;
-    ClownIteratorConcrete clownRightIteratorConcrete;
     // ClownIterator clownrightIterator;
 
     // ------------
@@ -79,9 +77,6 @@ public class Circus implements World {
 
         // Iterator leftIterator = clownIterator.creatLeftIterable();
         // Iterator rightIterator = clownIterator.creatRightIterable();
-        clownLeftIteratorConcrete = new ClownIteratorConcrete(clown.getLeftObjStack());
-        clownRightIteratorConcrete = new ClownIteratorConcrete(clown.getRightObjStack());
-
         objectsToFall = objFalling.generateObjectsFalling(1000);
 
         //moving = objectsToFall;
@@ -114,6 +109,7 @@ public class Circus implements World {
         if(timePassedInms/1000 + 1 == (System.currentTimeMillis() - startTime)/1000)
         {
             //System.out.println(timePassedInms/1000);
+            //up for debate
             spawn(difficulty.getFallingObjectSpeedStrategy().getFallingObjectSpeed());
         }
         //update time passed
@@ -139,9 +135,7 @@ public class Circus implements World {
 
             // move
             movement.move((FallingObject) o, difficulty.getFallingObjectSpeedStrategy());
-            checkLPLate(clownLeftIteratorConcrete);
-            checkRPLate(clownRightIteratorConcrete);
-
+           
             // do we want reuse?
             // if (o.getY() >= getHeight()) {
             //     // in bottom
@@ -149,91 +143,16 @@ public class Circus implements World {
             //     reuse(o);
             // }
         }
-        GameObject stick = control.get(1);
+        //GameObject stick = control.get(1);
         // System.out.println("Stick x : " + stick.getX());
         return !timeout;
     }
 
-    public void reuse(GameObject object) {
-        object.setY(-1 * (int) (Math.random() * getHeight()));// get it up?
-        object.setX((int) (Math.random() * getWidth()));
-    }
+    // public void reuse(GameObject object) {
+    //     object.setY(-1 * (int) (Math.random() * getHeight()));// get it up?
+    //     object.setX((int) (Math.random() * getWidth()));
+    // }
 
-    public void checkLPLate(ClownIteratorConcrete iterator) {
-        Stack<GameObject> stack = getClown().getLeftObjStack();
-
-        if (iterator.getSize() >= 3) {
-            int i = 0;
-            iterator.setI(stack.size() - 1);
-            List<Plate> plates = new ArrayList<Plate>();
-
-            while (i <= 2) {
-
-                Plate plate = (Plate) iterator.next();
-                plates.add(plate);
-               // System.out.println(plate.getPlateColor());
-                i++;
-            }
-            i = 0;
-
-            if (plates.get(0).getPlateColor() == plates.get(1).getPlateColor()
-                    && plates.get(1).getPlateColor() == plates.get(2).getPlateColor()) {
-                score += 3;
-                while (i <= 2) {
-                    Plate plateRemoved = (Plate) stack.pop();
-                    getControlableObjects().remove(plateRemoved);
-                    i++;
-                }
-
-            }
-
-            plates.clear();
-            //System.out.println("size " + plates.size());
-            // if (iterator.getSize() >= 3) {
-            // Plate plate1 = (Plate) iterator.next();
-            // Plate plate2 = (Plate) iterator.next();
-            // }
-        }
-
-    }
-
-    public void checkRPLate(ClownIteratorConcrete iterator) {
-        Stack<GameObject> stack = getClown().getRightObjStack();
-
-        if (iterator.getSize() >= 3) {
-            int i = 0;
-            iterator.setI(stack.size() - 1);
-            List<Plate> plates = new ArrayList<Plate>();
-
-            while (i <= 2) {
-
-                Plate plate = (Plate) iterator.next();
-                plates.add(plate);
-              //  System.out.println(plate.getPlateColor());
-                i++;
-            }
-            i = 0;
-
-            if (plates.get(0).getPlateColor() == plates.get(1).getPlateColor()
-                    && plates.get(1).getPlateColor() == plates.get(2).getPlateColor()) {
-                score += 1;
-                while (i <= 2) {
-                    Plate plateRemoved = (Plate) stack.pop();
-                    getControlableObjects().remove(plateRemoved);
-                    i++;
-                }
-
-            }
-
-            plates.clear();
-          //  System.out.println("size " + plates.size());
-            // if (iterator.getSize() >= 3) {
-            // Plate plate1 = (Plate) iterator.next();
-            // Plate plate2 = (Plate) iterator.next();
-            // }
-        }
-
-    }
 
     @Override
     public int getSpeed() {
