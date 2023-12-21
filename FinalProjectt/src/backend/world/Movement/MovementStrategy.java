@@ -9,8 +9,11 @@ public class MovementStrategy {
 
     public MovementStrategy(MovePatternStrategy moveP,MoveDirectionStrategy moveD)
     {
+        System.out.println("cool1");
+
         this.moveD = moveD;
         this.moveP = moveP;
+        System.out.println("cool");
     }
     public MovementStrategy(MovePatternStrategy moveP,MoveDirectionStrategy moveD ,ObjectSpeedStrategy gameSpeed)
     {
@@ -23,7 +26,7 @@ public class MovementStrategy {
     public void move(FallingObject o,ObjectSpeedStrategy gameSpeed)
     {
         moveD.directionMove(o, gameSpeed);
-        moveP.patternMove();
+        moveP.patternMove(o,gameSpeed);
     }
 
 }

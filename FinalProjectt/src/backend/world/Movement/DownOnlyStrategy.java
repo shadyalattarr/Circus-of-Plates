@@ -3,7 +3,7 @@ package backend.world.Movement;
 import backend.object.FallingObject;
 import backend.world.Movement.ObjectSpeedStrategy.ObjectSpeedStrategy;
 
-public class DownStrategy implements MoveDirectionStrategy{
+public class DownOnlyStrategy implements MoveDirectionStrategy{
 
     @Override
     public void directionMove(FallingObject o,ObjectSpeedStrategy speed) {

@@ -1,32 +1,14 @@
 package backend.world;
 
-import backend.object.Bomb;
-import backend.object.Clown;
-// import backend.object.ClownIterator;
-import backend.object.ClownIteratorConcrete;
-import backend.object.FallingObject;
-import backend.object.Heart;
-import backend.object.Plate;
-import backend.world.InstersectionHandlerStrategy.IntersectWithBombStrategy;
-import backend.world.InstersectionHandlerStrategy.IntersectWithPlateStrategy;
-import backend.world.InstersectionHandlerStrategy.Intersection;
-import backend.world.InstersectionHandlerStrategy.IntersectwithHeartStrategy;
-import backend.world.Movement.DifficultyStrategy;
-import backend.world.Movement.DownStrategy;
-import backend.world.Movement.MovementStrategy;
-import backend.world.Movement.NoOscillationStrategy;
-import backend.world.Movement.ObjectSpeedStrategy.ObjectSpeedlvl2Strategy;
-import backend.world.ObjectsFallingStrategy.BombsStartegy;
-import backend.world.ObjectsFallingStrategy.ObjectsFallingStrategy;
-import backend.world.State.Almost;
-import backend.world.State.Finish;
-import backend.world.State.Game;
+import backend.object.*;
+import backend.world.InstersectionHandlerStrategy.*;
+import backend.world.Movement.*;
+//import backend.world.Movement.RightDiagonalStrategy;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import backend.world.Movement.ObjectSpeedStrategy.*;
+import backend.world.ObjectsFallingStrategy.*;
+import backend.world.State.*;
+import java.util.*;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
@@ -56,6 +38,7 @@ public class Circus extends Game implements World {
     private final Clown clown;
 
     // ------------
+    
 
     public Circus(int screenWidth, int screenHeight) {
         this.width = screenWidth;
@@ -67,7 +50,8 @@ public class Circus extends Game implements World {
 
         // maybe difficulty sent in constructor?
         intersection = new Intersection(this);
-        movement = new MovementStrategy(new NoOscillationStrategy(), new DownStrategy());
+        System.out.println("coooooooooooooooool");;
+        movement = new MovementStrategy(new OscillationStrategy(), new DownOnlyStrategy());
         objFalling = new BombsStartegy();
         difficulty = new DifficultyStrategy(new ObjectSpeedlvl2Strategy(), movement, objFalling);
         // all above not here
@@ -289,7 +273,7 @@ public class Circus extends Game implements World {
     public Clown getClown() {
         return this.clown;
     }
-    
+
     public HeartCounter getHeartCounter()
     {
         return hearts;
