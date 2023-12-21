@@ -108,20 +108,14 @@ public class Circus extends Game implements World {
                 game.setState(new Almost());
                 game.currentEvent();
             }
-            // before it was ex.6 sec passed.. if i just entered and 6 sec passed,, nothing
-            // but if now 7 sec passed a sec passed
-            // int num = difficulty.getFallingObjectSpeedStrategy().getFallingObjectSpeed();
             
             if (timePassedInms / 1000 + 1 <= (System.currentTimeMillis() - startTime) / 1000.0) {
-                // System.out.println(timePassedInms/1000);
-                // up for debate
                 spawn(difficulty.getNumFallingObjPerSecond());
             }
+            
             // update time passed
             timePassedInms = System.currentTimeMillis() - startTime;
 
-            // System.out.println(timePassedInms/1000);
-            // boolean aSecondPassed = timePassedInms/1000;
             GameObject lefttoIntersectWith;
             GameObject righttoIntersectWith;
             for (GameObject o : moving.toArray(new GameObject[moving.size()])) {
@@ -131,6 +125,7 @@ public class Circus extends Game implements World {
                 righttoIntersectWith = clown.getRightObjStack().size() == 0 ? clown.getRightStick()
                         : clown.getRightObjStack().peek();
 
+                
                 if (o instanceof Plate)
                     intersection.setIntersection(new IntersectWithPlateStrategy());
                 else if (o instanceof Bomb)
@@ -144,26 +139,17 @@ public class Circus extends Game implements World {
                 
                 movement.move((FallingObject) o, difficulty.getFallingObjectSpeedStrategy());
 
-                // do we want reuse?
-                // if (o.getY() >= getHeight()) {
-                // // in bottom
-                // // System.out.println("Plate hit bot");
-                // reuse(o);
-                // }
-            }
-            // GameObject stick = control.get(1);
-            // System.out.println("Stick x : " + stick.getX());
-
-            
+                }
         }
+        
         //returning false is GamePver
         return !gameOver;
+            
+            
     }
+    
 
-    // public void reuse(GameObject object) {
-    // object.setY(-1 * (int) (Math.random() * getHeight()));// get it up?
-    // object.setX((int) (Math.random() * getWidth()));
-    // }
+    
 
     @Override
     public int getSpeed() {
