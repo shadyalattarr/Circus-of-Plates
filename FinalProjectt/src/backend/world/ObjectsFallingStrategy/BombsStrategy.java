@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import backend.object.ObjectFactory;
 import eg.edu.alexu.csd.oop.game.GameObject;
 
-public class BombsStartegy implements ObjectsFallingStrategy {
+public class BombsStrategy implements ObjectsFallingStrategy {
 
     ArrayList<GameObject> moving = new ArrayList<GameObject>();
     ObjectFactory factory = new ObjectFactory();

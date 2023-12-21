@@ -38,9 +38,17 @@ public class Circus extends Game implements World {
     private final Clown clown;
 
     // ------------
-    
+    private static Circus circus;
 
-    public Circus(int screenWidth, int screenHeight) {
+    public static Circus getCircus(){
+        if(circus==null)
+            circus = new Circus(1400, 750);
+        
+        return circus;
+    }
+
+
+    private Circus(int screenWidth, int screenHeight) {
         this.width = screenWidth;
         this.height = screenHeight;
         constant = new LinkedList<GameObject>();
@@ -52,7 +60,7 @@ public class Circus extends Game implements World {
         intersection = new Intersection(this);
         System.out.println("coooooooooooooooool");;
         movement = new MovementStrategy(new OscillationStrategy(), new DownOnlyStrategy());
-        objFalling = new BombsStartegy();
+        objFalling = new BombsStrategy();
         difficulty = new DifficultyStrategy(new ObjectSpeedlvl2Strategy(), movement, objFalling);
         // all above not here
 
@@ -86,10 +94,6 @@ public class Circus extends Game implements World {
         i += n;
     }
 
-    public long getTimePassedInms() {
-        return timePassedInms;
-    }
-
     @Override
     public boolean refresh() {
         boolean timeout = timePassedInms > MAX_TIME;
@@ -104,6 +108,7 @@ public class Circus extends Game implements World {
         else if (timePassedInms / 1000 == 50) {
             game.setState(new Almost());
             game.currentEvent();
+            //difficulty=new DifficultyStrategy(new ObjectSpeedFinalSecondsStrategy(), movement, objFalling);
         }
         // before it was ex.6 sec passed.. if i just entered and 6 sec passed,, nothing
         // but if now 7 sec passed a sec passed
@@ -139,12 +144,7 @@ public class Circus extends Game implements World {
                 intersection.handleIntersection((FallingObject) o, righttoIntersectWith);
                 intersection.handleIntersection((FallingObject) o, lefttoIntersectWith);
 
-                // if(hearts.getLives()==0 || timePassedInms==0)
-                // game.setState(new Finish());
-
-                // if(timePassedInms==10)
-                // game.setState(new Almost());
-                // move
+                
                 movement.move((FallingObject) o, difficulty.getFallingObjectSpeedStrategy());
 
                 // do we want reuse?
