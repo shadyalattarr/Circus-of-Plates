@@ -25,8 +25,9 @@ public class IntersectWithOjectOnStickStrategy implements IntersectionHandlerStr
         circus.getMovableObjects().remove(objOnStick);
         circus.getControlableObjects().add(objOnStick);
         objOnStick.setY(onStick.getY() - objOnStick.getHeight());
+        objOnStick.setX(onStick.getX() + onStick.getWidth() / 2 - objOnStick.getWidth() / 2);
+        //lazem after setX to work
         objOnStick.setIsCaught(true);
-        objOnStick.normalSetX(onStick.getX() + onStick.getWidth() / 2 - objOnStick.getWidth() / 2);
 
         // right or left stack
         if ((onStick.getX() - circus.getClown().getX()) <= circus.getClown().getWidth() / 2)
