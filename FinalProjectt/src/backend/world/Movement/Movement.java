@@ -2,18 +2,17 @@ package backend.world.Movement;
 import backend.object.FallingObject;
 import backend.world.Movement.ObjectSpeedStrategy.ObjectSpeedStrategy;
 
-public class MovementStrategy {
+public class Movement {
     private MoveDirectionStrategy moveD;
     private MovePatternStrategy moveP;
     private ObjectSpeedStrategy speedStrat;
 
-
-    public MovementStrategy(MovePatternStrategy moveP,MoveDirectionStrategy moveD)
+    public Movement(MovePatternStrategy moveP,MoveDirectionStrategy moveD)
     {
         this.moveD = moveD;
         this.moveP = moveP;
     }
-    public MovementStrategy(MovePatternStrategy moveP,MoveDirectionStrategy moveD ,ObjectSpeedStrategy gameSpeed)
+    public Movement(MovePatternStrategy moveP,MoveDirectionStrategy moveD ,ObjectSpeedStrategy gameSpeed)
     {
         this(moveP,moveD);
         this.speedStrat = gameSpeed;

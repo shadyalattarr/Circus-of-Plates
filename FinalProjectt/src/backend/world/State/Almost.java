@@ -3,19 +3,19 @@ package backend.world.State;
 import backend.world.Circus;
 import backend.world.Movement.LeftDiagonalStrategy;
 import backend.world.Movement.RightDiagonalStrategy;
-import backend.world.Movement.ObjectSpeedStrategy.ObjectSpeedFinalSecondsStrategy;
+import backend.world.Movement.ObjectSpeedStrategy.SpeedFinalSecondsStrategy;
 
 public class Almost implements GameState {
 
     @Override
     public void stateAction(Game game) {
-        Circus circus= Circus.getCircus();
-        circus.getDifficulty().setFallingObjectSpeedStrategy(new ObjectSpeedFinalSecondsStrategy());
+        Circus circus= Circus.getCircus(null);
+        circus.getDifficulty().setFallingObjectSpeedStrategy(new SpeedFinalSecondsStrategy());
         circus.getDifficulty().setNumFallingObjPerSecond(5);
         if(Math.random()>0.5)
-            circus.getMovement().setMoveD(new RightDiagonalStrategy());
+            circus.getDifficulty().getMovement().setMoveD(new RightDiagonalStrategy());
         else
-            circus.getMovement().setMoveD(new LeftDiagonalStrategy());
+            circus.getDifficulty().getMovement().setMoveD(new LeftDiagonalStrategy());
 
 
     }

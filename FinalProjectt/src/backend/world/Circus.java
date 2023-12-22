@@ -32,8 +32,8 @@ public class Circus extends Game implements World {
     private boolean gameOver;
     // for now difficulty
     HeartCounter hearts;
-    DifficultyStrategy difficulty;
-    MovementStrategy movement;
+    Difficulty difficulty;
+    //Movement movement;
     ObjectsFallingStrategy objFalling;
     Intersection intersection;
 
@@ -43,14 +43,14 @@ public class Circus extends Game implements World {
     // ------------
     private static Circus circus;
 
-    public static Circus getCircus() {
+    public static Circus getCircus(PredefinedDifficultyStrategy difficulty) {
         if (circus == null)
-            circus = new Circus(1200, 600);
+            circus = new Circus(1200, 600,difficulty);
 
         return circus;
     }
 
-    private Circus(int screenWidth, int screenHeight) {
+    private Circus(int screenWidth, int screenHeight,PredefinedDifficultyStrategy difficulty) {
         i = 0;
         game = new Game();
         gameOver = false;
@@ -62,12 +62,14 @@ public class Circus extends Game implements World {
       //  constant.add(new BarObject((int)(Math.random() * screenWidth/2), (int)(Math.random() * screenHeight/4 + screenHeight/2), 15, Color.RED,clown,true));
         constant.add(new ImageObject(0, 0, "FinalProjectt\\cp.png"));
         // maybe difficulty sent in constructor?
+        this.difficulty = new Difficulty(difficulty);
         hearts = new HeartCounter(3);
         intersection = new Intersection(this);
-        movement = new MovementStrategy(new OscillationStrategy(), new DownOnlyStrategy());
-        objFalling = new BombsStrategy();
-        difficulty = new DifficultyStrategy(new ObjectSpeedlvl1Strategy(), movement, objFalling, 3);
+        //movement = this.difficulty.getMovement();
+        objFalling = this.difficulty.getObjectsFallingStrategy();
+        
         // all above not here
+
 
         // make clown coords x 10
         clown = Clown.getInstance((int) (screenWidth / 2.5), (int) (screenHeight / 1.7) - 2,
@@ -137,7 +139,7 @@ public class Circus extends Game implements World {
                 intersection.handleIntersection((FallingObject) o, righttoIntersectWith);
                 intersection.handleIntersection((FallingObject) o, lefttoIntersectWith);
 
-                movement.move((FallingObject) o, difficulty.getFallingObjectSpeedStrategy());
+                difficulty.getMovement().move((FallingObject) o, difficulty.getFallingObjectSpeedStrategy());
 
             }
         }
@@ -225,20 +227,12 @@ public class Circus extends Game implements World {
         return this.control;
     }
 
-    public DifficultyStrategy getDifficulty() {
+    public Difficulty getDifficulty() {
         return this.difficulty;
     }
 
-    public void setDifficulty(DifficultyStrategy difficulty) {
+    public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
-    }
-
-    public MovementStrategy getMovement() {
-        return this.movement;
-    }
-
-    public void setMovement(MovementStrategy movement) {
-        this.movement = movement;
     }
 
     public void setObjectsFallingSpeed(ObjectSpeedStrategy speedStrategy) {

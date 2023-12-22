@@ -8,7 +8,7 @@ public class Finish implements GameState{
 
     @Override
     public void stateAction(Game game) {
-        Circus circus= Circus.getCircus();
+        Circus circus= Circus.getCircus(null);
         
         circus.setGameOver(true);
 

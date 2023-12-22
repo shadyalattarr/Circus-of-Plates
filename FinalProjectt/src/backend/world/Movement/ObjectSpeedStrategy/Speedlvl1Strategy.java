@@ -1,6 +1,6 @@
 package backend.world.Movement.ObjectSpeedStrategy;
 
-public class ObjectSpeedlvl1Strategy implements ObjectSpeedStrategy {
+public class Speedlvl1Strategy implements ObjectSpeedStrategy {
 
     @Override
     public int getFallingObjectSpeed() {

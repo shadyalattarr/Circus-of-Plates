@@ -6,5 +6,10 @@ public class Bomb extends ImageObject implements FallingObject{
         super(posX, posY, path);
     }
 
+    @Override
+    public void normalSetX(int mX) {
+        setX(mX);
+    }
+
     
 }

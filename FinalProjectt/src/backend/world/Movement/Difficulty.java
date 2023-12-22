@@ -3,14 +3,23 @@ package backend.world.Movement;
 import backend.world.Movement.ObjectSpeedStrategy.ObjectSpeedStrategy;
 import backend.world.ObjectsFallingStrategy.ObjectsFallingStrategy;
 
-public class DifficultyStrategy {
+public class Difficulty {
     private ObjectSpeedStrategy speedStrategy;
     private ObjectsFallingStrategy objectsFallingStrategy;
-    private MovementStrategy movement;
+    private Movement movement;
     private int numFallingObjPerSecond;
+    private PredefinedDifficultyStrategy predefinedDifficulty;
+    private int frenzyNumFallingObj;
 
 
-    public DifficultyStrategy(ObjectSpeedStrategy speedStrat, MovementStrategy moveStrat,ObjectsFallingStrategy objectsFallingStrat,int numFallingPerSec)
+    //two ways to make a difficulty, use a predeifned one or make one yourself
+    public Difficulty(PredefinedDifficultyStrategy pDiff)
+    {
+        pDiff.setDifficulty(this);
+
+    }
+
+    public Difficulty(ObjectSpeedStrategy speedStrat, Movement moveStrat,ObjectsFallingStrategy objectsFallingStrat,int numFallingPerSec)
     {
         this.movement = moveStrat;
         this.speedStrategy = speedStrat;
@@ -22,7 +31,6 @@ public class DifficultyStrategy {
     {
         return this.speedStrategy;
     }
-
 
     public void setNumFallingObjPerSecond(int n)
     {
@@ -47,18 +55,23 @@ public class DifficultyStrategy {
         this.objectsFallingStrategy = objectsFallingStrategy;
     }
 
-    public MovementStrategy getMovement() {
+    public Movement getMovement() {
         return this.movement;
     }
 
-    public void setMovement(MovementStrategy movement) {
+    public void setMovement(Movement movement) {
         this.movement = movement;
     }
     //overloading
     public void setMovement(MovePatternStrategy moveP,MoveDirectionStrategy moveD)
     {
-        this.movement.setMoveP(moveP);
-        this.movement.setMoveD(moveD);
+        if(this.movement == null)
+            this.setMovement(new Movement(moveP, moveD));
+        else
+        {
+            this.movement.setMoveP(moveP);
+            this.movement.setMoveD(moveD);
+        }
     }
     public void setMovement(MovePatternStrategy moveP,MoveDirectionStrategy moveD ,ObjectSpeedStrategy gameSpeed) {
         setMovement(moveP, moveD);

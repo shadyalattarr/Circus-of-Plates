@@ -10,9 +10,10 @@ public class HeartsStrategy implements ObjectsFallingStrategy{
     ObjectFactory factory = new ObjectFactory();
     @Override
     public ArrayList<GameObject> generateObjectsFalling(int n) {
-        double random = Math.random();
+        double random;
         for(int i=0; i < n; i++)
         {
+            random = Math.random();
             if (random<=0.1) 
                 moving.add(factory.createObject("Heart",(int)(Math.random()*1400/*getWidth()*/), (int)(Math.random()*750/2)));
             else{

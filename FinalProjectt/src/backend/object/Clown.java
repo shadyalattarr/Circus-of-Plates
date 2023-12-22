@@ -40,7 +40,7 @@ public class Clown extends ImageObject  {
 
     public boolean isClownOnFarRight()
     {
-        if(getX() == Circus.getCircus().getWidth() - getWidth())
+        if(getX() == Circus.getCircus(null).getWidth() - getWidth())
             return true;
         return false;
     }

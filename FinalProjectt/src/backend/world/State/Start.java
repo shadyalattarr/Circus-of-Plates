@@ -12,17 +12,23 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
 import backend.world.Circus;
+import backend.world.Movement.CrazyDifficultyStrategy;
+import backend.world.Movement.Difficulty;
+import backend.world.Movement.EasyDifficultyStrategy;
+import backend.world.Movement.HardDifficultyStrategy;
+import backend.world.Movement.MediumDifficultyStrategy;
+import backend.world.Movement.PredefinedDifficultyStrategy;
 import backend.world.Movement.ObjectSpeedStrategy.ObjectSpeedStrategy;
-import backend.world.Movement.ObjectSpeedStrategy.ObjectSpeedlvl1Strategy;
-import backend.world.Movement.ObjectSpeedStrategy.ObjectSpeedlvl2Strategy;
+import backend.world.Movement.ObjectSpeedStrategy.Speedlvl1Strategy;
+import backend.world.Movement.ObjectSpeedStrategy.Speedlvl2Strategy;
 import eg.edu.alexu.csd.oop.game.GameEngine;
 import eg.edu.alexu.csd.oop.game.GameEngine.GameController;
 
 public class Start implements GameState {
 
-    private ObjectSpeedStrategy speedStrategy = new ObjectSpeedlvl1Strategy();
+    private PredefinedDifficultyStrategy difficulty;
 
-    public void chooseSpeed() {
+    public void chooseDifficulty() {
         JFrame frame = new JFrame();
 
         frame.setLayout(new FlowLayout());
@@ -36,12 +42,14 @@ public class Start implements GameState {
         easyButton.setMaximumSize(dim);
         mediumButton.setMaximumSize(dim);
         easyButton.addActionListener(e -> {
-            speedStrategy = new ObjectSpeedlvl1Strategy();
+            //difficulty = new EasyDifficultyStrategy();
+            difficulty = new HardDifficultyStrategy();
             frame.dispose();
             startGame();
         });
         mediumButton.addActionListener(e -> {
-            speedStrategy = new ObjectSpeedlvl2Strategy();
+            //difficulty = new MediumDifficultyStrategy();
+            difficulty = new CrazyDifficultyStrategy();
             frame.dispose();
             startGame();
         });
@@ -61,14 +69,13 @@ public class Start implements GameState {
 
     @Override
     public void stateAction(Game game) {
-        chooseSpeed();
+        chooseDifficulty();
 
     }
 
     private void startGame() {
         JMenuBar menuBar = new JMenuBar();
-        Circus circus = Circus.getCircus();
-        circus.getDifficulty().setFallingObjectSpeedStrategy(speedStrategy);
+        Circus circus = Circus.getCircus(difficulty);
 
         final GameController gameController = GameEngine.start("Very Simple Game in 99 Line of Code", circus, menuBar,
                 Color.WHITE);

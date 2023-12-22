@@ -112,5 +112,11 @@ public class Plate extends Shape implements ObjectOnStick,FallingObject{
     public void setIsCaught(boolean isCaught) {
        this.caught=isCaught;
     }
+
+    @Override
+    public void normalSetX(int mX)
+    {
+        super.setX(mX);
+    }
     
 }

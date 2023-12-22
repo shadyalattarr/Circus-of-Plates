@@ -23,10 +23,10 @@ public class Intersection {
     private boolean isIntersect(GameObject fallingObject, GameObject onStick)
     {
         double fallingObjectXCenter = (fallingObject.getX() + fallingObject.getWidth()/2.0);
-        double stickXCenter = (onStick.getX() + onStick.getWidth()/2.0);
+        double onStickXCenter = (onStick.getX() + onStick.getWidth()/2.0);
         int fallingObjectBottomY = fallingObject.getY() + fallingObject.getHeight();
         int stickTop = onStick.getY();
-		return ((Math.abs(fallingObjectXCenter - stickXCenter) <= fallingObject.getWidth()/1.5) && (Math.abs(stickTop- fallingObjectBottomY)<=5));
+		return ((Math.abs(fallingObjectXCenter - onStickXCenter) <= fallingObject.getWidth()/1.5) && (Math.abs(stickTop- fallingObjectBottomY)<=5));
 	}
 
     public void handleIntersection(FallingObject fallingObject, GameObject onStick)

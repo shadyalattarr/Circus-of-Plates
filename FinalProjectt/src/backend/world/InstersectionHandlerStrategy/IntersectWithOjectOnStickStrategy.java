@@ -14,16 +14,18 @@ import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class IntersectWithOjectOnStickStrategy implements IntersectionHandlerStrategy{
 
+    //////////////////////////////////weeeeeeeeeeeeeeeeeeee want to remove circus
+    ////daaroooooooooooooooooooorirrrrrrrrrrrrrrrrrrrrr // dont forgrtyyytttttttttttttttttt
     @Override
     public void handleIntersection(FallingObject fallingPlate, GameObject onStick, Circus circus) {
         //it fell on me fa put it
         Stack<GameObject> stack;
-        ObjectOnStick objOnSticj = (ObjectOnStick) fallingPlate;
-        circus.getMovableObjects().remove(objOnSticj);
-        circus.getControlableObjects().add(objOnSticj);
-        objOnSticj.setY(onStick.getY() - objOnSticj.getHeight());
-        objOnSticj.setIsCaught(true);
-        objOnSticj.setX(onStick.getX() + onStick.getWidth()/2 - objOnSticj.getWidth()/2);
+        ObjectOnStick objOnStick = (ObjectOnStick) fallingPlate;
+        circus.getMovableObjects().remove(objOnStick);
+        circus.getControlableObjects().add(objOnStick);
+        objOnStick.setY(onStick.getY() - objOnStick.getHeight());
+        objOnStick.setIsCaught(true);
+        objOnStick.normalSetX(onStick.getX() + onStick.getWidth()/2 - objOnStick.getWidth()/2);
         
         
         //right or left stack
@@ -31,44 +33,44 @@ public class IntersectWithOjectOnStickStrategy implements IntersectionHandlerStr
             stack = circus.getClown().getLeftObjStack();
         else
             stack = circus.getClown().getRightObjStack();
-        stack.push(objOnSticj);
-        checkobjOnSticj(stack, circus);
+        stack.push(objOnStick);
+        checkObjOnStick(stack, circus);
         
     }
 
-    public void checkobjOnSticj(Stack<GameObject> stack,Circus circus) {
+    public void checkObjOnStick(Stack<GameObject> stack,Circus circus) {
         ClownIteratorConcrete iterator = new ClownIteratorConcrete(stack);
 
         if (iterator.getSize() >= 3) {
             int i = 0;
             iterator.setI(stack.size() - 1);
-            List<ObjectOnStick> objOnSticjs = new ArrayList<ObjectOnStick>();
+            List<ObjectOnStick> objectsOnStick = new ArrayList<ObjectOnStick>();
 
             while (i <= 2) {
 
-                ObjectOnStick objOnSticj = (ObjectOnStick) iterator.next();
-                objOnSticjs.add(objOnSticj);
-               // System.out.println(objOnSticj.getobjOnSticjColor());
+                ObjectOnStick objOnStick = (ObjectOnStick) iterator.next();
+                objectsOnStick.add(objOnStick);
+               // System.out.println(objOnStick.getobjOnStickColor());
                 i++;
             }
             i = 0;
 
-            if (objOnSticjs.get(0).getColor() == objOnSticjs.get(1).getColor()
-                    && objOnSticjs.get(1).getColor() == objOnSticjs.get(2).getColor()) {
+            if (objectsOnStick.get(0).getColor() == objectsOnStick.get(1).getColor()
+                    && objectsOnStick.get(1).getColor() == objectsOnStick.get(2).getColor()) {
                 circus.setScore(circus.getScore()+300);
                 while (i <= 2) {
-                    ObjectOnStick objOnSticjRemoved = (ObjectOnStick) stack.pop();
-                    circus.getControlableObjects().remove(objOnSticjRemoved);
+                    ObjectOnStick objOnStickRemoved = (ObjectOnStick) stack.pop();
+                    circus.getControlableObjects().remove(objOnStickRemoved);
                     i++;
                 }
 
             }
 
-            objOnSticjs.clear();
-            //System.out.println("size " + objOnSticjs.size());
+            objectsOnStick.clear();
+            //System.out.println("size " + objOnSticks.size());
             // if (iterator.getSize() >= 3) {
-            // objOnSticj objOnSticj1 = (objOnSticj) iterator.next();
-            // objOnSticj objOnSticj2 = (objOnSticj) iterator.next();
+            // objOnStick objOnStick1 = (objOnStick) iterator.next();
+            // objOnStick objOnStick2 = (objOnStick) iterator.next();
             // }
         }
 

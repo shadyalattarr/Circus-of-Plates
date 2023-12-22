@@ -2,14 +2,15 @@ package backend.object;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Cup extends Shape implements ObjectOnStick,FallingObject{
 
-    public static final int SPRITE_HEIGHT = 42;
-    public static final int SPRITE_WIDTH = 47;
+    public static final int SPRITE_HEIGHT = 30;
+    public static final int SPRITE_WIDTH = 30;
     private static final int MAX_MSTATE = 1;
     // an array of sprite images that are drawn sequentially
     private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
@@ -37,7 +38,11 @@ public class Cup extends Shape implements ObjectOnStick,FallingObject{
         spriteImages[0] = new BufferedImage(SPRITE_WIDTH, SPRITE_WIDTH, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = spriteImages[0].createGraphics();
         g2.setColor(cupColor);
-        g2.fillRect(getWidth()/2 - SPRITE_WIDTH/2 , getHeight()/2 - SPRITE_HEIGHT/2, SPRITE_WIDTH, SPRITE_HEIGHT);
+        int[] Xs = {10,15,25,30};
+        int[] Ys = {0,30,30,0};
+        Polygon reversetrapezium = new Polygon(Xs, Ys, 4);
+        g2.fillPolygon(reversetrapezium);
+        //g2.fillRect(getWidth()/2 - SPRITE_WIDTH/2 , getHeight()/2 - SPRITE_HEIGHT/2, SPRITE_WIDTH, SPRITE_HEIGHT);
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         g2.dispose();
@@ -74,6 +79,14 @@ public class Cup extends Shape implements ObjectOnStick,FallingObject{
             p = clown.getX(); 
         }
     }
+
+    //from objonstick
+    @Override
+    public void normalSetX(int mX)
+    {
+        super.setX(mX);
+    }
+
 	// 		if(mX<1400-clown.getWidth()+40 && mX>0)
 	// 			super.setX(mX);
 				
