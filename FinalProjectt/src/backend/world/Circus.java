@@ -64,7 +64,7 @@ public class Circus extends Game implements World {
         control = new LinkedList<GameObject>();
         moving = new LinkedList<GameObject>();
       //  constant.add(new BarObject((int)(Math.random() * screenWidth/2), (int)(Math.random() * screenHeight/4 + screenHeight/2), 15, Color.RED,clown,true));
-        constant.add(new ImageObject(0, 0, "FinalProjectt\\cp.png"));
+    constant.add(new BackGround(screenWidth,screenHeight,0,0,"FinalProjectt\\cp.png",0));
         // maybe difficulty sent in constructor?
         this.difficulty = new Difficulty(difficulty);
         hearts = new HeartCounter(3);

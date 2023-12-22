@@ -170,7 +170,7 @@ public class Start implements GameState {
         
          circus = Circus.getCircus(difficulty);
 
-        final GameController gameController = GameEngine.start("Very Simple Game in 99 Line of Code", circus, menuBar,
+        final GameController gameController = GameEngine.start("Gumbile the Clown : Game ON!", circus, menuBar,
                 Color.WHITE);
                
 		JMenu menu = new JMenu("File");
