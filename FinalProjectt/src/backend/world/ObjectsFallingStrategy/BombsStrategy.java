@@ -23,6 +23,8 @@ public class BombsStrategy implements ObjectsFallingStrategy {
             else {
                 moving.add(factory.createObject("Plate", (int) (Math.random() * 1200/* getWidth() */),
                         (int) (Math.random() * 600 / 10 /* getHeight()/2 */)));
+                 moving.add(factory.createObject("Cup", (int) (Math.random() * 1200/* getWidth() */),
+                        (int) (Math.random() * 600 / 10 /* getHeight()/2 */)));
             }
         }
         return moving;

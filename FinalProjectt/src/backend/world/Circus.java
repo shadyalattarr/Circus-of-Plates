@@ -8,6 +8,8 @@ import backend.world.Movement.*;
 import backend.world.Movement.ObjectSpeedStrategy.*;
 import backend.world.ObjectsFallingStrategy.*;
 import backend.world.State.*;
+
+import java.awt.Color;
 import java.util.*;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
@@ -24,17 +26,16 @@ public class Circus extends Game implements World {
     private final List<GameObject> control;
     private final List<GameObject> objectsToFall;
     private int fallingObjPerSecond;
-    
+
     private int i;
     private Game game;
     private boolean gameOver;
-    //for now difficulty
+    // for now difficulty
     HeartCounter hearts;
     DifficultyStrategy difficulty;
     MovementStrategy movement;
     ObjectsFallingStrategy objFalling;
     Intersection intersection;
-
 
     // ------------
     private final Clown clown;
@@ -42,13 +43,12 @@ public class Circus extends Game implements World {
     // ------------
     private static Circus circus;
 
-    public static Circus getCircus(){
-        if(circus==null)
+    public static Circus getCircus() {
+        if (circus == null)
             circus = new Circus(1200, 600);
-        
+
         return circus;
     }
-
 
     private Circus(int screenWidth, int screenHeight) {
         i = 0;
@@ -59,17 +59,18 @@ public class Circus extends Game implements World {
         constant = new LinkedList<GameObject>();
         control = new LinkedList<GameObject>();
         moving = new LinkedList<GameObject>();
-
+      //  constant.add(new BarObject((int)(Math.random() * screenWidth/2), (int)(Math.random() * screenHeight/4 + screenHeight/2), 15, Color.RED,clown,true));
+        constant.add(new ImageObject(0, 0, "FinalProjectt\\cp.png"));
         // maybe difficulty sent in constructor?
         hearts = new HeartCounter(3);
         intersection = new Intersection(this);
         movement = new MovementStrategy(new OscillationStrategy(), new DownOnlyStrategy());
         objFalling = new BombsStrategy();
-        difficulty = new DifficultyStrategy(new ObjectSpeedlvl2Strategy(), movement, objFalling,3);
+        difficulty = new DifficultyStrategy(new ObjectSpeedlvl1Strategy(), movement, objFalling, 3);
         // all above not here
 
-        //make clown coords x 10
-        clown = Clown.getInstance((int) (screenWidth / 2.5) , (int) (screenHeight / 1.7) -2,
+        // make clown coords x 10
+        clown = Clown.getInstance((int) (screenWidth / 2.5), (int) (screenHeight / 1.7) - 2,
                 "FinalProjectt\\clown-removebg-preview_3_53.png");
 
         control.add(clown);
@@ -86,7 +87,7 @@ public class Circus extends Game implements World {
                 // System.out.println(j);
                 moving.add(objectsToFall.get(i + j));
             } catch (IndexOutOfBoundsException e) {
-                //maybe a joption pane too?
+                // maybe a joption pane too?
                 System.out.println("ERRAOR : You ran out of falling objects");
                 // close game
                 System.exit(0);
@@ -97,23 +98,23 @@ public class Circus extends Game implements World {
 
     @Override
     public boolean refresh() {
-        boolean timeout = timePassedInms > MAX_TIME; 
-        if(!gameOver)
-        {
-            //state management
+        GameObject c = constant.get(0);
+        c.isVisible();
+        boolean timeout = timePassedInms > MAX_TIME;
+        if (!gameOver) {
+            // state management
             if (hearts.getLives() == 0 || timeout) {
                 game.setState(new Finish());
                 game.currentEvent();
-            }
-            else if (timePassedInms / 1000 == 45) {
+            } else if (timePassedInms / 1000 == 45) {
                 game.setState(new Almost());
                 game.currentEvent();
             }
-            
+
             if (timePassedInms / 1000 + 1 <= (System.currentTimeMillis() - startTime) / 1000.0) {
                 spawn(difficulty.getNumFallingObjPerSecond());
             }
-            
+
             // update time passed
             timePassedInms = System.currentTimeMillis() - startTime;
 
@@ -126,31 +127,25 @@ public class Circus extends Game implements World {
                 righttoIntersectWith = clown.getRightObjStack().size() == 0 ? clown.getRightStick()
                         : clown.getRightObjStack().peek();
 
-                
-                if (o instanceof Plate)
-                    intersection.setIntersection(new IntersectWithPlateStrategy());
+                if (o instanceof ObjectOnStick)
+                    intersection.setIntersection(new IntersectWithOjectOnStickStrategy());
                 else if (o instanceof Bomb)
                     intersection.setIntersection(new IntersectWithBombStrategy());
-                else if(o instanceof Heart)
+                else if (o instanceof Heart)
                     intersection.setIntersection(new IntersectwithHeartStrategy());
 
                 intersection.handleIntersection((FallingObject) o, righttoIntersectWith);
                 intersection.handleIntersection((FallingObject) o, lefttoIntersectWith);
 
-                
                 movement.move((FallingObject) o, difficulty.getFallingObjectSpeedStrategy());
 
-                }
+            }
         }
-        
-        //returning false is GamePver
-        return !gameOver;
-            
-            
-    }
-    
 
-    
+        // returning false is GamePver
+        return !gameOver;
+
+    }
 
     @Override
     public int getSpeed() {
@@ -245,10 +240,11 @@ public class Circus extends Game implements World {
     public void setMovement(MovementStrategy movement) {
         this.movement = movement;
     }
-    public void setObjectsFallingSpeed(ObjectSpeedStrategy speedStrategy)
-    {
+
+    public void setObjectsFallingSpeed(ObjectSpeedStrategy speedStrategy) {
         difficulty.setFallingObjectSpeedStrategy(speedStrategy);
     }
+
     public ObjectsFallingStrategy getObjFalling() {
         return this.objFalling;
     }
@@ -261,21 +257,16 @@ public class Circus extends Game implements World {
         return this.clown;
     }
 
-    public HeartCounter getHeartCounter()
-    {
+    public HeartCounter getHeartCounter() {
         return hearts;
     }
 
-    public void setGameOver(boolean gameOver)
-    {
+    public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
     }
 
-    public boolean isGameOver()
-    {
+    public boolean isGameOver() {
         return this.gameOver;
     }
-
-    
 
 }

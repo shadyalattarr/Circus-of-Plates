@@ -5,6 +5,10 @@ import backend.world.State.Start;
 public class App {
 	
 	public static void main(String[] args) {
+
+
+
+		
 		System.out.println("Uncomment any of the lines in the Main to run a new game, Have Fun :)");
 		Game game = new Game();
 		game.setState(new Start());

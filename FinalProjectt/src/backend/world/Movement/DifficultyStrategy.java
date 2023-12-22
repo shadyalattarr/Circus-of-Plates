@@ -65,5 +65,9 @@ public class DifficultyStrategy {
         this.setFallingObjectSpeedStrategy(gameSpeed);
     }
 
+    public void setSpeedStrategy(ObjectSpeedStrategy speedStrategy) {
+        this.speedStrategy = speedStrategy;
+    }
+
     //getmovement?
 }

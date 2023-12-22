@@ -19,6 +19,7 @@ public class BombsAndHeartsStrategy implements ObjectsFallingStrategy {
                moving.add(factory.createObject("Bomb",(int)(Math.random()*1400/*getWidth()*/), (int)(Math.random()*750/10 /*getHeight()/2*/))); 
             else{
                 moving.add(factory.createObject("Plate",(int)(Math.random()*1400/*getWidth()*/), (int)(Math.random()*750/10 /*getHeight()/2*/)));
+                moving.add(factory.createObject("Cup",(int)(Math.random()*1400/*getWidth()*/), (int)(Math.random()*750/10 /*getHeight()/2*/)));
             }
         }
         return moving;

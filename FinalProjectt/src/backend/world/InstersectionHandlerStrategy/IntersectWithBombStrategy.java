@@ -5,6 +5,7 @@ import java.util.Stack;
 import backend.object.Bomb;
 import backend.object.FallingObject;
 import backend.object.Plate;
+import backend.object.ObjectOnStick;
 import backend.world.Circus;
 import backend.world.HeartCounter;
 import eg.edu.alexu.csd.oop.game.GameObject;
@@ -15,7 +16,7 @@ public class IntersectWithBombStrategy implements IntersectionHandlerStrategy{
     @Override
     public void handleIntersection(FallingObject bomb, GameObject onStick, Circus circus) {
         Stack<GameObject> stack;
-        Plate plateRemoved;
+        ObjectOnStick plateRemoved;
         HeartCounter hearts = circus.getHeartCounter();
         //right or left stack
         if((onStick.getX() - circus.getClown().getX()) <= circus.getClown().getWidth()/2)
@@ -28,7 +29,7 @@ public class IntersectWithBombStrategy implements IntersectionHandlerStrategy{
         }
         if(stack.size() >0)
         {
-            plateRemoved = (Plate)stack.pop();
+            plateRemoved = (ObjectOnStick)stack.pop();
             circus.getControlableObjects().remove(plateRemoved);
             circus.getMovableObjects().remove(bomb);
             hearts.takeDamage();
