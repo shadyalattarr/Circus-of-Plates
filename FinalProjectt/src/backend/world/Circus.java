@@ -278,4 +278,8 @@ public class Circus extends Game implements World {
         return this.gameOver;
     }
 
+    public void reset(){
+        circus=null;
+    }
+
 }
