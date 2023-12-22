@@ -36,7 +36,7 @@ public class Start implements GameState {
 
     private PredefinedDifficultyStrategy difficulty;
     
-    private final Stack<Memento> mementoStack = new Stack<>();
+    private final Stack<Memento> mementoStack = new Stack<Memento>();
     JFrame frame2 = new JFrame();
     int picked = -1;
     private Circus circus;
@@ -108,8 +108,8 @@ public class Start implements GameState {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         Dimension dim = new Dimension(200, 100);
 
-        JButton startButton = new JButton("Start new game");
-        JButton loadButton = new JButton("Load game");
+        JButton startButton = new JButton("Start New Game");
+        JButton loadButton = new JButton("Load Game");
 
         startButton.setMaximumSize(dim);
         loadButton.setMaximumSize(dim);
@@ -131,7 +131,7 @@ public class Start implements GameState {
                             saves[0]);
             if(mementoStack.size()>picked) {               
             Memento loadedmemento = mementoStack.get(picked);
-            circus.getMemento(loadedmemento);
+            circus.loadGame(loadedmemento);
             startGame();           
             
             frame2.dispose();

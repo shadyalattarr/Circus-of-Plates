@@ -20,7 +20,7 @@ import eg.edu.alexu.csd.oop.game.World;
 public class Circus extends Game implements World {
     private static int MAX_TIME = 1 * 60 * 1000; // 1 minute
     private int score = 0;
-    private long endTime, timePassedInms = 0L, startTime = System.currentTimeMillis();
+    private long endTime, timePassedInms = 0L, startTime;
     private final int width;
     private final int height;
     private final List<GameObject> constant;
@@ -48,11 +48,11 @@ public class Circus extends Game implements World {
     public static Circus getCircus(PredefinedDifficultyStrategy difficulty) {
         if (circus == null)
             circus = new Circus(1200, 600,difficulty);
-
         return circus;
     }
 
     private Circus(int screenWidth, int screenHeight,PredefinedDifficultyStrategy difficulty) {
+        startTime = System.currentTimeMillis();
         i = 0;
         game = new Game();
         gameOver = false;
@@ -152,15 +152,36 @@ public class Circus extends Game implements World {
     }
 
     public Memento createMemento(){
-        return new Memento(score, getHeartCounter(), getConstant(), getMoving(), getControl());
+        return new Memento(score, getHeartCounter(), (LinkedList<GameObject>)getConstantObjects(), (LinkedList<GameObject>)getMovableObjects(), (LinkedList<GameObject>)getControlableObjects());
     }
 
-    public void getMemento(Memento memento){
+    public void loadGame(Memento memento){
         this.hearts= new HeartCounter(memento.getHeartCounter().getLives());
-        this.score=memento.getScore();
+
+        System.out.println(this.score);
+
+        setScore(memento.getScore());
+
+        System.out.println(memento.getScore());
+        System.out.println(this.score);
+
+        getConstantObjects().clear();
+        getMovableObjects().clear();
+        getMovableObjects().clear();
+        System.out.println(getConstantObjects().size());
+        System.out.println(getMovableObjects().size());
+        System.out.println(getControlableObjects().size());
+
         this.constant.addAll(memento.getConstant());
         this.moving.addAll(memento.getMoving());
         this.control.addAll(memento.getControl());
+        
+        System.out.println(getConstantObjects().size());
+        System.out.println(getMovableObjects().size());
+        System.out.println(getControlableObjects().size());
+
+        ((Plate)(getControlableObjects().get(5))).setVisible(true);
+
 
     }    
 
@@ -201,8 +222,8 @@ public class Circus extends Game implements World {
 
     @Override
     public String getStatus() {
-        return "Score=" + score + "   |   Time="
-                + Math.max(0, (MAX_TIME - (System.currentTimeMillis() - startTime)) / 1000) + "   |   Lives="
+        return "Score=" + getScore() + "   |   Time="
+                + Math.max(0, (MAX_TIME - (timePassedInms)) / 1000) + "   |   Lives="
                 + hearts.getLives();  // update status
     }
 
@@ -230,17 +251,6 @@ public class Circus extends Game implements World {
         this.startTime = startTime;
     }
 
-    public List<GameObject> getConstant() {
-        return this.constant;
-    }
-
-    public List<GameObject> getMoving() {
-        return this.moving;
-    }
-
-    public List<GameObject> getControl() {
-        return this.control;
-    }
 
     public Difficulty getDifficulty() {
         return this.difficulty;
