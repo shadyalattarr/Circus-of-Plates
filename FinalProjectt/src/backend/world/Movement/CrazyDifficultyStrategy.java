@@ -10,7 +10,7 @@ public class CrazyDifficultyStrategy implements PredefinedDifficultyStrategy {
     @Override
     public void setDifficulty(Difficulty diff) {
         diff.setSpeedStrategy(new Speedlvl3Strategy());
-        diff.setObjectsFallingStrategy(new BombsStrategy());
+        diff.setObjectsFallingStrategy(new EverythingSoFarStrategy());
         diff.setNumFallingObjPerSecond(5);
         diff.setMovement(new OscillationStrategy(), new DownOnlyStrategy());
     }
