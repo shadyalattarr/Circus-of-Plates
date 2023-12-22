@@ -47,7 +47,7 @@ public class Circus extends Game implements World {
 
     public static Circus getCircus(PredefinedDifficultyStrategy difficulty) {
         if (circus == null)
-            circus = new Circus(1200, 600,difficulty);
+            circus = new Circus(1900, 750,difficulty);
         return circus;
     }
 
