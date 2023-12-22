@@ -131,6 +131,7 @@ public class Start implements GameState {
                             saves[0]);
             if(mementoStack.size()>picked) {               
             Memento loadedmemento = mementoStack.get(picked);
+            System.out.println("memscore"+loadedmemento.getScore());
             circus.loadGame(loadedmemento);
             startGame();           
             

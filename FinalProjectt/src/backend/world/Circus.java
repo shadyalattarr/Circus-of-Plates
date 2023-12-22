@@ -19,8 +19,8 @@ import eg.edu.alexu.csd.oop.game.World;
 
 public class Circus extends Game implements World {
     private static int MAX_TIME = 1 * 60 * 1000; // 1 minute
-    private int score = 0;
-    private long endTime, timePassedInms = 0L, startTime;
+    private int score;
+    private long endTime, timePassedInms , startTime;
     private final int width;
     private final int height;
     private final List<GameObject> constant;
@@ -54,6 +54,8 @@ public class Circus extends Game implements World {
     private Circus(int screenWidth, int screenHeight,PredefinedDifficultyStrategy difficulty) {
         startTime = System.currentTimeMillis();
         i = 0;
+        score = 0;
+        timePassedInms = 0L;
         game = new Game();
         gameOver = false;
         this.width = screenWidth;
@@ -145,7 +147,8 @@ public class Circus extends Game implements World {
 
             }
         }
-
+        System.out.println(getStatus());
+        System.out.println(circus);
         // returning false is GamePver
         return !gameOver;
 
@@ -156,7 +159,8 @@ public class Circus extends Game implements World {
     }
 
     public void loadGame(Memento memento){
-        this.hearts= new HeartCounter(memento.getHeartCounter().getLives());
+        this.hearts=memento.getHeartCounter();
+        
 
         System.out.println(this.score);
 
@@ -180,7 +184,8 @@ public class Circus extends Game implements World {
         System.out.println(getMovableObjects().size());
         System.out.println(getControlableObjects().size());
 
-        ((Plate)(getControlableObjects().get(5))).setVisible(true);
+
+        System.out.println(getStatus());
 
 
     }    

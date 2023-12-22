@@ -15,7 +15,7 @@ public class Memento {
 
     public Memento(int score, HeartCounter heartCounter, LinkedList<GameObject> constant, LinkedList <GameObject> moving, LinkedList<GameObject> control){
         this.score=score;
-        this.heartCounter=heartCounter;
+        this.heartCounter=new HeartCounter(heartCounter.getLives());
         this.constant= createList(constant);
         this.moving= createList(moving);
         this.control= createList(control);
