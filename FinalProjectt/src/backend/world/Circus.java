@@ -12,6 +12,8 @@ import backend.world.State.*;
 import java.awt.Color;
 import java.util.*;
 
+import javax.swing.JButton;
+
 import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
 
@@ -149,6 +151,19 @@ public class Circus extends Game implements World {
 
     }
 
+    public Memento createMemento(){
+        return new Memento(score, getHeartCounter(), getConstant(), getMoving(), getControl());
+    }
+
+    public void getMemento(Memento memento){
+        this.hearts= new HeartCounter(memento.getHeartCounter().getLives());
+        this.score=memento.getScore();
+        this.constant.addAll(memento.getConstant());
+        this.moving.addAll(memento.getMoving());
+        this.control.addAll(memento.getControl());
+
+    }    
+
     @Override
     public int getSpeed() {
         return 10;
@@ -188,7 +203,7 @@ public class Circus extends Game implements World {
     public String getStatus() {
         return "Score=" + score + "   |   Time="
                 + Math.max(0, (MAX_TIME - (System.currentTimeMillis() - startTime)) / 1000) + "   |   Lives="
-                + hearts.getLives(); // update status
+                + hearts.getLives();  // update status
     }
 
     public int getScore() {
