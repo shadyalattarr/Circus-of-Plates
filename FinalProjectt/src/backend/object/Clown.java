@@ -54,11 +54,12 @@ public class Clown extends ImageObject  {
 
     }
 
-    public static Clown getInstance(int posX, int posY, String path) {
+    public static Clown getInstance() {
 
         synchronized (Clown.class) {
             if (clown == null) {
-                clown = new Clown(posX, posY, path);
+                clown = new Clown((int) (Circus.getCircus(null).getWidth() / 2.5), (int) (Circus.getCircus(null).getHeight() / 1.7) - 2,
+                "FinalProjectt\\clown-removebg-preview_3_53.png");
             }
         }
         return clown;

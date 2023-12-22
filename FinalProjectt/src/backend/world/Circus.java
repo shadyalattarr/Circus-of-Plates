@@ -50,7 +50,15 @@ public class Circus extends Game implements World {
             circus = new Circus(1900, 750,difficulty);
         return circus;
     }
-
+    public Circus(Memento memento)
+    {
+        constant = new LinkedList<GameObject>();
+        control = new LinkedList<GameObject>();
+        moving = new LinkedList<GameObject>();
+        objectsToFall = new ArrayList<GameObject>();
+        clown = Clown.getInstance();
+        this.loadGame(memento);
+    }
     private Circus(int screenWidth, int screenHeight,PredefinedDifficultyStrategy difficulty) {
         startTime = System.currentTimeMillis();
         i = 0;
@@ -76,8 +84,7 @@ public class Circus extends Game implements World {
 
 
         // make clown coords x 10
-        clown = Clown.getInstance((int) (screenWidth / 2.5), (int) (screenHeight / 1.7) - 2,
-                "FinalProjectt\\clown-removebg-preview_3_53.png");
+        clown = Clown.getInstance();
 
         control.add(clown);
         control.add(clown.getLeftStick());
@@ -147,15 +154,16 @@ public class Circus extends Game implements World {
 
             }
         }
-        System.out.println(getStatus());
-        System.out.println(circus);
+        //System.out.println(getStatus());
+        //System.out.println(circus);
         // returning false is GamePver
         return !gameOver;
 
     }
 
     public Memento createMemento(){
-        return new Memento(score, getHeartCounter(), (LinkedList<GameObject>)getConstantObjects(), (LinkedList<GameObject>)getMovableObjects(), (LinkedList<GameObject>)getControlableObjects());
+        System.out.println("i saved:" + i);
+        return new Memento(i,score, getHeartCounter(), objectsToFall,getConstantObjects(), getMovableObjects(), getControlableObjects());
     }
 
     public void loadGame(Memento memento){
@@ -172,6 +180,8 @@ public class Circus extends Game implements World {
         getConstantObjects().clear();
         getMovableObjects().clear();
         getMovableObjects().clear();
+        this.objectsToFall.clear();
+
         System.out.println(getConstantObjects().size());
         System.out.println(getMovableObjects().size());
         System.out.println(getControlableObjects().size());
@@ -179,10 +189,16 @@ public class Circus extends Game implements World {
         this.constant.addAll(memento.getConstant());
         this.moving.addAll(memento.getMoving());
         this.control.addAll(memento.getControl());
+        this.objectsToFall.addAll(memento.getObjectsToFall());
         
         System.out.println(getConstantObjects().size());
         System.out.println(getMovableObjects().size());
         System.out.println(getControlableObjects().size());
+        System.out.println("i before "+ i);
+
+        this.i = memento.getI();
+        System.out.println("i afetr:"+i);
+        this.timePassedInms = memento.getTimePassedInms();
 
 
         System.out.println(getStatus());

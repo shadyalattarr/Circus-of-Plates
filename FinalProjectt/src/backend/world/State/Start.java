@@ -61,21 +61,25 @@ public class Start implements GameState {
         easyButton.addActionListener(e -> {
             difficulty = new EasyDifficultyStrategy();
             frame.dispose();
+            circus = Circus.getCircus(difficulty);
             startGame();
         });
         mediumButton.addActionListener(e -> {
             difficulty = new MediumDifficultyStrategy();
             frame.dispose();
+            circus = Circus.getCircus(difficulty);
             startGame();
         });
         hardButton.addActionListener(e -> {
             difficulty = new HardDifficultyStrategy();
             frame.dispose();
+            circus = Circus.getCircus(difficulty);
             startGame();
         });
         crazyButton.addActionListener(e -> {
             difficulty = new CrazyDifficultyStrategy();
             frame.dispose();
+            circus = Circus.getCircus(difficulty);
             startGame();
         });
         panel.add(Box.createVerticalGlue());
@@ -119,7 +123,7 @@ public class Start implements GameState {
             frame2.dispose();
         });
         loadButton.addActionListener(e -> {
-
+            //new circus BEL MEMENTO
             String[] saves = {"Save 1", "Save 2", "Save 3"};
                     picked = JOptionPane.showOptionDialog(null,
                             "Choose a Promotion:",
@@ -168,8 +172,6 @@ public class Start implements GameState {
     private void startGame() {
         JMenuBar menuBar = new JMenuBar();
         
-         circus = Circus.getCircus(difficulty);
-
         final GameController gameController = GameEngine.start("Gumbile the Clown : Game ON!", circus, menuBar,
                 Color.WHITE);
                
@@ -202,6 +204,8 @@ public class Start implements GameState {
                 gameController.pause();
                 mementoStack.push(save);
                 circus.reset();
+                circus = null;
+                System.out.println("we here?");
                 
                 JFrame thisFrame = (JFrame) SwingUtilities.getWindowAncestor(menuBar);
                 thisFrame.dispose();
