@@ -3,50 +3,29 @@
 class Game {
     - currentGame:GameState
     + setState(GameState) : void
-    + StartGame()
-    + GameOver()
-    + FinalSecondsofGame()
+    + currentEvent()
 }
 
-interface Start { 
-    +StartGame()
+interface GameState { 
+    +stateAction();
     
-}
-interface Almost { 
-    
-    +FinalSecondsofGame()
-    
-}
-interface Finish { 
-    
-    +GameOver()
 }
 
-class BeginGame implements Start{ 
-    -Game currGame
-    +StartGame()
+class BeginGame implements GameState{ 
+    +stateAction();
+    +startGame();
+    +chooseDifficulty();
    
 }
 
-class AlmostDoneGame implements Almost{
-    -Game currGame
-    +FinalSecondsofGame()
+class AlmostDoneGame implements GameState{
+    +stateAction();
    
 }
 
-class FinshedGame implements Finish{
-    -Game currGame
-   
-    +GameOver()
+class FinshedGame implements GameState{   
+    +stateAction();
 }
 
-Game *-- Start
-Game *-- Almost
-Game *-- Finish
+Game *-- GameState
 @enduml
-/*the states in World are the ones that determine how the game plays out
-ex: StartGame will have currentState.Startgame
-every state has to implement interface but some functions
-aren't used in every state like when game is finished, you can't go to final seconds of the game,
- we could have multiple interfaces to apply interface segregation which is a part of SOLID principles
- */
