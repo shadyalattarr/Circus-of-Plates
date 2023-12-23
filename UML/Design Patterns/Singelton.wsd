@@ -7,4 +7,7 @@ class Clown{
 
     +{static} getInstance(int, int,String): Clown
 }
+
+Clown *- Clown
+
 @enduml
