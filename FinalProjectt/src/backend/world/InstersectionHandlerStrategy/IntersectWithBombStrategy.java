@@ -14,7 +14,8 @@ public class IntersectWithBombStrategy implements IntersectionHandlerStrategy{
 
     
     @Override
-    public void handleIntersection(FallingObject bomb, GameObject onStick, Circus circus) {
+    public void handleIntersection(FallingObject bomb, GameObject onStick) {
+        Circus circus = Circus.getCircus(null);
         Stack<GameObject> stack;
         ObjectOnStick plateRemoved;
         HeartCounter hearts = circus.getHeartCounter();

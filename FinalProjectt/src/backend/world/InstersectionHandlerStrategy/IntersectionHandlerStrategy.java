@@ -7,7 +7,7 @@ import eg.edu.alexu.csd.oop.game.GameObject;
 
 public interface IntersectionHandlerStrategy {
 
-    public void handleIntersection(FallingObject fallingObject, GameObject onStick,Circus circus);
+    public void handleIntersection(FallingObject fallingObject, GameObject onStick);
 
     
 
