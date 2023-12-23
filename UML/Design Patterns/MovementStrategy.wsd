@@ -8,7 +8,7 @@ class MovementStrategy{
     +MovementStrategy(moveP : MovePatternStrategy, moveD : MoveDirectionStrategy) 
     /'second constructor to make a movement without speed aka difault speed?'/
 
-    +move(gameSpeed : SpeedStrategy) : void
+    +move(o : FallingObject,gameSpeed : SpeedStrategy) : void
 }
 
 
@@ -16,13 +16,10 @@ interface MovePatternStrategy {
     +patternMove() : void
 }
 
-class VerticalOscillationStrategy { 
+class OscillationStrategy { 
 
 }
 
-class HorizontalOscillationStrategy { 
-    
-}
 
 class NoOscillationStrategy { 
     
@@ -32,15 +29,7 @@ interface MoveDirectionStrategy{
     +directionMove() : void
 }
 
-class UpStrategy{
-
-}
-
-class DownStrategy{
-
-}
-
-class WithClownStrategy{
+class DownOnlyStrategy{
 
 }
 
@@ -55,17 +44,11 @@ class LeftDiagonalStrategy {
 MovementStrategy o-- MoveDirectionStrategy
 MovementStrategy o-- MovePatternStrategy
 
-
-
-MoveDirectionStrategy <|.. UpStrategy 
-MoveDirectionStrategy <|.. DownStrategy 
-MoveDirectionStrategy <|.. WithClownStrategy 
+MoveDirectionStrategy <|.. DownOnlyStrategy 
 MoveDirectionStrategy <|.. RightDiagonalStrategy 
 MoveDirectionStrategy <|.. LeftDiagonalStrategy 
 
-
 MovePatternStrategy <|.. NoOscillationStrategy
-MovePatternStrategy <|.. VerticalOscillationStrategy
-MovePatternStrategy <|.. HorizontalOscillationStrategy
+MovePatternStrategy <|.. OscillationStrategy
 
 @enduml
