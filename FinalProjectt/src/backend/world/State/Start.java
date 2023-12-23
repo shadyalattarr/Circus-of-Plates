@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import backend.world.Circus;
-import backend.world.Memento;
+//import backend.world.Memento;
 import backend.world.Movement.CrazyDifficultyStrategy;
 import backend.world.Movement.Difficulty;
 import backend.world.Movement.EasyDifficultyStrategy;
@@ -36,9 +36,9 @@ public class Start implements GameState {
 
     private PredefinedDifficultyStrategy difficulty;
     
-    private final Stack<Memento> mementoStack = new Stack<Memento>();
+    //private final Stack<Memento> mementoStack = new Stack<Memento>();
     JFrame frame2 = new JFrame();
-    int picked = -1;
+    //int picked = -1;
     private Circus circus;
 
     public void chooseDifficulty() {
@@ -61,25 +61,21 @@ public class Start implements GameState {
         easyButton.addActionListener(e -> {
             difficulty = new EasyDifficultyStrategy();
             frame.dispose();
-            circus = Circus.getCircus(difficulty);
             startGame();
         });
         mediumButton.addActionListener(e -> {
             difficulty = new MediumDifficultyStrategy();
             frame.dispose();
-            circus = Circus.getCircus(difficulty);
             startGame();
         });
         hardButton.addActionListener(e -> {
             difficulty = new HardDifficultyStrategy();
             frame.dispose();
-            circus = Circus.getCircus(difficulty);
             startGame();
         });
         crazyButton.addActionListener(e -> {
             difficulty = new CrazyDifficultyStrategy();
             frame.dispose();
-            circus = Circus.getCircus(difficulty);
             startGame();
         });
         panel.add(Box.createVerticalGlue());
@@ -103,75 +99,77 @@ public class Start implements GameState {
         frame.setVisible(true);
     }
 
-    public void startFrame(){
-        //JFrame frame = new JFrame();
+    // public void startFrame(){
+    //     //JFrame frame = new JFrame();
       
-        frame2.setLayout(new FlowLayout());
-        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        Dimension dim = new Dimension(200, 100);
+    //     frame2.setLayout(new FlowLayout());
+    //     frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //     JPanel panel = new JPanel();
+    //     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    //     Dimension dim = new Dimension(200, 100);
 
-        JButton startButton = new JButton("Start New Game");
-        JButton loadButton = new JButton("Load Game");
+    //     JButton startButton = new JButton("Start New Game");
+    //     JButton loadButton = new JButton("Load Game");
 
-        startButton.setMaximumSize(dim);
-        loadButton.setMaximumSize(dim);
+    //     startButton.setMaximumSize(dim);
+    //     loadButton.setMaximumSize(dim);
 
-        startButton.addActionListener(e -> {
-            chooseDifficulty();
-            frame2.dispose();
-        });
-        loadButton.addActionListener(e -> {
-            //new circus BEL MEMENTO
-            String[] saves = {"Save 1", "Save 2", "Save 3"};
-                    picked = JOptionPane.showOptionDialog(null,
-                            "Choose a Promotion:",
-                            "Promotions",
-                            JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.INFORMATION_MESSAGE,
-                            null,
-                            saves,
-                            saves[0]);
-            if(mementoStack.size()>picked) {               
-            Memento loadedmemento = mementoStack.get(picked);
-            System.out.println("memscore"+loadedmemento.getScore());
-            circus.loadGame(loadedmemento);
-            startGame();           
+    //     startButton.addActionListener(e -> {
+    //         chooseDifficulty();
+    //         frame2.dispose();
+    //     });
+    //     // loadButton.addActionListener(e -> {
+    //     //     //new circus BEL MEMENTO
+    //     //     String[] saves = {"Save 1", "Save 2", "Save 3"};
+    //     //             picked = JOptionPane.showOptionDialog(null,
+    //     //                     "Choose a Promotion:",
+    //     //                     "Promotions",
+    //     //                     JOptionPane.DEFAULT_OPTION,
+    //     //                     JOptionPane.INFORMATION_MESSAGE,
+    //     //                     null,
+    //     //                     saves,
+    //     //                     saves[0]);
+    //     //     if(mementoStack.size()>picked) {               
+    //     //     Memento loadedmemento = mementoStack.get(picked);
+    //     //     System.out.println("memscore"+loadedmemento.getScore());
+    //     //     circus.loadGame(loadedmemento);
+    //     //     startGame();           
             
-            frame2.dispose();
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Empty Save Slot");
-            }
-        });
+    //     //     frame2.dispose();
+    //     //     }
+    //     //     else{
+    //     //         JOptionPane.showMessageDialog(null, "Empty Save Slot");
+    //     //     }
+    //     // });
 
-        panel.add(Box.createVerticalGlue());
-        panel.add(Box.createRigidArea(new Dimension(0, 50)));
-        panel.add(startButton);
+    //     panel.add(Box.createVerticalGlue());
+    //     panel.add(Box.createRigidArea(new Dimension(0, 50)));
+    //     panel.add(startButton);
 
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
-        panel.add(loadButton);
+    //     panel.add(Box.createRigidArea(new Dimension(0, 10)));
+    //     panel.add(loadButton);
 
 
-        frame2.add(panel);
-        frame2.setSize(300, 300);
-        frame2.setLocationRelativeTo(null);
-        frame2.setBackground(null);
-        frame2.setTitle("Start Game");
-        frame2.setVisible(true);
+    //     frame2.add(panel);
+    //     frame2.setSize(300, 300);
+    //     frame2.setLocationRelativeTo(null);
+    //     frame2.setBackground(null);
+    //     frame2.setTitle("Start Game");
+    //     frame2.setVisible(true);
 
-    }
+    // }
 
     @Override
     public void stateAction(Game game) {
-        startFrame();
+        chooseDifficulty();
 
     }
 
     private void startGame() {
         JMenuBar menuBar = new JMenuBar();
         
+        circus = Circus.getCircus(difficulty);
+
         final GameController gameController = GameEngine.start("Gumbile the Clown : Game ON!", circus, menuBar,
                 Color.WHITE);
                
@@ -179,11 +177,11 @@ public class Start implements GameState {
 		
 		JMenuItem pauseMenuItem = new JMenuItem("Pause");
 		JMenuItem resumeMenuItem = new JMenuItem("Resume");
-		JMenuItem saveMenuItem = new JMenuItem("Save");
+		//JMenuItem saveMenuItem = new JMenuItem("Save");
 		
 		menu.add(pauseMenuItem);
 		menu.add(resumeMenuItem);
-        menu.add(saveMenuItem);
+        //menu.add(saveMenuItem);
 		menuBar.add(menu);
 		
 		pauseMenuItem.addActionListener(new ActionListener() {
@@ -196,26 +194,26 @@ public class Start implements GameState {
 				gameController.resume();
 			}
 		});
-        saveMenuItem.addActionListener(new ActionListener() {
-			@Override public void actionPerformed(ActionEvent e) {
-				Memento save = circus.createMemento();
-                if(mementoStack.size()<3){
-                    System.out.println("ff");
-                gameController.pause();
-                mementoStack.push(save);
-                circus.reset();
-                circus = null;
-                System.out.println("we here?");
+        // saveMenuItem.addActionListener(new ActionListener() {
+		// 	@Override public void actionPerformed(ActionEvent e) {
+		// 		Memento save = circus.createMemento();
+        //         if(mementoStack.size()<3){
+        //             System.out.println("ff");
+        //         gameController.pause();
+        //         mementoStack.push(save);
+        //         circus.reset();
+        //         circus = null;
+        //         System.out.println("we here?");
                 
-                JFrame thisFrame = (JFrame) SwingUtilities.getWindowAncestor(menuBar);
-                thisFrame.dispose();
-                frame2.setVisible(true);
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "Only 3 saves allowed");
-                }
-			}
-		});
+        //         JFrame thisFrame = (JFrame) SwingUtilities.getWindowAncestor(menuBar);
+        //         thisFrame.dispose();
+        //         frame2.setVisible(true);
+        //         }
+        //         else{
+        //             JOptionPane.showMessageDialog(null, "Only 3 saves allowed");
+        //         }
+		// 	}
+		// });
 
     }
 

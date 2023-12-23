@@ -50,15 +50,7 @@ public class Circus extends Game implements World {
             circus = new Circus(1900, 750,difficulty);
         return circus;
     }
-    public Circus(Memento memento)
-    {
-        constant = new LinkedList<GameObject>();
-        control = new LinkedList<GameObject>();
-        moving = new LinkedList<GameObject>();
-        objectsToFall = new ArrayList<GameObject>();
-        clown = Clown.getInstance();
-        this.loadGame(memento);
-    }
+
     private Circus(int screenWidth, int screenHeight,PredefinedDifficultyStrategy difficulty) {
         startTime = System.currentTimeMillis();
         i = 0;
@@ -161,50 +153,50 @@ public class Circus extends Game implements World {
 
     }
 
-    public Memento createMemento(){
-        System.out.println("i saved:" + i);
-        return new Memento(i,score, getHeartCounter(), objectsToFall,getConstantObjects(), getMovableObjects(), getControlableObjects());
-    }
+    // public Memento createMemento(){
+    //     System.out.println("i saved:" + i);
+    //     return new Memento(i,score, getHeartCounter(), objectsToFall,getConstantObjects(), getMovableObjects(), getControlableObjects());
+    // }
 
-    public void loadGame(Memento memento){
-        this.hearts=memento.getHeartCounter();
+    // public void loadGame(Memento memento){
+    //     this.hearts=memento.getHeartCounter();
         
 
-        System.out.println(this.score);
+    //     System.out.println(this.score);
 
-        setScore(memento.getScore());
+    //     setScore(memento.getScore());
 
-        System.out.println(memento.getScore());
-        System.out.println(this.score);
+    //     System.out.println(memento.getScore());
+    //     System.out.println(this.score);
 
-        getConstantObjects().clear();
-        getMovableObjects().clear();
-        getMovableObjects().clear();
-        this.objectsToFall.clear();
+    //     getConstantObjects().clear();
+    //     getMovableObjects().clear();
+    //     getMovableObjects().clear();
+    //     this.objectsToFall.clear();
 
-        System.out.println(getConstantObjects().size());
-        System.out.println(getMovableObjects().size());
-        System.out.println(getControlableObjects().size());
+    //     System.out.println(getConstantObjects().size());
+    //     System.out.println(getMovableObjects().size());
+    //     System.out.println(getControlableObjects().size());
 
-        this.constant.addAll(memento.getConstant());
-        this.moving.addAll(memento.getMoving());
-        this.control.addAll(memento.getControl());
-        this.objectsToFall.addAll(memento.getObjectsToFall());
+    //     this.constant.addAll(memento.getConstant());
+    //     this.moving.addAll(memento.getMoving());
+    //     this.control.addAll(memento.getControl());
+    //     this.objectsToFall.addAll(memento.getObjectsToFall());
         
-        System.out.println(getConstantObjects().size());
-        System.out.println(getMovableObjects().size());
-        System.out.println(getControlableObjects().size());
-        System.out.println("i before "+ i);
+    //     System.out.println(getConstantObjects().size());
+    //     System.out.println(getMovableObjects().size());
+    //     System.out.println(getControlableObjects().size());
+    //     System.out.println("i before "+ i);
 
-        this.i = memento.getI();
-        System.out.println("i afetr:"+i);
-        this.timePassedInms = memento.getTimePassedInms();
-
-
-        System.out.println(getStatus());
+    //     this.i = memento.getI();
+    //     System.out.println("i afetr:"+i);
+    //     this.timePassedInms = memento.getTimePassedInms();
 
 
-    }    
+    //     System.out.println(getStatus());
+
+
+    // }    
 
     @Override
     public int getSpeed() {
@@ -309,8 +301,8 @@ public class Circus extends Game implements World {
         return this.gameOver;
     }
 
-    public void reset(){
-        circus=null;
-    }
+    // public void reset(){
+    //     circus=null;
+    // }
 
 }
