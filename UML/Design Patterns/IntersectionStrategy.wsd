@@ -1,4 +1,37 @@
-@startuml
+@startuml intersection
+
+class Intersection {
+    IntersectionHandlerStrategy intersection;
+    Circus circus;
+    +Intersection(Circus circus)
+    +getIntersection():IntersectionHandlerStrategy
+    +setIntersection(IntersectionHandlerStrategy intersection):void      
+    -boolean isIntersect(GameObject fallingObject, GameObject onStick) : boolean
+    +handleIntersection(FallingObject fallingObject, GameObject onStick) : void 
+}
+
+interface IntersectionHandlerStrategy {
+    +handleIntersection(FallingObject fallingObject, GameObject onStick,Circus circus) : void
+}
 
 
+class IntersectWithBombStrategy{
+
+}
+
+
+class IntersectwithHeartStrategy{
+
+}
+
+class IntersectWithOjectOnStickStrategy {
+
+    checkObjOnStick(Stack<GameObject> stack, Circus circus):void
+}
+
+IntersectionHandlerStrategy <|.. IntersectwithHeartStrategy
+IntersectionHandlerStrategy <|.. IntersectWithOjectOnStickStrategy 
+IntersectionHandlerStrategy <|.. IntersectWithBombStrategy
+
+Intersection o-- IntersectionHandlerStrategy
 @enduml
