@@ -69,7 +69,7 @@ public class Circus extends Game implements World {
         // maybe difficulty sent in constructor?
         this.difficulty = new Difficulty(difficulty);
         hearts = new HeartCounter(3);
-        intersection = new Intersection(this);
+        intersection = new Intersection();
         // movement = this.difficulty.getMovement();
         objFalling = this.difficulty.getObjectsFallingStrategy();
 

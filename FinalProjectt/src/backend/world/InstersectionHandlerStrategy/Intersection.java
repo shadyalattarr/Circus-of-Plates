@@ -6,7 +6,6 @@ import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class Intersection {
     IntersectionHandlerStrategy intersection;
-    Circus circus;
 
     public IntersectionHandlerStrategy getIntersection() {
         return this.intersection;
@@ -16,10 +15,6 @@ public class Intersection {
         this.intersection = intersection;
     }
 
-    public Intersection(Circus circus)
-    {
-        this.circus = circus;
-    }
     private boolean isIntersect(GameObject fallingObject, GameObject onStick)
     {
         double fallingObjectXCenter = (fallingObject.getX() + fallingObject.getWidth()/2.0);
@@ -32,7 +27,7 @@ public class Intersection {
     public void handleIntersection(FallingObject fallingObject, GameObject onStick)
     {
         if(isIntersect(fallingObject, onStick))
-            intersection.handleIntersection(fallingObject, onStick,circus);
+            intersection.handleIntersection(fallingObject, onStick);
     }
 
 }

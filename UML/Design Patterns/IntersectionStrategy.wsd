@@ -3,7 +3,7 @@
 class Intersection {
     IntersectionHandlerStrategy intersection;
     Circus circus;
-    +Intersection(Circus circus)
+    +Intersection()
     +getIntersection():IntersectionHandlerStrategy
     +setIntersection(IntersectionHandlerStrategy intersection):void      
     -boolean isIntersect(GameObject fallingObject, GameObject onStick) : boolean
@@ -26,7 +26,7 @@ class IntersectwithHeartStrategy{
 
 class IntersectWithOjectOnStickStrategy {
 
-    checkObjOnStick(Stack<GameObject> stack, Circus circus):void
+    checkObjOnStick(Stack<GameObject> stack):void
 }
 
 IntersectionHandlerStrategy <|.. IntersectwithHeartStrategy

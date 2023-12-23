@@ -18,7 +18,8 @@ public class IntersectWithOjectOnStickStrategy implements IntersectionHandlerStr
     //// daaroooooooooooooooooooorirrrrrrrrrrrrrrrrrrrrr // dont
     ////////////////////////////////// forgrtyyytttttttttttttttttt
     @Override
-    public void handleIntersection(FallingObject fallingPlate, GameObject onStick, Circus circus) {
+    public void handleIntersection(FallingObject fallingPlate, GameObject onStick) {
+        Circus circus = Circus.getCircus(null);
         // it fell on me fa put it
         Stack<GameObject> stack;
         ObjectOnStick objOnStick = (ObjectOnStick) fallingPlate;
@@ -35,11 +36,12 @@ public class IntersectWithOjectOnStickStrategy implements IntersectionHandlerStr
         else
             stack = circus.getClown().getRightObjStack();
         stack.push(objOnStick);
-        checkObjOnStick(stack, circus);
+        checkObjOnStick(stack);
 
     }
 
-    public void checkObjOnStick(Stack<GameObject> stack, Circus circus) {
+    public void checkObjOnStick(Stack<GameObject> stack) {
+        Circus circus = Circus.getCircus(null);
         ClownIteratorConcrete iterator = new ClownIteratorConcrete(stack);
 
         if (iterator.getSize() >= 3) {
