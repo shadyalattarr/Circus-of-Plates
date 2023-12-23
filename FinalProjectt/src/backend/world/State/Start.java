@@ -1,25 +1,18 @@
+
 package backend.world.State;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Stack;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 import backend.world.Circus;
-//import backend.world.Memento;
 import backend.world.Movement.CrazyDifficultyStrategy;
 import backend.world.Movement.Difficulty;
 import backend.world.Movement.EasyDifficultyStrategy;
@@ -35,11 +28,6 @@ import eg.edu.alexu.csd.oop.game.GameEngine.GameController;
 public class Start implements GameState {
 
     private PredefinedDifficultyStrategy difficulty;
-    
-    //private final Stack<Memento> mementoStack = new Stack<Memento>();
-    JFrame frame2 = new JFrame();
-    //int picked = -1;
-    private Circus circus;
 
     public void chooseDifficulty() {
         JFrame frame = new JFrame();
@@ -58,13 +46,11 @@ public class Start implements GameState {
         mediumButton.setMaximumSize(dim);
         easyButton.setMaximumSize(dim);
         crazyButton.setMaximumSize(dim);
-        easyButton.addActionListener(e -> {
-            difficulty = new EasyDifficultyStrategy();
+        easyButton.addActionListener(e -> { difficulty = new EasyDifficultyStrategy();
             frame.dispose();
             startGame();
         });
-        mediumButton.addActionListener(e -> {
-            difficulty = new MediumDifficultyStrategy();
+        mediumButton.addActionListener(e -> { difficulty = new MediumDifficultyStrategy();
             frame.dispose();
             startGame();
         });
@@ -78,14 +64,11 @@ public class Start implements GameState {
             frame.dispose();
             startGame();
         });
-        panel.add(Box.createVerticalGlue());
-        panel.add(Box.createRigidArea(new Dimension(0, 50)));
+        panel.add(Box.createVerticalGlue());    panel.add(Box.createRigidArea(new Dimension(0, 50)));
         panel.add(easyButton);
 
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
-        panel.add(mediumButton);
-
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(mediumButton); panel.add(Box.createRigidArea(new Dimension(0, 10)));
         panel.add(hardButton);
 
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -99,122 +82,20 @@ public class Start implements GameState {
         frame.setVisible(true);
     }
 
-    // public void startFrame(){
-    //     //JFrame frame = new JFrame();
-      
-    //     frame2.setLayout(new FlowLayout());
-    //     frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //     JPanel panel = new JPanel();
-    //     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-    //     Dimension dim = new Dimension(200, 100);
-
-    //     JButton startButton = new JButton("Start New Game");
-    //     JButton loadButton = new JButton("Load Game");
-
-    //     startButton.setMaximumSize(dim);
-    //     loadButton.setMaximumSize(dim);
-
-    //     startButton.addActionListener(e -> {
-    //         chooseDifficulty();
-    //         frame2.dispose();
-    //     });
-    //     // loadButton.addActionListener(e -> {
-    //     //     //new circus BEL MEMENTO
-    //     //     String[] saves = {"Save 1", "Save 2", "Save 3"};
-    //     //             picked = JOptionPane.showOptionDialog(null,
-    //     //                     "Choose a Promotion:",
-    //     //                     "Promotions",
-    //     //                     JOptionPane.DEFAULT_OPTION,
-    //     //                     JOptionPane.INFORMATION_MESSAGE,
-    //     //                     null,
-    //     //                     saves,
-    //     //                     saves[0]);
-    //     //     if(mementoStack.size()>picked) {               
-    //     //     Memento loadedmemento = mementoStack.get(picked);
-    //     //     System.out.println("memscore"+loadedmemento.getScore());
-    //     //     circus.loadGame(loadedmemento);
-    //     //     startGame();           
-            
-    //     //     frame2.dispose();
-    //     //     }
-    //     //     else{
-    //     //         JOptionPane.showMessageDialog(null, "Empty Save Slot");
-    //     //     }
-    //     // });
-
-    //     panel.add(Box.createVerticalGlue());
-    //     panel.add(Box.createRigidArea(new Dimension(0, 50)));
-    //     panel.add(startButton);
-
-    //     panel.add(Box.createRigidArea(new Dimension(0, 10)));
-    //     panel.add(loadButton);
-
-
-    //     frame2.add(panel);
-    //     frame2.setSize(300, 300);
-    //     frame2.setLocationRelativeTo(null);
-    //     frame2.setBackground(null);
-    //     frame2.setTitle("Start Game");
-    //     frame2.setVisible(true);
-
-    // }
+  
 
     @Override
-    public void stateAction(Game game) {
-        chooseDifficulty();
+    public void stateAction(Game game) {   chooseDifficulty();
 
     }
 
     private void startGame() {
         JMenuBar menuBar = new JMenuBar();
         
-        circus = Circus.getCircus(difficulty);
+        Circus circus = Circus.getCircus(difficulty);
 
-        final GameController gameController = GameEngine.start("Gumbile the Clown : Game ON!", circus, menuBar,
+        final GameController gameController = GameEngine.start("Very Simple Game in 99 Line of Code", circus, menuBar,
                 Color.WHITE);
-               
-		JMenu menu = new JMenu("File");
-		
-		JMenuItem pauseMenuItem = new JMenuItem("Pause");
-		JMenuItem resumeMenuItem = new JMenuItem("Resume");
-		//JMenuItem saveMenuItem = new JMenuItem("Save");
-		
-		menu.add(pauseMenuItem);
-		menu.add(resumeMenuItem);
-        //menu.add(saveMenuItem);
-		menuBar.add(menu);
-		
-		pauseMenuItem.addActionListener(new ActionListener() {
-		@Override public void actionPerformed(ActionEvent e) {
-				gameController.pause();
-			}
-		});
-		resumeMenuItem.addActionListener(new ActionListener() {
-			@Override public void actionPerformed(ActionEvent e) {
-				gameController.resume();
-			}
-		});
-        // saveMenuItem.addActionListener(new ActionListener() {
-		// 	@Override public void actionPerformed(ActionEvent e) {
-		// 		Memento save = circus.createMemento();
-        //         if(mementoStack.size()<3){
-        //             System.out.println("ff");
-        //         gameController.pause();
-        //         mementoStack.push(save);
-        //         circus.reset();
-        //         circus = null;
-        //         System.out.println("we here?");
-                
-        //         JFrame thisFrame = (JFrame) SwingUtilities.getWindowAncestor(menuBar);
-        //         thisFrame.dispose();
-        //         frame2.setVisible(true);
-        //         }
-        //         else{
-        //             JOptionPane.showMessageDialog(null, "Only 3 saves allowed");
-        //         }
-		// 	}
-		// });
-
     }
 
 }

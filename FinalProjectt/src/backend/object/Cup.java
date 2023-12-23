@@ -30,7 +30,7 @@ public class Cup extends Shape implements ObjectOnStick,FallingObject{
         this.y = posY;
         this.visible = true;
         this.caught=false;
-        clown=Clown.getInstance();
+        clown=Clown.getInstance(0, 0, null);
         p=clown.getX();
         // create a bunch of buffered images and place into an array, to be displayed
         // sequentially
