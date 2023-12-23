@@ -1,0 +1,35 @@
+@startuml
+
+
+interface ObjectsFallingStrategy {
+    +generateObjectsFalling(int n) : ArrayList<GameObject>      
+}
+
+class BombsStrategy{
+
+}
+
+class PlatesOnlyStrategy{
+
+}
+
+class HeartsStrategy {
+
+}
+
+class BombsAndHeartsStrategy {
+
+}
+
+class EverythingSoFarStrategy {
+
+}
+
+ObjectsFallingStrategy <|.. EverythingSoFarStrategy
+ObjectsFallingStrategy <|.. HeartsStrategy
+ObjectsFallingStrategy <|.. BombsAndHeartsStrategy
+ObjectsFallingStrategy <|.. BombsStrategy
+ObjectsFallingStrategy <|.. PlatesOnlyStrategy
+
+
+@enduml
