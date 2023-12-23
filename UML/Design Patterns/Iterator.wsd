@@ -5,7 +5,7 @@ interface Iterator {
     +next() : Plate
 }
 
-class CollectionIterator { 
+class ClownIteratorConcrete { 
     -Collection: collection
     -int: currentIndex
 
@@ -21,7 +21,7 @@ interface Collection{
     +removePlates(int startIndex, int endIndex): void 
 }
 
-class ClownGamePlateCollection{
+class IntersectWithOjectOnStickStrategy{
     -ArrayList<Plates>: plates
 
 
@@ -32,15 +32,17 @@ class ClownGamePlateCollection{
     +removePlates(int startIndex, int endIndex): void 
 }
 
-class WhereWeGonnaMakeList{
+class Clown{
     +main(): void
+    -leftStickStack: Stack<GameObject>
+    -RigthStickStack: Stack<GameObject>
 }
 
-Iterator <|.. CollectionIterator
-Collection <|.. ClownGamePlateCollection
+Iterator <|.. ClownIteratorConcrete
+Collection <|.. IntersectWithOjectOnStickStrategy
 
-CollectionIterator o-- ClownGamePlateCollection
+ClownIteratorConcrete o-- IntersectWithOjectOnStickStrategy
 
-WhereWeGonnaMakeList --> ClownGamePlateCollection
+Clown --> IntersectWithOjectOnStickStrategy
 
 @enduml

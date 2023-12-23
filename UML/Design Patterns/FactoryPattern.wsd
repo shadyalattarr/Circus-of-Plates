@@ -1,9 +1,9 @@
 @startuml Singelton
 
   abstract class ObjectsFactory{
-    makeObject():Object
+    makeObject():FallingObject
 }
-interface FallingObjects implements Object{
+interface Shape implements FallingObject{
     +move():void
     +contactwithClown():Boolean
     +contactwithStick():Boolean
@@ -16,33 +16,32 @@ interface FallingObjects implements Object{
     +contactwithStick():Boolean
 }
 
-interface Object{}
-class clown implements ControlObject{}
-interface ControlObject implements Object{}
+interface GameObject{}
 
 
-ObjectsFactory --> Object:Factory Pattern
 
 
-class Plates implements FallingObjects{
+ObjectsFactory --> GameObject:Factory Pattern
 
-}
 
-class Bombs implements FallingObjects{
+class Plates extends Shape{
 
 }
 
-class Hearts implements FallingObjects{
+class Bombs extends Shape{
 
 }
 
-class AddTime implements FallingObjects{
+class Hearts extends Shape{
 
 }
 
-class Bowl implements FallingObjects{
+class Cups extends Shape{
 
 }
+
+interface FallingObject extends GameObject{}
+
 
 
 
