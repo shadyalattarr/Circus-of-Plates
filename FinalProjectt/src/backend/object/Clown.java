@@ -54,7 +54,7 @@ public class Clown extends ImageObject  {
 
     }
 
-    public static Clown getInstance(int posX, int posY, String path) {
+    public static Clown getInstance(int posX, int posY, String path){
 
         synchronized (Clown.class) {
             if (clown == null) {

@@ -74,18 +74,21 @@ public class Cup extends Shape implements ObjectOnStick,FallingObject{
     //     Clown clown = Clown.getInstance(0, 0, null);
     //     if(clown.getX() - getX() < 0)//rules for left stick
 	// 	{
-        if (clown.getX() != p) {          
+        if(isCaught())
+        {
+            if (clown.getX() != p) {          
             super.setX(mX);
             p = clown.getX(); 
+            }
+        }else
+        {
+            super.setX(mX);
         }
+        
     }
 
     //from objonstick
-    @Override
-    public void normalSetX(int mX)
-    {
-        super.setX(mX);
-    }
+    
 
 	// 		if(mX<1400-clown.getWidth()+40 && mX>0)
 	// 			super.setX(mX);

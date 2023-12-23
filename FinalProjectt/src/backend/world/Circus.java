@@ -1,3 +1,4 @@
+
 package backend.world;
 
 import backend.object.*;
@@ -19,8 +20,8 @@ import eg.edu.alexu.csd.oop.game.World;
 
 public class Circus extends Game implements World {
     private static int MAX_TIME = 1 * 60 * 1000; // 1 minute
-    private int score;
-    private long endTime, timePassedInms , startTime;
+    private int score = 0;
+    private long endTime, timePassedInms = 0L, startTime = System.currentTimeMillis();
     private final int width;
     private final int height;
     private final List<GameObject> constant;
@@ -47,15 +48,13 @@ public class Circus extends Game implements World {
 
     public static Circus getCircus(PredefinedDifficultyStrategy difficulty) {
         if (circus == null)
-            circus = new Circus(1200, 600,difficulty);
+            circus = new Circus(1900, 775,difficulty);
+
         return circus;
     }
 
     private Circus(int screenWidth, int screenHeight,PredefinedDifficultyStrategy difficulty) {
-        startTime = System.currentTimeMillis();
         i = 0;
-        score = 0;
-        timePassedInms = 0L;
         game = new Game();
         gameOver = false;
         this.width = screenWidth;
@@ -64,7 +63,7 @@ public class Circus extends Game implements World {
         control = new LinkedList<GameObject>();
         moving = new LinkedList<GameObject>();
       //  constant.add(new BarObject((int)(Math.random() * screenWidth/2), (int)(Math.random() * screenHeight/4 + screenHeight/2), 15, Color.RED,clown,true));
-    constant.add(new BackGround(screenWidth,screenHeight,0,0,"FinalProjectt\\cp.png",0));
+      constant.add(new BackGround(screenWidth,screenHeight,0,0,"FinalProjectt\\cp.png",0));
         // maybe difficulty sent in constructor?
         this.difficulty = new Difficulty(difficulty);
         hearts = new HeartCounter(3);
@@ -76,7 +75,7 @@ public class Circus extends Game implements World {
 
 
         // make clown coords x 10
-        clown = Clown.getInstance((int) (screenWidth / 2.5), (int) (screenHeight / 1.7) - 2,
+        clown = Clown.getInstance((int) (screenWidth / 2.5), (int) (screenHeight / 1.5) - 1,
                 "FinalProjectt\\clown-removebg-preview_3_53.png");
 
         control.add(clown);
@@ -147,46 +146,22 @@ public class Circus extends Game implements World {
 
             }
         }
-        System.out.println(getStatus());
-        System.out.println(circus);
+
         // returning false is GamePver
         return !gameOver;
 
     }
 
     public Memento createMemento(){
-        return new Memento(score, getHeartCounter(), (LinkedList<GameObject>)getConstantObjects(), (LinkedList<GameObject>)getMovableObjects(), (LinkedList<GameObject>)getControlableObjects());
+        return new Memento(score, getHeartCounter(), getConstant(), getMoving(), getControl());
     }
 
-    public void loadGame(Memento memento){
-        this.hearts=memento.getHeartCounter();
-        
-
-        System.out.println(this.score);
-
-        setScore(memento.getScore());
-
-        System.out.println(memento.getScore());
-        System.out.println(this.score);
-
-        getConstantObjects().clear();
-        getMovableObjects().clear();
-        getMovableObjects().clear();
-        System.out.println(getConstantObjects().size());
-        System.out.println(getMovableObjects().size());
-        System.out.println(getControlableObjects().size());
-
+    public void getMemento(Memento memento){
+        this.hearts= new HeartCounter(memento.getHeartCounter().getLives());
+        this.score=memento.getScore();
         this.constant.addAll(memento.getConstant());
         this.moving.addAll(memento.getMoving());
         this.control.addAll(memento.getControl());
-        
-        System.out.println(getConstantObjects().size());
-        System.out.println(getMovableObjects().size());
-        System.out.println(getControlableObjects().size());
-
-
-        System.out.println(getStatus());
-
 
     }    
 
@@ -227,74 +202,81 @@ public class Circus extends Game implements World {
 
     @Override
     public String getStatus() {
-        return "Score=" + getScore() + "   |   Time="
-                + Math.max(0, (MAX_TIME - (timePassedInms)) / 1000) + "   |   Lives="
-                + hearts.getLives();  // update status
-    }
-
-    public int getScore() {
-        return this.score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public long getEndTime() {
-        return this.endTime;
-    }
-
-    public void setEndTime(long endTime) {
-        this.endTime = endTime;
-    }
-
-    public long getStartTime() {
-        return this.startTime;
-    }
-
-    public void setStartTime(long startTime) {
-        this.startTime = startTime;
-    }
-
-
-    public Difficulty getDifficulty() {
-        return this.difficulty;
-    }
-
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public void setObjectsFallingSpeed(ObjectSpeedStrategy speedStrategy) {
-        difficulty.setFallingObjectSpeedStrategy(speedStrategy);
-    }
-
-    public ObjectsFallingStrategy getObjFalling() {
-        return this.objFalling;
-    }
-
-    public void setObjFalling(ObjectsFallingStrategy objFalling) {
-        this.objFalling = objFalling;
-    }
-
-    public Clown getClown() {
-        return this.clown;
-    }
-
-    public HeartCounter getHeartCounter() {
-        return hearts;
-    }
-
-    public void setGameOver(boolean gameOver) {
-        this.gameOver = gameOver;
-    }
-
-    public boolean isGameOver() {
-        return this.gameOver;
-    }
-
-    public void reset(){
-        circus=null;
-    }
-
-}
+        return "Score=" + score + "   |   Time="
+                + Math.max(0, (MAX_TIME - (System.currentTimeMillis() - startTime)) / 1000) + "   |   Lives="                + hearts.getLives();  // update status
+            }
+        
+            public int getScore() {
+                return this.score;
+            }
+        
+            public void setScore(int score) {
+                this.score = score;
+            }
+        
+            public long getEndTime() {
+                return this.endTime;
+            }
+        
+            public void setEndTime(long endTime) {
+                this.endTime = endTime;
+            }
+        
+            public long getStartTime() {
+                return this.startTime;
+            }
+        
+            public void setStartTime(long startTime) {
+                this.startTime = startTime;
+            }
+        
+            public List<GameObject> getConstant() {
+                return this.constant;
+            }
+        
+            public List<GameObject> getMoving() {
+                return this.moving;
+            }
+        
+            public List<GameObject> getControl() {
+                return this.control;
+            }
+        
+            public Difficulty getDifficulty() {
+                return this.difficulty;
+            }
+        
+            public void setDifficulty(Difficulty difficulty) {
+                this.difficulty = difficulty;
+            }
+        
+            public void setObjectsFallingSpeed(ObjectSpeedStrategy speedStrategy) {
+                difficulty.setFallingObjectSpeedStrategy(speedStrategy);
+            }
+        
+            public ObjectsFallingStrategy getObjFalling() {
+                return this.objFalling;
+            }
+        
+            public void setObjFalling(ObjectsFallingStrategy objFalling) {
+                this.objFalling = objFalling;
+            }
+        
+            public Clown getClown() {
+                return this.clown;
+            }
+        
+            public HeartCounter getHeartCounter() {
+                return hearts;
+            }
+        
+            public void setGameOver(boolean gameOver) {
+                this.gameOver = gameOver;
+            }
+        
+            public boolean isGameOver() {
+                return this.gameOver;
+            }
+        
+        }
+        

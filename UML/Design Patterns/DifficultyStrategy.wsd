@@ -1,58 +1,60 @@
 @startuml DifficultyStrategy
 
-class StageDifficulty{
-    -NumOfLivesStrategy : NumberOfLivesStrategy
-    -SpeedStrategy : ObjectSpeedStrategy
-    -NumOfClownsStrategy : NumberOfCLownsStrategy
-    -ObjectsFallingStrategy : ObjectsFallingStrategy
-    -MovementStrategy : Movement
-/'gow to make it diff lines?'/
-    StageDifficulty(numLives : NumberOfLivesStrategy,speed : ObjectSpeedStrategy,numClowns : NumberOfCLownsStrategy,objFalling : ObjectsFallingStrategy,movement : Movement)
+class Difficulty{
+    -speedStrategy : ObjectSpeedStrategy
+    -objectsFallingStrategy : ObjectsFallingStrategy
+    -movementStrategy : Movement
+    -numFallingPerSec : int
+
+    +Difficulty(speed : ObjectSpeedStrategy,objFalling : ObjectsFallingStrategy,movement : Movement,numFallingPerSec : int)
                     /'movement sent with movementD and movementP'/
                     /'Speed made in construcotr'/
-    +getNumberOfLives() : int
-    +getFallingObjectSpeed() : int
-    +getNumberOfCLowns() : int
-    +getObjectsFalling() : ArrayList<FallingObjects>  
+    +Difficulty(PredefinedDifficultyStrategy pDiff)
 }
+
 
 class Movement{
     -moveDirectionStrategy : MoveDirectionStrategy
     -movePatternStrategy : MovePatternStrategy
     -gameSpeed : ObjectSpeedStrategy
-    +Movement(moveP : MovePatternStrategy, moveD : MoveDirectionStrategy,gameSpeed : SpeedStrategy)
-    +Movement(moveP : MovePatternStrategy, moveD : MoveDirectionStrategy)
-    +move(gameSpeed : SpeedStrategy) : void
+    +MovementStrategy(moveP : MovePatternStrategy, moveD : MoveDirectionStrategy,gameSpeed : SpeedStrategy)
+    +MovementStrategy(moveP : MovePatternStrategy, moveD : MoveDirectionStrategy) 
+    /'second constructor to make a movement without speed aka difault speed?'/
+
+    +move(o : FallingObject,gameSpeed : SpeedStrategy) : void
 }
 
-
-interface NumberOfLivesStrategy{
-    +getNumberOfLives() : int
-} 
+interface PredefinedDifficultyStrategy {
+    +setDifficulty(Difficulty diff) : void
+}
 
 interface ObjectSpeedStrategy {
     +getFallingObjectSpeed() : int
-}
-
-interface NumberOfClownsStrategy {
-    +getNumberOfCLowns() : int
 }
 
 interface ObjectsFallingStrategy {
     +getObjectsFalling() : ArrayList<FallingObjects>  
 }
 
-class Liveslvl1Strategy{
+class EasyDifficultyStrategy {
 
 }
 
-class Liveslvl2Strategy{
+class MediumDifficultyStrategy {
     
 }
 
-class Liveslvl3Strategy{
+class HardDifficultyStrategy {
     
 }
+
+class CrazyDifficultyStrategy {
+    
+}
+class SpeedFinalSecondsStrategy{
+
+}
+
 
 class ObjectSpeedlvl1Strategy{
 
@@ -66,14 +68,6 @@ class ObjectSpeedlvl3Strategy{
     
 }
 
-class OneClownStrategy {
-
-}
-
-class TwoClownsStrategy {
-    
-}
-
 class PlatesOnlyStrategy {
 
 }
@@ -82,34 +76,35 @@ class BombsStrategy {
 
 }
 
-class ExtraLifeStrategy {
+class HeartsStrategy {
 
 }
 
-class AllObjectsStrategy {
+class BombsAndHeartsStrategy {
 
 }
 
-StageDifficulty o- Movement
-StageDifficulty o-- NumberOfLivesStrategy
-StageDifficulty o-- ObjectSpeedStrategy
-StageDifficulty o-- NumberOfClownsStrategy
-StageDifficulty o-- ObjectsFallingStrategy
+Difficulty o- Movement
+Difficulty o-- ObjectSpeedStrategy
+Difficulty o-- ObjectsFallingStrategy
+Difficulty o-- PredefinedDifficultyStrategy
 
-NumberOfLivesStrategy <|.. Liveslvl1Strategy 
-NumberOfLivesStrategy <|.. Liveslvl2Strategy 
-NumberOfLivesStrategy <|.. Liveslvl3Strategy 
+
+PredefinedDifficultyStrategy <|.. EasyDifficultyStrategy
+PredefinedDifficultyStrategy <|.. MediumDifficultyStrategy
+PredefinedDifficultyStrategy <|.. HardDifficultyStrategy
+PredefinedDifficultyStrategy <|.. CrazyDifficultyStrategy
+
 
 ObjectSpeedStrategy <|.. ObjectSpeedlvl1Strategy 
 ObjectSpeedStrategy <|.. ObjectSpeedlvl2Strategy 
 ObjectSpeedStrategy <|.. ObjectSpeedlvl3Strategy
-
-NumberOfClownsStrategy <|.. OneClownStrategy
-NumberOfClownsStrategy <|.. TwoClownsStrategy
+ObjectSpeedStrategy <|.. SpeedFinalSecondsStrategy
 
 ObjectsFallingStrategy <|.. PlatesOnlyStrategy
 ObjectsFallingStrategy <|.. BombsStrategy
-ObjectsFallingStrategy <|.. ExtraLifeStrategy
-ObjectsFallingStrategy <|.. AllObjectsStrategy
+ObjectsFallingStrategy <|.. HeartsStrategy
+ObjectsFallingStrategy <|.. EverythingSoFarStrategy
+ObjectsFallingStrategy <|.. BombsAndHeartsStrategy
 
 @enduml
