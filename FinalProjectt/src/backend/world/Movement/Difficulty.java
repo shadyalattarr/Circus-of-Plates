@@ -16,7 +16,6 @@ public class Difficulty {
     public Difficulty(PredefinedDifficultyStrategy pDiff)
     {
         pDiff.setDifficulty(this);
-
     }
 
     public Difficulty(ObjectSpeedStrategy speedStrat, Movement moveStrat,ObjectsFallingStrategy objectsFallingStrat,int numFallingPerSec)
