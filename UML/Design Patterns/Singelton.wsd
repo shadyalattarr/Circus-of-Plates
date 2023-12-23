@@ -1,22 +1,10 @@
 @startuml Singelton
 
-class Singelton {
-    -Singelton: instance
-    -int: score
+class Clown{
+    -{static}clown: Clown
 
-    -Singelton()
+    -Clown(int, int, String)
 
-    +getInstance(): Singelton
-    +increaseScore(): void
-    +getScore(): int
-
+    +{static} getInstance(int, int,String): Clown
 }
-
-class Circus {
-
-}
-
-Circus --> Singelton
-
-
 @enduml
