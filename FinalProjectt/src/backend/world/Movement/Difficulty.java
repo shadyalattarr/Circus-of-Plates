@@ -8,8 +8,7 @@ public class Difficulty {
     private ObjectsFallingStrategy objectsFallingStrategy;
     private Movement movement;
     private int numFallingObjPerSecond;
-    private PredefinedDifficultyStrategy predefinedDifficulty;
-    private int frenzyNumFallingObj;
+    
 
 
     //two ways to make a difficulty, use a predeifned one or make one yourself

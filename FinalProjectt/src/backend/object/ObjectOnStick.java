@@ -2,7 +2,6 @@ package backend.object;
 
 import java.awt.Color;
 
-import eg.edu.alexu.csd.oop.game.GameObject;
 
 public interface ObjectOnStick extends FallingObject {
 

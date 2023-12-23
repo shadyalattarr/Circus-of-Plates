@@ -2,9 +2,7 @@ package backend.world.InstersectionHandlerStrategy;
 
 import java.util.Stack;
 
-import backend.object.Bomb;
 import backend.object.FallingObject;
-import backend.object.Plate;
 import backend.object.ObjectOnStick;
 import backend.world.Circus;
 import backend.world.HeartCounter;

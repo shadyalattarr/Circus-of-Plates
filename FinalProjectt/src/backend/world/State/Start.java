@@ -14,16 +14,11 @@ import javax.swing.JPanel;
 
 import backend.world.Circus;
 import backend.world.Movement.CrazyDifficultyStrategy;
-import backend.world.Movement.Difficulty;
 import backend.world.Movement.EasyDifficultyStrategy;
 import backend.world.Movement.HardDifficultyStrategy;
 import backend.world.Movement.MediumDifficultyStrategy;
 import backend.world.Movement.PredefinedDifficultyStrategy;
-import backend.world.Movement.ObjectSpeedStrategy.ObjectSpeedStrategy;
-import backend.world.Movement.ObjectSpeedStrategy.Speedlvl1Strategy;
-import backend.world.Movement.ObjectSpeedStrategy.Speedlvl2Strategy;
 import eg.edu.alexu.csd.oop.game.GameEngine;
-import eg.edu.alexu.csd.oop.game.GameEngine.GameController;
 
 public class Start implements GameState {
 
@@ -94,7 +89,7 @@ public class Start implements GameState {
         
         Circus circus = Circus.getCircus(difficulty);
 
-        final GameController gameController = GameEngine.start("Very Simple Game in 99 Line of Code", circus, menuBar,
+         GameEngine.start("Very Simple Game in 99 Line of Code", circus, menuBar,
                 Color.WHITE);
     }
 

@@ -1,7 +1,6 @@
 package backend.world.Movement;
 
 import backend.object.FallingObject;
-import backend.world.Movement.MoveDirectionStrategy;
 import backend.world.Movement.ObjectSpeedStrategy.ObjectSpeedStrategy;
 
 public class RightDiagonalStrategy implements MoveDirectionStrategy{

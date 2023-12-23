@@ -2,7 +2,6 @@ package backend.world.Movement;
 
 import backend.world.Movement.ObjectSpeedStrategy.Speedlvl2Strategy;
 import backend.world.ObjectsFallingStrategy.BombsAndHeartsStrategy;
-import backend.world.ObjectsFallingStrategy.PlatesOnlyStrategy;
 
 public class MediumDifficultyStrategy implements PredefinedDifficultyStrategy { 
 

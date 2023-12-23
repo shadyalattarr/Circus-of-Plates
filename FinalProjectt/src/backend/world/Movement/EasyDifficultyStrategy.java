@@ -1,8 +1,6 @@
 package backend.world.Movement;
 
-import backend.world.Movement.ObjectSpeedStrategy.ObjectSpeedStrategy;
 import backend.world.Movement.ObjectSpeedStrategy.Speedlvl1Strategy;
-import backend.world.ObjectsFallingStrategy.ObjectsFallingStrategy;
 import backend.world.ObjectsFallingStrategy.PlatesOnlyStrategy;
 
 public class EasyDifficultyStrategy implements PredefinedDifficultyStrategy{

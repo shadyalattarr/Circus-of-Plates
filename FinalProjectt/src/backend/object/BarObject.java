@@ -6,8 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
-import backend.world.Circus;
-import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class BarObject extends Shape{
 	public static final int SPRITE_WIDTH = 5;

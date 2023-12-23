@@ -1,6 +1,5 @@
 package backend.object;
 
-import java.awt.Image;
 
 public class Heart extends ImageObject implements FallingObject{
 

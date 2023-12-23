@@ -7,7 +7,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Cup extends Shape implements ObjectOnStick,FallingObject{
+public class Cup extends Shape implements ObjectOnStick{
 
     public static final int SPRITE_HEIGHT = 30;
     public static final int SPRITE_WIDTH = 30;

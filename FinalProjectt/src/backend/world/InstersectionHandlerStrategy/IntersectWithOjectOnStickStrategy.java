@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import backend.object.Clown;
+
 import backend.object.ClownIteratorConcrete;
 import backend.object.FallingObject;
 import backend.object.ObjectOnStick;
-import backend.object.Plate;
 import backend.world.Circus;
 import eg.edu.alexu.csd.oop.game.GameObject;
 

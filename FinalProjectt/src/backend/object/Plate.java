@@ -6,7 +6,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Plate extends Shape implements ObjectOnStick,FallingObject{
+public class Plate extends Shape implements ObjectOnStick{
 
     public static final int SPRITE_HEIGHT = 15;
     public static final int SPRITE_WIDTH = 70;
