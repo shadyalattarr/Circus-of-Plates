@@ -17,10 +17,10 @@ public class BombsStrategy implements ObjectsFallingStrategy {
             random = Math.random();
             if (random <= 0.2)
                 moving.add(factory.createObject("Bomb", (int) (Math.random() * 1200/* getWidth() */),
-                        (int) (Math.random() * 600 / 10 /* getHeight()/2 */)));
+                       0));
             else {
                 moving.add(factory.createObject("Plate", (int) (Math.random() * 1200/* getWidth() */),
-                        (int) (Math.random() * 600 / 10 /* getHeight()/2 */)));
+                     0));
                 
             }
         }

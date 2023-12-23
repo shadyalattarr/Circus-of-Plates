@@ -85,7 +85,7 @@ public class Start implements GameState {
   
 
     @Override
-    public void stateAction(Game game) {   chooseDifficulty();
+    public void stateAction() {   chooseDifficulty();
 
     }
 

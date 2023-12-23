@@ -12,7 +12,7 @@ public class Game{
 
     public void currentEvent()
     {
-        currState.stateAction(this);
+        currState.stateAction();
     }
 
 }

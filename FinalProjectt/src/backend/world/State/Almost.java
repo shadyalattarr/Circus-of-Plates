@@ -8,7 +8,7 @@ import backend.world.Movement.ObjectSpeedStrategy.SpeedFinalSecondsStrategy;
 public class Almost implements GameState {
 
     @Override
-    public void stateAction(Game game) {
+    public void stateAction() {
         Circus circus= Circus.getCircus(null);
         circus.getDifficulty().setFallingObjectSpeedStrategy(new SpeedFinalSecondsStrategy());
         circus.getDifficulty().setNumFallingObjPerSecond(5);

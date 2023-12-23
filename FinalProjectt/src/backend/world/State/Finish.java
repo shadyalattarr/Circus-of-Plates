@@ -7,7 +7,7 @@ import backend.world.Circus;
 public class Finish implements GameState{
 
     @Override
-    public void stateAction(Game game) {
+    public void stateAction() {
         Circus circus= Circus.getCircus(null);
         
         circus.setGameOver(true);
