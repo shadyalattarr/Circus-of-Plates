@@ -89,7 +89,7 @@ public class Start implements GameState {
         
         Circus circus = Circus.getCircus(difficulty);
 
-         GameEngine.start("Very Simple Game in 99 Line of Code", circus, menuBar,
+         GameEngine.start("Gumbile Circus", circus, menuBar,
                 Color.WHITE);
     }
 
